@@ -16,36 +16,31 @@ namespace RabbitMQFactory
             public string Body { get; set; }
             public int Level { get; set; }
         }
-        private static string url = ConfigurationManager.AppSettings["CLOUDAMQP_URL"];
         public static void Main()
         {
 
-            //var factory = new ConnectionFactory() { HostName = "localhost" };
-            var factory = new ConnectionFactory() { Uri = new Uri(Program.url) };
-            using (var connection = factory.CreateConnection())
-            using (var channel = connection.CreateModel())
-            {
-                channel.QueueDeclare(queue: "metaqueries",
-                                     durable: false,
-                                     exclusive: false,
-                                     autoDelete: false,
-                                     arguments: null);
+            /*
+            AsyncQueue<Metaquery> queue = new AsyncQueue<Metaquery>("test3");
+            Metaquery mq1 = new Metaquery { Head = "r(X,Y)", Body= "p(X,Y),q(Y,Z)", Level =2};
+            Metaquery mq2 = new Metaquery { Head = "r(X,Y)", Body= "p(X,Y,Z),q(Y,Z)", Level =2};
 
-                //string message = JsonConvert.SerializeObject(new Metaquery { Head = "r(X,Y)", Body= "p(X,Y),q(Y,Z)", Level =2});
-                string message = JsonConvert.SerializeObject(new Metaquery { Head = "r(X,Y)", Body= "p(X,Y,Z),q(Y,Z)", Level =2});
-                var body = Encoding.UTF8.GetBytes(message);
+            queue.Push(mq1);
+            queue.Push(mq2);
+            AsyncQueue<Metaquery> queue1 = new AsyncQueue<Metaquery>("test2");
+            Metaquery mq11 = new Metaquery { Head = "r(X,Y)", Body = "p(X,Y),q(Y,Z)", Level = 2 };
+            Metaquery mq21 = new Metaquery { Head = "r(X,Y)", Body = "p(X,Y,Z),q(Y,Z)", Level = 2 };
 
-                channel.BasicPublish(exchange: "",
-                                     routingKey: "metaqueries",
-                                     basicProperties: null,
-                                     body: body);
+            queue1.Push(mq11);
+            queue1.Push(mq21);
 
+            Console.WriteLine(" Press any key to exit.");
+            */
 
-                Console.WriteLine(" [x] Sent {0}", message);
-            }
+            RabbitQueue<Metaquery> queue2 = new RabbitQueue<Metaquery>("test3");
+            Metaquery mq = queue2.Pop();
+            Console.Write(mq.Body.ToString());
 
-            Console.WriteLine(" Press [enter] to exit.");
-            Console.ReadLine();
+            Console.ReadKey();
         }
     }
 }
