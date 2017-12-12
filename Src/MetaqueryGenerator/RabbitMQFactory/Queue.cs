@@ -95,18 +95,14 @@ namespace RabbitMQFactory
             const bool autoAck = false;
             channel.BasicConsume(QueueName, autoAck, consumer);
 
-            System.Console.WriteLine(" [*] Waiting for messages." +
-                                        "To exit press CTRL+C");
             var ea = (BasicDeliverEventArgs)consumer.Queue.Dequeue();
 
             byte[] body = ea.Body;
 
             string strMessage = System.Text.Encoding.UTF8.GetString(body);
             T message = JsonConvert.DeserializeObject<T>(strMessage);
-            System.Console.WriteLine(" [x] Processing {0}", strMessage);
 
             // Acknowledge message received and processed
-            System.Console.WriteLine(" Processed ", strMessage);
             channel.BasicAck(ea.DeliveryTag, false);
             return message;
         }
