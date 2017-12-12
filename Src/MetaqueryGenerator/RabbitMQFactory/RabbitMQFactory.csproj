@@ -65,5 +65,11 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MetaqueryGenerator.Common\MetaqueryGenerator.Common.csproj">
+      <Project>{1e72031b-2242-4b06-82de-4275243f1f65}</Project>
+      <Name>MetaqueryGenerator.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

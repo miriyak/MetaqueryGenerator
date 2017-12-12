@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MetaqueryGenerator.Common;
+using Newtonsoft.Json;
 using RabbitMQ.Client;
 using System;
 using System.Collections.Generic;
@@ -10,12 +11,7 @@ namespace RabbitMQFactory
 {
     class Program
     {
-        public class Metaquery
-        {
-            public string Head { get; set; }
-            public string Body { get; set; }
-            public int Level { get; set; }
-        }
+        
         public static void Main()
         {
 
@@ -38,7 +34,7 @@ namespace RabbitMQFactory
 
             RabbitQueue<Metaquery> queue2 = new RabbitQueue<Metaquery>("test3");
             Metaquery mq = queue2.Pop();
-            Console.Write(mq.Body.ToString());
+            Console.Write(mq.ToString());
 
             Console.ReadKey();
         }

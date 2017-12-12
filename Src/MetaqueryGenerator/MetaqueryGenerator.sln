@@ -7,6 +7,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQFactory", "RabbitMQ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQFactory.Test", "RabbitMQFactory.Test\RabbitMQFactory.Test.csproj", "{EBD97320-6B53-448D-AF3E-C8E7AEE600ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaqueryGenerator.BL", "MetaqueryGenerator.BL\MetaqueryGenerator.BL.csproj", "{225099AF-92B8-4A83-8FC1-FE642D47D23A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaqueryGenerator.DS", "MetaqueryGenerator.DS\MetaqueryGenerator.DS.csproj", "{8325B2CC-16E4-4268-8814-BBCC1F795A9D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaqueryGenerator", "MetaqueryGenerator\MetaqueryGenerator.csproj", "{00A0B556-558A-4461-979A-274D35477F75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaqueryGenerator.Common", "MetaqueryGenerator.Common\MetaqueryGenerator.Common.csproj", "{1E72031B-2242-4B06-82DE-4275243F1F65}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +29,22 @@ Global
 		{EBD97320-6B53-448D-AF3E-C8E7AEE600ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBD97320-6B53-448D-AF3E-C8E7AEE600ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBD97320-6B53-448D-AF3E-C8E7AEE600ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{225099AF-92B8-4A83-8FC1-FE642D47D23A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{225099AF-92B8-4A83-8FC1-FE642D47D23A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{225099AF-92B8-4A83-8FC1-FE642D47D23A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{225099AF-92B8-4A83-8FC1-FE642D47D23A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8325B2CC-16E4-4268-8814-BBCC1F795A9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8325B2CC-16E4-4268-8814-BBCC1F795A9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8325B2CC-16E4-4268-8814-BBCC1F795A9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8325B2CC-16E4-4268-8814-BBCC1F795A9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00A0B556-558A-4461-979A-274D35477F75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00A0B556-558A-4461-979A-274D35477F75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00A0B556-558A-4461-979A-274D35477F75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00A0B556-558A-4461-979A-274D35477F75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E72031B-2242-4B06-82DE-4275243F1F65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E72031B-2242-4B06-82DE-4275243F1F65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E72031B-2242-4B06-82DE-4275243F1F65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E72031B-2242-4B06-82DE-4275243F1F65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

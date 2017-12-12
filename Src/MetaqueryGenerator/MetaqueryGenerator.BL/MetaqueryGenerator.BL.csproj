@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EBD97320-6B53-448D-AF3E-C8E7AEE600ED}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>RabbitMQFactory.Test</RootNamespace>
-    <AssemblyName>RabbitMQFactory.Test</AssemblyName>
+    <ProjectGuid>{225099AF-92B8-4A83-8FC1-FE642D47D23A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MetaqueryGenerator.BL</RootNamespace>
+    <AssemblyName>MetaqueryGenerator.BL</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +24,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="MQGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -51,15 +50,10 @@
       <Project>{1e72031b-2242-4b06-82de-4275243f1f65}</Project>
       <Name>MetaqueryGenerator.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\RabbitMQFactory\RabbitMQFactory.csproj">
-      <Project>{5811a11e-507a-41c9-93aa-12918871cce7}</Project>
-      <Name>RabbitMQFactory</Name>
+    <ProjectReference Include="..\MetaqueryGenerator.DS\MetaqueryGenerator.DS.csproj">
+      <Project>{8325b2cc-16e4-4268-8814-bbcc1f795a9d}</Project>
+      <Name>MetaqueryGenerator.DS</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
