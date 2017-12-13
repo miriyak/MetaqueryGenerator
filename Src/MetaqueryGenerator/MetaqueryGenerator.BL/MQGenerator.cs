@@ -1,4 +1,5 @@
 ﻿using MetaqueryGenerator.Common;
+using MetaqueryGenerator.DS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,15 +9,19 @@ namespace MetaqueryGenerator.BL
 {
     public class ProcessMQDetails
     {
-        public static int MaxVariablesInRelation { get; set; }
+        
         public static int RelationsCount { get; set; }
         public static int VariablesCount { get; set; }
+        public static int MaxVariablesInRelation { get; set; }
+        public static List<int> RelationsVarCount { get; set; }
+        
         static ProcessMQDetails()
         {
             MetaqueryGenerator.DS.ProcessingModelDS modelDS = new MetaqueryGenerator.DS.ProcessingModelDS();
-            MaxVariablesInRelation = modelDS.GetMaxVariablesInRelation();
             RelationsCount = modelDS.GetRelationsCount();
             VariablesCount = modelDS.GetVariablesCount();
+            MaxVariablesInRelation = modelDS.GetMaxVariablesInRelation();
+            RelationsVarCount = modelDS.GetRelationsVarCount();
         }
     }
 
@@ -39,30 +44,40 @@ public class MQGenerator
             //create first level
             Metaquery rootMQ = new Metaquery();
             Console.WriteLine(rootMQ.ToString());
+            Console.WriteLine("before 1: {0}:{1}:{2}:{3}", DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond);
             List<Metaquery> list = VariableExpand(rootMQ);
+            Console.WriteLine(" after 1: {0}:{1}:{2}:{3}", DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond);
             foreach(Metaquery q in list)
                 Console.WriteLine(q.ToString());
         }
-        private List<Metaquery> AddVariable(Relation relation, Metaquery newMQ)
-        {
-            List<Metaquery> mqList = new List<Metaquery>();
-            for (int i = relation.VariablesCount + 1; i < ProcessMQDetails.MaxVariablesInRelation; i++)
-            {
-                relation.AddVariable(i);
-                mqList.Add(newMQ);
-            }
-            return mqList;
-        }
+
         public List<Metaquery> VariableExpand(Metaquery query)
         {
             List<Metaquery> mqList = new List<Metaquery>();
 
-            Metaquery newMQ = new Metaquery(query);
-            mqList.AddRange(AddVariable(query.Head, newMQ));
-            foreach(Relation bodyRelation in query.Body.List)
+            Metaquery newMQ;
+            //mqList.AddRange(AddVariable(query.Head, newMQ));
+            
+            //Check the possibility of adding variable to Head Relation
+            if (query.Head.Level < ProcessMQDetails.MaxVariablesInRelation)
             {
-                newMQ = new Metaquery(query);
-                mqList.AddRange(AddVariable(bodyRelation, newMQ));
+
+                newMQ = query.Clone();
+                newMQ.Head.AddVariable(query.Head.Level + 1);
+                mqList.Add(newMQ);
+            }
+            List<int> relationsVarCount = ProcessMQDetails.RelationsVarCount;
+            //foreach (Relation bodyRelation in query.Body.List)
+            for (int i = 0; i< query.Body.List.Count; i++)
+            {
+                Relation bodyRelation = query.Body.List[i];
+                if (bodyRelation.Level < relationsVarCount[i])
+                {
+                    newMQ = query.Clone();
+                    newMQ.Body.List[i].AddVariable(bodyRelation.Level + 1);
+                    mqList.Add(newMQ);
+                }
+                //mqList.AddRange(AddVariable(bodyRelation, newMQ));
             }
             return mqList;
         }

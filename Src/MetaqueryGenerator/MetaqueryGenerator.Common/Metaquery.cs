@@ -23,10 +23,7 @@ namespace MetaqueryGenerator.Common
             variables.Add(1);
             variables.Add(2);
         }
-        public Relation(Relation relation)
-        {
-            this.variables = new List<int>(relation.variables);
-        }
+        
         public void AddVariable(int index)
         {
             variables.Add(index);
@@ -58,11 +55,6 @@ namespace MetaqueryGenerator.Common
             List.Add(new Relation(2));
         }
 
-        public RelationsList(RelationsList relationList)
-        {
-            //todo לבדוק אם חייבים ConvertAll
-            this.List = new List<Relation>(relationList.List.ConvertAll(x => new Relation(x)));
-        }
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
@@ -86,14 +78,7 @@ namespace MetaqueryGenerator.Common
             this.Head = new Relation(2);
             this.Body = new RelationsList(2);
         }
-        public Metaquery(Metaquery metaquery)
-        {
-            this.Head = new Relation(metaquery.Head);
-            this.Body = new RelationsList(metaquery.Body);
-        }
-
-
-
+        
         public override string ToString()
         {
             return Head.ToString() + "<-" + Body.ToString();

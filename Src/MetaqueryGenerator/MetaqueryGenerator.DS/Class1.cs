@@ -30,8 +30,9 @@ namespace MetaqueryGenerator.DS
         }
         public int GetMaxVariablesInRelation()
         {
+            return GetRelationsVarCount().First();
             //todo
-            using (ProcessingMQEntities context = new ProcessingMQEntities())
+            /*using (ProcessingMQEntities context = new ProcessingMQEntities())
             {
                 return context.SysDefineTableColumns
                     .GroupBy(x => x.TableName)
@@ -39,10 +40,20 @@ namespace MetaqueryGenerator.DS
                    .Max(x=> x.count);
 
                 //return context.SysDefineTableColumns.Select(x => x.TableName).Count(;
-            }
+            }*/
+        }
+        public List<int> GetRelationsVarCount()
+        {
+            using (ProcessingMQEntities context = new ProcessingMQEntities())
+            {
+                return context.SysDefineTableColumns
+                    .GroupBy(x => x.TableName)
+                   .Select(g => g.Count())
+                   .OrderByDescending(i => i)
+                   .ToList<int>();
 
-            //ProcessingMQModel a;
-            //SysDefineTableColumn a;
+                //return context.SysDefineTableColumns.Select(x => x.TableName).Count(;
+            }
         }
     }
 }
