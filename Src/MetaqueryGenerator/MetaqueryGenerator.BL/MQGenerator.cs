@@ -42,7 +42,9 @@ public class MQGenerator
         public void Start()
         {
             //create first level
-            Metaquery rootMQ = new Metaquery();
+            Console.WriteLine("start  : {0}:{1}:{2}:{3}", DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond);
+            Metaquery rootMQ = Metaquery.GetRootMQ();
+
             Console.WriteLine(rootMQ.ToString());
             Console.WriteLine("before 1: {0}:{1}:{2}:{3}", DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond);
             List<Metaquery> list = VariableExpand(rootMQ);
@@ -68,13 +70,13 @@ public class MQGenerator
             }
             List<int> relationsVarCount = ProcessMQDetails.RelationsVarCount;
             //foreach (Relation bodyRelation in query.Body.List)
-            for (int i = 0; i< query.Body.List.Count; i++)
+            for (int i = 0; i< query.Body.Count; i++)
             {
-                Relation bodyRelation = query.Body.List[i];
+                Relation bodyRelation = query.Body[i];
                 if (bodyRelation.Level < relationsVarCount[i])
                 {
                     newMQ = query.Clone();
-                    newMQ.Body.List[i].AddVariable(bodyRelation.Level + 1);
+                    newMQ.Body[i].AddVariable(bodyRelation.Level + 1);
                     mqList.Add(newMQ);
                 }
                 //mqList.AddRange(AddVariable(bodyRelation, newMQ));

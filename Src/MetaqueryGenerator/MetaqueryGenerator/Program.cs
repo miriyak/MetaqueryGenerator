@@ -9,8 +9,8 @@ namespace MetaqueryGenerator
     {
         static void Main(string[] args)
         {
-            BL.MQGenerator c = new BL.MQGenerator();
-            c.Start();
+            BL.MQGenerator mqGenerator = new BL.MQGenerator();
+            mqGenerator.Start();
             Console.ReadKey();
         }
     }

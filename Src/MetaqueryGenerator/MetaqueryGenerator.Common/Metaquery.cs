@@ -17,12 +17,6 @@ namespace MetaqueryGenerator.Common
         {
             variables = new List<int>();
         }
-        public Relation(int num)
-            :this()
-        {
-            variables.Add(1);
-            variables.Add(2);
-        }
         
         public void AddVariable(int index)
         {
@@ -41,25 +35,14 @@ namespace MetaqueryGenerator.Common
     }
     public class RelationsList : List<Relation>
     {
-        public List<Relation> List { get; set; }
-        public int Level { get { return List.Sum(x=> x.Level); } }
-
-        public RelationsList()
-        {
-            List = new List<Relation>();
-        }
-        public RelationsList(int num)
-        {
-            List = new List<Relation>();
-            List.Add(new Relation(2));
-            List.Add(new Relation(2));
-        }
+        //public List<Relation> List { get; set; }
+        public int Level { get { return this.Sum(x=> x.Level); } }
 
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            foreach (var relation in List)
-                sb.Append(relation.ToString() + ",");
+            for (int i = 0;i< this.Count; i++)
+                sb.Append("R" + (i+1)+ this[i].ToString() + "&");
             if(sb.Length > 0)
                 sb.Remove(sb.Length-1, 1);
 
@@ -75,13 +58,28 @@ namespace MetaqueryGenerator.Common
 
         public Metaquery()
         {
-            this.Head = new Relation(2);
-            this.Body = new RelationsList(2);
+            //create root metaquery by default
+            this.Head = new Relation();
+            this.Body = new RelationsList();
         }
-        
+        public static Metaquery GetRootMQ()
+        {
+            //set Head
+            Metaquery metaquery = new Metaquery();
+            metaquery.Head.AddVariable(1);
+
+            //set Body
+            Relation relation = new Relation();
+            relation.AddVariable(1);
+
+            metaquery.Body.Add(relation);
+
+            return metaquery;
+        }
+
         public override string ToString()
         {
-            return Head.ToString() + "<-" + Body.ToString();
+            return "R0" + Head.ToString() + "<-" + Body.ToString();
         }
 
     }
