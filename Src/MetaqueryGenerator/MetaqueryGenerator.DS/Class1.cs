@@ -11,7 +11,7 @@ namespace MetaqueryGenerator.DS
         {
             using (ProcessingMQEntities context = new ProcessingMQEntities())
             {
-                return context.SysDefineTableColumns.Select(x => x.TableName).Distinct().Count();
+                return context.Sys_ColumnsTypes.Select(x => x.TableName).Distinct().Count();
             }
             
             //ProcessingMQModel a;
@@ -22,7 +22,7 @@ namespace MetaqueryGenerator.DS
         {
             using (ProcessingMQEntities context = new ProcessingMQEntities())
             {
-                return context.SysDefineTableColumns.Select(x=> x.VariableName).Distinct().Count();
+                return context.Sys_ColumnsTypes.Select(x=> x.Type).Distinct().Count();
             }
 
             //ProcessingMQModel a;
@@ -46,7 +46,7 @@ namespace MetaqueryGenerator.DS
         {
             using (ProcessingMQEntities context = new ProcessingMQEntities())
             {
-                return context.SysDefineTableColumns
+                return context.Sys_ColumnsTypes
                     .GroupBy(x => x.TableName)
                    .Select(g => g.Count())
                    .OrderByDescending(i => i)

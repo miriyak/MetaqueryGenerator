@@ -12,11 +12,10 @@ namespace MetaqueryGenerator.DS
     using System;
     using System.Collections.Generic;
     
-    public partial class SysDefineTableColumn
+    public partial class Sys_ColumnsTypes
     {
-        public int Id { get; set; }
         public string TableName { get; set; }
         public string ColumnName { get; set; }
-        public string VariableName { get; set; }
+        public string Type { get; set; }
     }
 }

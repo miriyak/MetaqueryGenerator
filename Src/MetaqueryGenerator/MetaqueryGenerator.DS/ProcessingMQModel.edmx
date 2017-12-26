@@ -4,62 +4,57 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ProcessingMQModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ProcessingMQModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
-warning 6002: The table/view 'TestMQ.dbo.SysDefineTableColumns' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="SysDefineTableColumns">
+warning 6002: The table/view 'TestMQ.dbo.Sys_ColumnsTypes' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Sys_ColumnsTypes">
           <Key>
-            <PropertyRef Name="Id" />
             <PropertyRef Name="TableName" />
             <PropertyRef Name="ColumnName" />
+            <PropertyRef Name="Type" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TableName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="ColumnName" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="VariableName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Type" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityContainer Name="ProcessingMQModelStoreContainer">
-          <EntitySet Name="SysDefineTableColumns" EntityType="Self.SysDefineTableColumns" store:Type="Tables" store:Schema="dbo">
+          <EntitySet Name="Sys_ColumnsTypes" EntityType="Self.Sys_ColumnsTypes" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [SysDefineTableColumns].[Id] AS [Id], 
-    [SysDefineTableColumns].[TableName] AS [TableName], 
-    [SysDefineTableColumns].[ColumnName] AS [ColumnName], 
-    [SysDefineTableColumns].[VariableName] AS [VariableName]
-    FROM [dbo].[SysDefineTableColumns] AS [SysDefineTableColumns]</DefiningQuery>
+    [Sys_ColumnsTypes].[TableName] AS [TableName], 
+    [Sys_ColumnsTypes].[ColumnName] AS [ColumnName], 
+    [Sys_ColumnsTypes].[Type] AS [Type]
+    FROM [dbo].[Sys_ColumnsTypes] AS [Sys_ColumnsTypes]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ProcessingMQModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="SysDefineTableColumn">
+        <EntityContainer Name="ProcessingMQEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Sys_ColumnsTypes" EntityType="ProcessingMQModel.Sys_ColumnsTypes" />
+        </EntityContainer>
+        <EntityType Name="Sys_ColumnsTypes">
           <Key>
-            <PropertyRef Name="Id" />
             <PropertyRef Name="TableName" />
             <PropertyRef Name="ColumnName" />
+            <PropertyRef Name="Type" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TableName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ColumnName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="VariableName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TableName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ColumnName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="ProcessingMQEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="SysDefineTableColumns" EntityType="Self.SysDefineTableColumn" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ProcessingMQModelStoreContainer" CdmEntityContainer="ProcessingMQEntities">
-          <EntitySetMapping Name="SysDefineTableColumns">
-            <EntityTypeMapping TypeName="ProcessingMQModel.SysDefineTableColumn">
-              <MappingFragment StoreEntitySet="SysDefineTableColumns">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="TableName" ColumnName="TableName" />
+          <EntitySetMapping Name="Sys_ColumnsTypes">
+            <EntityTypeMapping TypeName="ProcessingMQModel.Sys_ColumnsTypes">
+              <MappingFragment StoreEntitySet="Sys_ColumnsTypes">
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="ColumnName" ColumnName="ColumnName" />
-                <ScalarProperty Name="VariableName" ColumnName="VariableName" />
+                <ScalarProperty Name="TableName" ColumnName="TableName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

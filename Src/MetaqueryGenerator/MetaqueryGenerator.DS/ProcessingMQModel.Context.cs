@@ -25,6 +25,6 @@ namespace MetaqueryGenerator.DS
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<SysDefineTableColumn> SysDefineTableColumns { get; set; }
+        public virtual DbSet<Sys_ColumnsTypes> Sys_ColumnsTypes { get; set; }
     }
 }

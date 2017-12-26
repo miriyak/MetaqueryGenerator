@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="ac411dea210b4a5b9be062c4eab2932c" Name="Diagram1">
-        <EntityTypeShape EntityType="ProcessingMQModel.SysDefineTableColumn" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProcessingMQModel.Sys_ColumnsTypes" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
