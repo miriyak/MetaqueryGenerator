@@ -55,6 +55,26 @@ namespace MetaqueryGenerator.Common
             return mqList;
         }
 
+        //public List<Metaquery> ExpandBodyVariables()
+        public List<Metaquery> ExpandBodyRelation()
+        {
+            List<Metaquery> mqList = new List<Metaquery>();
+            Metaquery newMQ;
+
+            //Check the possibility of adding variable to Head Relation
+            List<int> allBodyVariables = this.Body.GetAllVariables();
+            int maxVariableInBody = allBodyVariables.Max();
+
+            for (int newVar = maxVariableInBody; newVar <= maxVariableInBody + 1; newVar++)
+            {
+                newMQ = this.Clone();
+                Relation relation = new Relation();
+                relation.AddVariable(newVar);
+                newMQ.Body.Add(relation);
+                mqList.Add(newMQ);
+            }
+            return mqList;
+        }
         public List<Metaquery> ExpandHead()
         {
             List<Metaquery> mqList = new List<Metaquery>();

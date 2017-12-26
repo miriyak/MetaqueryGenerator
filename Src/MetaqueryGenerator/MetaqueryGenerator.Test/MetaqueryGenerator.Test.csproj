@@ -51,8 +51,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UnitTestMQExpand.cs" />
     <Compile Include="UnitTestMQMessages.cs" />
-    <Compile Include="UnitTestMetaquery.cs" />
+    <Compile Include="UnitTestMQ.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

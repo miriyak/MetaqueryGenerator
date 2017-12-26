@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace MetaqueryGenerator.Test
 {
     [TestClass]
-    public class UnitTestMetaquery
+    public class UnitTestMQ
     {
         [TestMethod]
         public void TestMethodRootMQ()
@@ -23,13 +23,13 @@ namespace MetaqueryGenerator.Test
             Assert.AreEqual(metaquery.ToString(), "R0(X1,X2)←R1(X1,X2)&R2(X1,X2)");
         }
         [TestMethod]
-        public void TestMethodExpandHead()
+        public void TestMethodExpandHeadRoot()
         {
             Metaquery rootMQ = Metaquery.GetRootMQ();
             Assert.AreEqual(rootMQ.ExpandHead().Count, 0);
         }
         [TestMethod]
-        public void TestMethodExpandHeadExpand1()
+        public void TestMethodExpandHeadTo1()
         {
             Metaquery metaquery = new Metaquery("R0(1)←R1(1,2)");
             List<Metaquery> listResult = metaquery.ExpandHead();
@@ -37,7 +37,7 @@ namespace MetaqueryGenerator.Test
             Assert.AreEqual(listResult[0].ToString(), "R0(X1,X2)←R1(X1,X2)");
         }
         [TestMethod]
-        public void TestMethodExpandHeadExpand2()
+        public void TestMethodExpandHeadTo2()
         {
             Metaquery metaquery = new Metaquery("R(1)←R1(1,2)&R2(3)");
             List<Metaquery> listResult = metaquery.ExpandHead();
