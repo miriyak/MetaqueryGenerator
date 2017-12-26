@@ -45,7 +45,9 @@
     <Compile Include="Extentions.cs" />
     <Compile Include="Messages\MQResultMessage.cs" />
     <Compile Include="Messages\SendMQMessage.cs" />
-    <Compile Include="Metaquery.cs" />
+    <Compile Include="Metaquery\RelationsList.cs" />
+    <Compile Include="Metaquery\Relation.cs" />
+    <Compile Include="Metaquery\Metaquery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

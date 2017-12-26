@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MetaqueryGenerator.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace MetaqueryGenerator
     {
         static void Main(string[] args)
         {
+            
             BL.MQGenerator mqGenerator = new BL.MQGenerator();
             mqGenerator.Start();
             Console.ReadKey();
