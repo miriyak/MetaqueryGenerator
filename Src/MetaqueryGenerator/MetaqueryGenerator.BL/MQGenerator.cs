@@ -25,9 +25,11 @@ namespace MetaqueryGenerator.BL
         }
     }
 
-public class MQGenerator
+    public class MQGenerator
     {
-        
+        //public int SupportThreshold { get; set; }
+        //public int ConfidenceThreshold { get; set; }
+
         public MQGenerator()
         {
             
@@ -47,7 +49,7 @@ public class MQGenerator
 
             Console.WriteLine(rootMQ.ToString());
             Console.WriteLine("before 1: {0}:{1}:{2}:{3}", DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond);
-            List<Metaquery> list = VariableExpand(rootMQ);
+            List<Metaquery> list = rootMQ.Expand();
             Console.WriteLine(" after 1: {0}:{1}:{2}:{3}", DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond);
             foreach(Metaquery q in list)
                 Console.WriteLine(q.ToString());

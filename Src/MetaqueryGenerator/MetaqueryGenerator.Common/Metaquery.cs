@@ -8,24 +8,24 @@ namespace MetaqueryGenerator.Common
     public class Relation
     {
         public const string VariableChar="X";
-        private List<int> variables;
-        public int VariablesCount { get { return variables.Count(); } }
+        public List<int> Variables { get; set; }
+        public int VariablesCount { get { return Variables.Count(); } }
 
-        public int Level { get { return variables.Count; } }
+        public int Level { get { return Variables.Count; } }
 
         public Relation()
         {
-            variables = new List<int>();
+            Variables = new List<int>();
         }
         
         public void AddVariable(int index)
         {
-            variables.Add(index);
+            Variables.Add(index);
         }
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            foreach (var variable in variables)
+            foreach (var variable in Variables)
                 sb.Append(VariableChar +  variable + ",");
             if(sb.Length > 0)
                 sb.Remove(sb.Length-1, 1);
@@ -49,6 +49,19 @@ namespace MetaqueryGenerator.Common
             return sb.ToString();
 
         }
+
+        internal List<int> GetAllVariables()
+        {
+            List<int> list = new List<int>();
+            for (int i = 0; i < this.Count; i++)
+                for (int j = 0; j < this.Count; j++)
+                {
+                    int variable = this[i].Variables[j];
+                    if (!list.Contains(variable))
+                        list.Add(this[i].Variables[j]);
+                }
+            return list;
+        }
     }
     public class Metaquery 
     {
@@ -62,6 +75,41 @@ namespace MetaqueryGenerator.Common
             this.Head = new Relation();
             this.Body = new RelationsList();
         }
+        
+        public List<Metaquery> Expand(/*int maxVariablesInRelation,int relationsVarCount*/)
+        {
+            List<Metaquery> mqList = new List<Metaquery>();
+
+            Metaquery newMQ;
+
+            //Head Expand
+            //Check the possibility of adding variable to Head Relation
+            List<int> allBodyVariables = this.Body.GetAllVariables();
+            int maxVariableInBody = allBodyVariables.Max();
+            int maxVariableInHead = this.Head.Variables.Max();
+            for (int newVar = maxVariableInHead + 1 ; newVar <= maxVariableInHead; newVar++)
+            {
+                newMQ = this.Clone();
+                newMQ.Head.AddVariable(newVar);
+                mqList.Add(newMQ);
+            }
+            /*
+            //List<int> relationsVarCount = ProcessMQDetails.RelationsVarCount;
+            //foreach (Relation bodyRelation in this.Body.List)
+            for (int i = 0; i < this.Body.Count; i++)
+            {
+                Relation bodyRelation = this.Body[i];
+                if (bodyRelation.Level < relationsVarCount[i])
+                {
+                    newMQ = this.Clone();
+                    newMQ.Body[i].AddVariable(bodyRelation.Level + 1);
+                    mqList.Add(newMQ);
+                }
+                //mqList.AddRange(AddVariable(bodyRelation, newMQ));
+            }*/
+            return mqList;
+        }
+
         public static Metaquery GetRootMQ()
         {
             //set Head
@@ -79,7 +127,7 @@ namespace MetaqueryGenerator.Common
 
         public override string ToString()
         {
-            return "R0" + Head.ToString() + "<-" + Body.ToString();
+            return "R0" + Head.ToString() + "←" + Body.ToString();
         }
 
     }

@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extentions.cs" />
+    <Compile Include="Messages\MQResultMessage.cs" />
+    <Compile Include="Messages\SendMQMessage.cs" />
     <Compile Include="Metaquery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
