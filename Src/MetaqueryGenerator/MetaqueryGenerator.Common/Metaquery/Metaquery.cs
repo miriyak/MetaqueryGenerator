@@ -9,7 +9,7 @@ namespace MetaqueryGenerator.Common
     {
         public Relation Head { get; set; }
         public RelationsList Body { get; set; }
-        public int Level { get { return Head.Level + Body.Level;  } }
+        public int Arity { get { return Head.Arity + Body.Arity;  } }
 
         public Metaquery()
         {

@@ -35,13 +35,7 @@ namespace MetaqueryGenerator.BL
         {
             
         }
-        public void Expand(Metaquery mq)
-        {
-            
-
-
-        }
-
+        
         public void Start()
         {
             //create first level
@@ -65,11 +59,11 @@ namespace MetaqueryGenerator.BL
             //mqList.AddRange(AddVariable(query.Head, newMQ));
             
             //Check the possibility of adding variable to Head Relation
-            if (query.Head.Level < ProcessMQDetails.MaxVariablesInRelation)
+            if (query.Head.Arity < ProcessMQDetails.MaxVariablesInRelation)
             {
 
                 newMQ = query.Clone();
-                newMQ.Head.AddVariable(query.Head.Level + 1);
+                newMQ.Head.AddVariable(query.Head.Arity + 1);
                 mqList.Add(newMQ);
             }
             List<int> relationsVarCount = ProcessMQDetails.RelationsVarCount;
@@ -77,10 +71,10 @@ namespace MetaqueryGenerator.BL
             for (int i = 0; i< query.Body.Count; i++)
             {
                 Relation bodyRelation = query.Body[i];
-                if (bodyRelation.Level < relationsVarCount[i])
+                if (bodyRelation.Arity < relationsVarCount[i])
                 {
                     newMQ = query.Clone();
-                    newMQ.Body[i].AddVariable(bodyRelation.Level + 1);
+                    newMQ.Body[i].AddVariable(bodyRelation.Arity + 1);
                     mqList.Add(newMQ);
                 }
                 //mqList.AddRange(AddVariable(bodyRelation, newMQ));

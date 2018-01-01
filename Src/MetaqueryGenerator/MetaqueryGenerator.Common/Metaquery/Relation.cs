@@ -10,7 +10,7 @@ namespace MetaqueryGenerator.Common
         public const string VariableChar="X";
         public List<int> Variables { get; set; }
 
-        public int Level { get { return Variables.Count; } }
+        public int Arity { get { return Variables.Count; } }
 
         public Relation()
         {

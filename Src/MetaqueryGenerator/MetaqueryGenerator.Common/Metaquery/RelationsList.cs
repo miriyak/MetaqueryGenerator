@@ -7,8 +7,7 @@ namespace MetaqueryGenerator.Common
 {
     public class RelationsList : List<Relation>
     {
-        //public List<Relation> List { get; set; }
-        public int Level { get { return this.Sum(x=> x.Level); } }
+        public int Arity { get { return this.Sum(x=> x.Arity); } }
 
         public override string ToString()
         {
