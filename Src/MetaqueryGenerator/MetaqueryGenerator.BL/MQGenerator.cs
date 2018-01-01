@@ -36,19 +36,68 @@ namespace MetaqueryGenerator.BL
             
         }
         
+        public void StartDBProcess()
+        {
+            List<TblDatabaseManagement> lstDB = DatabaseManagementsDS.GetDBToWork();
+            Metaquery rootMQ = Metaquery.GetRootMQ();
+            foreach (TblDatabaseManagement db in lstDB)
+            {
+                //create first level
+                Console.WriteLine("start  : {0}:{1}:{2}:{3}", DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond);
+                Console.WriteLine(rootMQ.ToString());
+                TblMetaquery tblMetaquery = new TblMetaquery()
+                {
+                    Arity = rootMQ.Arity,
+                    FkDatabaseId = db.Id,
+                    FkStatusId = (int)StatusDB.Accepted,
+                    Metaquery = rootMQ.ToString()
+                };
+                MetaqueryDS.Create(tblMetaquery);
+                DatabaseManagementsDS.UpdateStatus(db, StatusDB.InProcess);
+            }
+        }
+        public void StartExpandMQProcess()
+        {
+            List<TblMetaquery> lstMQ = MetaqueryDS.GetMQToExpand();
+            foreach (TblMetaquery tblMetaquery in lstMQ)
+            {
+                TblDatabaseManagement curDB = tblMetaquery.TblDatabaseManagement;
+                Metaquery metaqueryToExpand = new Metaquery(tblMetaquery.Metaquery);
+
+                //create first level
+                //int MaxVariablesInRelation = ProcessMQDetails.MaxVariablesInRelation;
+                int maxVariables = curDB.MaxVariablesInRelation;
+                List <Metaquery> list = metaqueryToExpand.Expand(maxVariables);
+                foreach (Metaquery mq in list)
+                {
+                    TblMetaquery newTblMetaquery = new TblMetaquery()
+                    {
+                        Arity = mq.Arity,
+                        FkDatabaseId = curDB.Id,
+                        FkStatusId = (int)StatusDB.Accepted,
+                        Metaquery = mq.ToString()
+                    };
+                    MetaqueryDS.Create(newTblMetaquery);
+                }
+
+                /*
+                MetaqueryDS.Create(tblMetaquery);
+                DatabaseManagementsDS.UpdateStatus(db, StatusDB.InProcess);*/
+            }
+        }
+        
         public void Start()
         {
-            //create first level
-            Console.WriteLine("start  : {0}:{1}:{2}:{3}", DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond);
-            Metaquery rootMQ = Metaquery.GetRootMQ();
-
-            Console.WriteLine(rootMQ.ToString());
+            StartDBProcess();
+            //StartExpandMQProcess();
+            /*
+            //Console.WriteLine(rootMQ.ToString());
             Console.WriteLine("before 1: {0}:{1}:{2}:{3}", DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond);
             int MaxVariablesInRelation = ProcessMQDetails.MaxVariablesInRelation;
             List<Metaquery> list = rootMQ.Expand(MaxVariablesInRelation);
             Console.WriteLine(" after 1: {0}:{1}:{2}:{3}", DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond);
             foreach(Metaquery q in list)
-                Console.WriteLine(q.ToString());
+                Console.WriteLine(q.ToString());*/
         }
 
         public List<Metaquery> VariableExpand(Metaquery query)

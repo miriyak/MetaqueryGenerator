@@ -17,15 +17,17 @@ namespace MetaqueryGenerator.DS
 
         public static ProcessingMQEntities Create(string providerConnectionString)
         {
-            var entityBuilder = new EntityConnectionStringBuilder();
+            var entityBuilder = new EntityConnectionStringBuilder
+            {
 
-            // use your ADO.NET connection string
-            entityBuilder.ProviderConnectionString = providerConnectionString;
+                // use your ADO.NET connection string
+                ProviderConnectionString = providerConnectionString,
 
-            entityBuilder.Provider = "System.Data.SqlClient";
+                Provider = "System.Data.SqlClient",
 
-            // Set the Metadata location.
-            entityBuilder.Metadata = @"res://*/ProcessingMQModel.csdl|res://*/ProcessingMQModel.ssdl|res://*/ProcessingMQModel.msl";
+                // Set the Metadata location.
+                Metadata = @"res://*/ProcessingMQModel.csdl|res://*/ProcessingMQModel.ssdl|res://*/ProcessingMQModel.msl"
+            };
             //string connectionString = @"res://*/ProcessingMQModel.csdl|res://*/ProcessingMQModel.ssdl|res://*/ProcessingMQModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=.\SQLEXPRESS;initial catalog=DatabaseManagement;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;";
 
             return new ProcessingMQEntities(entityBuilder.ConnectionString);

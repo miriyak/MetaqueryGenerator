@@ -40,6 +40,7 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -51,7 +52,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProcessingModelDS.cs" />
+    <Compile Include="DS\MetaquaeryDS.cs" />
+    <Compile Include="MetaqueriesContext.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MetaqueriesContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DS\DatabaseManagementDS.cs" />
+    <Compile Include="DS\ProcessingModelDS.cs" />
     <Compile Include="ProcessingMQEntities.cs" />
     <Compile Include="ProcessingMQModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -79,6 +87,8 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ProcessingMQModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="EF.Reverse.POCO.Core.ttinclude" />
+    <None Include="EF.Reverse.POCO.ttinclude" />
     <None Include="packages.config" />
     <None Include="ProcessingMQModel.edmx.diagram">
       <DependentUpon>ProcessingMQModel.edmx</DependentUpon>
@@ -88,6 +98,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="MetaqueriesContext.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MetaqueriesContext.cs</LastGenOutput>
+    </Content>
     <Content Include="ProcessingMQModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ProcessingMQModel.edmx</DependentUpon>
@@ -105,5 +119,6 @@
       <Name>MetaqueryGenerator.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

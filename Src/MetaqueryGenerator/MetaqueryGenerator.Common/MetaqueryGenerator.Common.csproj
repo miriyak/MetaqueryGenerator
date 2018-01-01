@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums.cs" />
     <Compile Include="Extentions.cs" />
     <Compile Include="Messages\MQResultMessage.cs" />
     <Compile Include="Messages\SendMQMessage.cs" />
