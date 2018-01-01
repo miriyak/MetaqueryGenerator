@@ -29,7 +29,11 @@ namespace MetaqueryGenerator.Common
             
 
         }
-        
+        public void AddNextVariable()
+        {
+            int index = this.Variables.Last();
+            Variables.Add(index + 1);
+        }
         public void AddVariable(int index)
         {
             Variables.Add(index);

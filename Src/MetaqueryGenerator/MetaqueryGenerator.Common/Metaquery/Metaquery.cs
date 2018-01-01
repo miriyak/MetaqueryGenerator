@@ -31,31 +31,36 @@ namespace MetaqueryGenerator.Common
             //"R0(1,2)←R1(1,2)&R2(1,2)"
         }
 
-        public List<Metaquery> Expand(/*int maxVariablesInRelation,int relationsVarCount*/)
+        public List<Metaquery> Expand(int maxVariablesInRelation)
         {
             List<Metaquery> mqList = new List<Metaquery>();
 
-            //Metaquery newMQ;
-
+            mqList.AddRange(this.ExpandBodyVariable(maxVariablesInRelation));
             mqList.AddRange(this.ExpandHead());
-            /*
-            //List<int> relationsVarCount = ProcessMQDetails.RelationsVarCount;
-            //foreach (Relation bodyRelation in this.Body.List)
-            for (int i = 0; i < this.Body.Count; i++)
-            {
-                Relation bodyRelation = this.Body[i];
-                if (bodyRelation.Level < relationsVarCount[i])
-                {
-                    newMQ = this.Clone();
-                    newMQ.Body[i].AddVariable(bodyRelation.Level + 1);
-                    mqList.Add(newMQ);
-                }
-                //mqList.AddRange(AddVariable(bodyRelation, newMQ));
-            }*/
+            mqList.AddRange(this.ExpandBodyRelation());
+            
             return mqList;
         }
 
-        //public List<Metaquery> ExpandBodyVariables()
+        public List<Metaquery> ExpandBodyVariable(int maxVariablesInRelation)
+        {
+            List<Metaquery> mqList = new List<Metaquery>();
+            if(this.Body.Last().Variables.Count + 1 < maxVariablesInRelation)
+            { 
+                Metaquery newMQ;
+
+                //Check the possibility of adding variable to Head Relation
+            
+                newMQ = this.Clone();
+                Relation relation = newMQ.Body.Last();
+                relation.AddNextVariable();
+
+                mqList.Add(newMQ);
+
+            }
+            return mqList;
+        }
+
         public List<Metaquery> ExpandBodyRelation()
         {
             List<Metaquery> mqList = new List<Metaquery>();
@@ -75,6 +80,7 @@ namespace MetaqueryGenerator.Common
             }
             return mqList;
         }
+
         public List<Metaquery> ExpandHead()
         {
             List<Metaquery> mqList = new List<Metaquery>();
@@ -92,6 +98,7 @@ namespace MetaqueryGenerator.Common
             }
             return mqList;
         }
+
         public static Metaquery GetRootMQ()
         {
             //set Head

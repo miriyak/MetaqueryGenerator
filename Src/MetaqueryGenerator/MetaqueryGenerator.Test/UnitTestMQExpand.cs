@@ -10,16 +10,16 @@ namespace MetaqueryGenerator.Test
     public class UnitTestMQExpand
     {
 
-        #region Expand Head
+        #region Expand Head - Add Variable
 
         [TestMethod]
-        public void TestMethodExpandHeadRoot()
+        public void TestMethod_Expand_HeadRoot()
         {
             Metaquery rootMQ = Metaquery.GetRootMQ();
             Assert.AreEqual(rootMQ.ExpandHead().Count, 0);
         }
         [TestMethod]
-        public void TestMethodExpandHeadTo1()
+        public void TestMethod_Expand_HeadTo1()
         {
             Metaquery metaquery = new Metaquery("R0(1)←R1(1,2)");
             List<Metaquery> listResult = metaquery.ExpandHead();
@@ -27,7 +27,7 @@ namespace MetaqueryGenerator.Test
             Assert.AreEqual(listResult[0].ToString(), "R0(X1,X2)←R1(X1,X2)");
         }
         [TestMethod]
-        public void TestMethodExpandHeadTo2()
+        public void TestMethod_Expand_HeadTo2()
         {
             Metaquery metaquery = new Metaquery("R(1)←R1(1,2)&R2(3)");
             List<Metaquery> listResult = metaquery.ExpandHead();
@@ -37,11 +37,11 @@ namespace MetaqueryGenerator.Test
         }
 
 
-        #endregion Expand Head
+        #endregion Expand Head - Add Variable
 
-        #region Expand Body - Relation
+        #region Expand Body - Add Relation
         [TestMethod]
-        public void TestMethodExpandBodyRelationRoot()
+        public void TestMethod_Expand_BodyRelationRoot()
         {
             Metaquery rootMQ = Metaquery.GetRootMQ();
             List<Metaquery> listResult = rootMQ.ExpandBodyRelation();
@@ -49,27 +49,57 @@ namespace MetaqueryGenerator.Test
             Assert.AreEqual(listResult[0].ToString(), "R0(X1)←R1(X1)&R2(X1)");
             Assert.AreEqual(listResult[1].ToString(), "R0(X1)←R1(X1)&R2(X2)");
         }
-        /*[TestMethod]
-        public void TestMethodExpandBodyRelationTo1()
-        {
-            Metaquery metaquery = new Metaquery("R0(1)←R1(1,2)");
-            List<Metaquery> listResult = metaquery.ExpandHead();
-            Assert.AreEqual(listResult.Count, 1);
-            Assert.AreEqual(listResult[0].ToString(), "R0(X1,X2)←R1(X1,X2)");
-        }
+
+        #endregion Expand Body - Add Relation
+
+        #region Expand Body - Add Variable
         [TestMethod]
-        public void TestMethodExpandBodyRelationTo2()
+        public void TestMethod_Expand_BodyVariableRoot()
         {
-            Metaquery metaquery = new Metaquery("R(1)←R1(1,2)&R2(3)");
+            Metaquery rootMQ = Metaquery.GetRootMQ();
+            //mtodo
+            List<Metaquery> listResult = rootMQ.ExpandBodyVariable(5);
+            Assert.AreEqual(listResult.Count, 1);
+            Assert.AreEqual(listResult[0].ToString(), "R0(X1)←R1(X1,X2)");
+        }
+
+        #endregion Expand Body - Add Variable
+
+        #region Expand - All
+        [TestMethod]
+        public void TestMethod_Expand_RootTo3Level()
+        {
+            Metaquery rootMQ = Metaquery.GetRootMQ();
+            //mtodo
+            List<Metaquery> listResultLevel2 = rootMQ.Expand(5);
+
+            List<Metaquery> listResultLevel3 = new List<Metaquery>();
+            int[] cnt = new int[3];
+            for (int i = 0; i < listResultLevel2.Count; i++)
+            {
+                Metaquery metaquery = listResultLevel2[i];
+            //mtodo
+                var list = metaquery.Expand(5);
+                listResultLevel3.AddRange(list);
+                cnt[i] = list.Count;
+            }
+            Assert.AreEqual(cnt[0], 4);
+            Assert.AreEqual(cnt[1], 3);
+            Assert.AreEqual(cnt[2], 4);
+
+        }
+
+        [TestMethod]
+        public void TestMethod_Expand_MetaqueryLevel3()
+        {
+            Metaquery metaquery = new Metaquery("R(1)←R1(1,2,3)");
             List<Metaquery> listResult = metaquery.ExpandHead();
-            Assert.AreEqual(listResult.Count, 2);
-            Assert.AreEqual(listResult[0].ToString(), "R0(X1,X2)←R1(X1,X2)&R2(X3)");
-            Assert.AreEqual(listResult[1].ToString(), "R0(X1,X3)←R1(X1,X2)&R2(X3)");
-        }*/
+            Assert.AreEqual(listResult.Count, 4);
+            //Assert.AreEqual(listResult[0].ToString(), "R0(X1,X2)←R1(X1,X2)&R2(X3)");
+            //Assert.AreEqual(listResult[1].ToString(), "R0(X1,X3)←R1(X1,X2)&R2(X3)");
+        }
 
-        
-
-        #endregion Expand Body - Relation
+        #endregion Expand - All
     }
 
 }
