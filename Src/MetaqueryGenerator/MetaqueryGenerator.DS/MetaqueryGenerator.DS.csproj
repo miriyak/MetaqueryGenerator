@@ -51,7 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="ProcessingModelDS.cs" />
+    <Compile Include="ProcessingMQEntities.cs" />
     <Compile Include="ProcessingMQModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

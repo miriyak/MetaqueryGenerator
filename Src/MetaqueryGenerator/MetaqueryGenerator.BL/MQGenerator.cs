@@ -17,7 +17,8 @@ namespace MetaqueryGenerator.BL
         
         static ProcessMQDetails()
         {
-            MetaqueryGenerator.DS.ProcessingModelDS modelDS = new MetaqueryGenerator.DS.ProcessingModelDS();
+            string connectionString = @"Data Source =.\SQLEXPRESS; Initial Catalog = TestMQ; Integrated Security = True";
+            MetaqueryGenerator.DS.ProcessingModelDS modelDS = new MetaqueryGenerator.DS.ProcessingModelDS(connectionString);
             RelationsCount = modelDS.GetRelationsCount();
             VariablesCount = modelDS.GetVariablesCount();
             MaxVariablesInRelation = modelDS.GetMaxVariablesInRelation();
@@ -49,7 +50,8 @@ namespace MetaqueryGenerator.BL
 
             Console.WriteLine(rootMQ.ToString());
             Console.WriteLine("before 1: {0}:{1}:{2}:{3}", DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond);
-            List<Metaquery> list = rootMQ.Expand();
+            int MaxVariablesInRelation = ProcessMQDetails.MaxVariablesInRelation;
+            List<Metaquery> list = rootMQ.Expand(MaxVariablesInRelation);
             Console.WriteLine(" after 1: {0}:{1}:{2}:{3}", DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond);
             foreach(Metaquery q in list)
                 Console.WriteLine(q.ToString());
