@@ -163,7 +163,7 @@ namespace MetaqueryGenerator.DS
         {
             SysColumnsTypes = new FakeDbSet<SysColumnsType>("TableName", "ColumnName", "Type");
             TblDatabaseManagements = new FakeDbSet<TblDatabaseManagement>("Id");
-            TblMetaqueriesResults = new FakeDbSet<TblMetaqueriesResult>("Id", "FkMetaqueryId", "SupportValue", "ConfidenceValue");
+            TblMetaqueriesResults = new FakeDbSet<TblMetaqueriesResult>("Id");
             TblMetaqueries = new FakeDbSet<TblMetaquery>("Id");
             TblStatus = new FakeDbSet<TblStatus>("Id");
         }
@@ -489,8 +489,20 @@ namespace MetaqueryGenerator.DS
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
     public class SysColumnsType
     {
+
+        ///<summary>
+        /// שם טבלה
+        ///</summary>
         public string TableName { get; set; } // TableName (Primary key) (length: 100)
+
+        ///<summary>
+        /// שם עמודה
+        ///</summary>
         public string ColumnName { get; set; } // ColumnName (Primary key) (length: 100)
+
+        ///<summary>
+        /// סוג עמודה
+        ///</summary>
         public string Type { get; set; } // Type (Primary key) (length: 100)
     }
 
@@ -498,24 +510,69 @@ namespace MetaqueryGenerator.DS
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
     public class TblDatabaseManagement
     {
+
+        ///<summary>
+        /// מספור רץ
+        ///</summary>
         public int Id { get; set; } // Id (Primary key)
+
+        ///<summary>
+        /// שם מסד נתונים
+        ///</summary>
         public string DbName { get; set; } // DBName (length: 100)
+
+        ///<summary>
+        /// קישור למסד
+        ///</summary>
         public string ConnectionString { get; set; } // ConnectionString (length: 500)
+
+        ///<summary>
+        /// Support- ערך סף
+        ///</summary>
         public double SupportThreshold { get; set; } // SupportThreshold
+
+        ///<summary>
+        /// Confidence - ערך סף
+        ///</summary>
         public double ConfidenceThreshold { get; set; } // ConfidenceThreshold
+
+        ///<summary>
+        /// תאריך יצירה
+        ///</summary>
         public System.DateTime CreatedDate { get; set; } // CreatedDate
+
+        ///<summary>
+        /// זמן התחלת טיפול
+        ///</summary>
         public System.DateTime? StartTime { get; set; } // StartTime
+
+        ///<summary>
+        /// זמן סיום טיפול
+        ///</summary>
         public System.DateTime? FinishTime { get; set; } // FinishTime
+
+        ///<summary>
+        /// סטטוס התהליך
+        ///</summary>
         public int FkStatusId { get; set; } // FK_StatusId
+
+        ///<summary>
+        /// תאריך עדכון אחרון
+        ///</summary>
         public System.DateTime LastUpdatedDate { get; set; } // LastUpdatedDate
+
+        ///<summary>
+        /// מקסימום משתנים  ביחס
+        ///</summary>
         public int MaxVariablesInRelation { get; set; } // MaxVariablesInRelation
+        public int CurrentArity { get; set; } // CurrentArity
 
         // Reverse navigation
 
         /// <summary>
-        /// Parent (One-to-One) TblDatabaseManagement pointed by [Tbl_Metaqueries].[Id] (FK_Tbl_Metaqueries_Tbl_DatabaseManagement)
+        /// Child TblMetaqueries where [Tbl_Metaqueries].[FK_DatabaseID] point to this entity (FK_Tbl_Metaqueries_Tbl_DatabaseManagement)
         /// </summary>
-        public virtual TblMetaquery TblMetaquery { get; set; } // Tbl_Metaqueries.FK_Tbl_Metaqueries_Tbl_DatabaseManagement
+        public virtual System.Collections.Generic.ICollection<TblMetaquery> TblMetaqueries { get; set; } // Tbl_Metaqueries.FK_Tbl_Metaqueries_Tbl_DatabaseManagement
 
         // Foreign keys
 
@@ -523,6 +580,11 @@ namespace MetaqueryGenerator.DS
         /// Parent TblStatus pointed by [Tbl_DatabaseManagement].([FkStatusId]) (FK_DatabaseManagement_Statuses)
         /// </summary>
         public virtual TblStatus TblStatus { get; set; } // FK_DatabaseManagement_Statuses
+
+        public TblDatabaseManagement()
+        {
+            TblMetaqueries = new System.Collections.Generic.List<TblMetaquery>();
+        }
     }
 
     // Tbl_MetaqueriesResults
@@ -530,37 +592,110 @@ namespace MetaqueryGenerator.DS
     public class TblMetaqueriesResult
     {
         public int Id { get; set; } // Id (Primary key)
-        public int FkMetaqueryId { get; set; } // FK_MetaqueryID (Primary key)
-        public double SupportValue { get; set; } // SupportValue (Primary key)
-        public double ConfidenceValue { get; set; } // ConfidenceValue (Primary key)
+        public int FkMetaqueryId { get; set; } // FK_MetaqueryID
+
+        ///<summary>
+        /// Support- ערך
+        ///</summary>
+        public double SupportValue { get; set; } // SupportValue
+
+        ///<summary>
+        /// Confidence - ערך
+        ///</summary>
+        public double ConfidenceValue { get; set; } // ConfidenceValue
+
+        ///<summary>
+        /// הצבה של הפתרון
+        ///</summary>
         public string Assignment { get; set; } // Assignment
+
+        // Foreign keys
+
+        /// <summary>
+        /// Parent TblMetaquery pointed by [Tbl_MetaqueriesResults].([FkMetaqueryId]) (FK_Tbl_MetaqueriesResults_Tbl_Metaqueries)
+        /// </summary>
+        public virtual TblMetaquery TblMetaquery { get; set; } // FK_Tbl_MetaqueriesResults_Tbl_Metaqueries
     }
 
     // Tbl_Metaqueries
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
     public class TblMetaquery
     {
+
+        ///<summary>
+        /// מספור רץ
+        ///</summary>
         public int Id { get; set; } // Id (Primary key)
         public int FkDatabaseId { get; set; } // FK_DatabaseID
+
+        ///<summary>
+        /// ערך התבנית
+        ///</summary>
         public string Metaquery { get; set; } // Metaquery
+
+        ///<summary>
+        /// סטטוס התהליך
+        ///</summary>
         public int FkStatusId { get; set; } // FK_StatusId
+
+        ///<summary>
+        /// האם קיים תוצאות לתבנית
+        ///</summary>
         public bool? HasResult { get; set; } // HasResult
+
+        ///<summary>
+        /// האם הופעל הרחבה
+        ///</summary>
         public bool IsExpanded { get; set; } // IsExpanded
+
+        ///<summary>
+        /// מספר משתנים
+        ///</summary>
         public int Arity { get; set; } // Arity
+
+        ///<summary>
+        /// תאריך יצירה
+        ///</summary>
         public System.DateTime? CreatedDate { get; set; } // CreatedDate
+
+        ///<summary>
+        /// תאריך עדכון אחרון
+        ///</summary>
         public System.DateTime LastUpdatedDate { get; set; } // LastUpdatedDate
+
+        ///<summary>
+        /// זמן התחלת טיפול
+        ///</summary>
+        public System.DateTime? StartTime { get; set; } // StartTime
+
+        ///<summary>
+        /// זמן סיום טיפול
+        ///</summary>
+        public System.DateTime? FinishTime { get; set; } // FinishTime
+
+        // Reverse navigation
+
+        /// <summary>
+        /// Child TblMetaqueriesResults where [Tbl_MetaqueriesResults].[FK_MetaqueryID] point to this entity (FK_Tbl_MetaqueriesResults_Tbl_Metaqueries)
+        /// </summary>
+        public virtual System.Collections.Generic.ICollection<TblMetaqueriesResult> TblMetaqueriesResults { get; set; } // Tbl_MetaqueriesResults.FK_Tbl_MetaqueriesResults_Tbl_Metaqueries
 
         // Foreign keys
 
         /// <summary>
-        /// Parent TblDatabaseManagement pointed by [Tbl_Metaqueries].([Id]) (FK_Tbl_Metaqueries_Tbl_DatabaseManagement)
+        /// Parent TblDatabaseManagement pointed by [Tbl_Metaqueries].([FkDatabaseId]) (FK_Tbl_Metaqueries_Tbl_DatabaseManagement)
         /// </summary>
         public virtual TblDatabaseManagement TblDatabaseManagement { get; set; } // FK_Tbl_Metaqueries_Tbl_DatabaseManagement
 
         /// <summary>
-        /// Parent TblStatus pointed by [Tbl_Metaqueries].([Id]) (FK_Tbl_Metaqueries_Tbl_Statuses)
+        /// Parent TblStatus pointed by [Tbl_Metaqueries].([FkStatusId]) (FK_Tbl_Metaqueries_Tbl_Statuses)
         /// </summary>
         public virtual TblStatus TblStatus { get; set; } // FK_Tbl_Metaqueries_Tbl_Statuses
+
+        public TblMetaquery()
+        {
+            TblMetaqueriesResults = new System.Collections.Generic.List<TblMetaqueriesResult>();
+        }
     }
 
     // Tbl_Statuses
@@ -577,13 +712,14 @@ namespace MetaqueryGenerator.DS
         /// </summary>
         public virtual System.Collections.Generic.ICollection<TblDatabaseManagement> TblDatabaseManagements { get; set; } // Tbl_DatabaseManagement.FK_DatabaseManagement_Statuses
         /// <summary>
-        /// Parent (One-to-One) TblStatus pointed by [Tbl_Metaqueries].[Id] (FK_Tbl_Metaqueries_Tbl_Statuses)
+        /// Child TblMetaqueries where [Tbl_Metaqueries].[FK_StatusId] point to this entity (FK_Tbl_Metaqueries_Tbl_Statuses)
         /// </summary>
-        public virtual TblMetaquery TblMetaquery { get; set; } // Tbl_Metaqueries.FK_Tbl_Metaqueries_Tbl_Statuses
+        public virtual System.Collections.Generic.ICollection<TblMetaquery> TblMetaqueries { get; set; } // Tbl_Metaqueries.FK_Tbl_Metaqueries_Tbl_Statuses
 
         public TblStatus()
         {
             TblDatabaseManagements = new System.Collections.Generic.List<TblDatabaseManagement>();
+            TblMetaqueries = new System.Collections.Generic.List<TblMetaquery>();
         }
     }
 
@@ -636,6 +772,7 @@ namespace MetaqueryGenerator.DS
             Property(x => x.FkStatusId).HasColumnName(@"FK_StatusId").HasColumnType("int").IsRequired();
             Property(x => x.LastUpdatedDate).HasColumnName(@"LastUpdatedDate").HasColumnType("datetime2").IsRequired();
             Property(x => x.MaxVariablesInRelation).HasColumnName(@"MaxVariablesInRelation").HasColumnType("int").IsRequired();
+            Property(x => x.CurrentArity).HasColumnName(@"CurrentArity").HasColumnType("int").IsRequired();
 
             // Foreign keys
             HasRequired(a => a.TblStatus).WithMany(b => b.TblDatabaseManagements).HasForeignKey(c => c.FkStatusId).WillCascadeOnDelete(false); // FK_DatabaseManagement_Statuses
@@ -654,13 +791,16 @@ namespace MetaqueryGenerator.DS
         public TblMetaqueriesResultConfiguration(string schema)
         {
             ToTable("Tbl_MetaqueriesResults", schema);
-            HasKey(x => new { x.Id, x.FkMetaqueryId, x.SupportValue, x.ConfidenceValue });
+            HasKey(x => x.Id);
 
-            Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
-            Property(x => x.FkMetaqueryId).HasColumnName(@"FK_MetaqueryID").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
-            Property(x => x.SupportValue).HasColumnName(@"SupportValue").HasColumnType("float").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
-            Property(x => x.ConfidenceValue).HasColumnName(@"ConfidenceValue").HasColumnType("float").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
+            Property(x => x.FkMetaqueryId).HasColumnName(@"FK_MetaqueryID").HasColumnType("int").IsRequired();
+            Property(x => x.SupportValue).HasColumnName(@"SupportValue").HasColumnType("float").IsRequired();
+            Property(x => x.ConfidenceValue).HasColumnName(@"ConfidenceValue").HasColumnType("float").IsRequired();
             Property(x => x.Assignment).HasColumnName(@"Assignment").HasColumnType("nvarchar(max)").IsOptional();
+
+            // Foreign keys
+            HasRequired(a => a.TblMetaquery).WithMany(b => b.TblMetaqueriesResults).HasForeignKey(c => c.FkMetaqueryId).WillCascadeOnDelete(false); // FK_Tbl_MetaqueriesResults_Tbl_Metaqueries
         }
     }
 
@@ -687,10 +827,12 @@ namespace MetaqueryGenerator.DS
             Property(x => x.Arity).HasColumnName(@"Arity").HasColumnType("int").IsRequired();
             Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime2").IsOptional();
             Property(x => x.LastUpdatedDate).HasColumnName(@"LastUpdatedDate").HasColumnType("datetime2").IsRequired();
+            Property(x => x.StartTime).HasColumnName(@"StartTime").HasColumnType("datetime2").IsOptional();
+            Property(x => x.FinishTime).HasColumnName(@"FinishTime").HasColumnType("datetime2").IsOptional();
 
             // Foreign keys
-            HasRequired(a => a.TblDatabaseManagement).WithOptional(b => b.TblMetaquery).WillCascadeOnDelete(false); // FK_Tbl_Metaqueries_Tbl_DatabaseManagement
-            HasRequired(a => a.TblStatus).WithOptional(b => b.TblMetaquery).WillCascadeOnDelete(false); // FK_Tbl_Metaqueries_Tbl_Statuses
+            HasRequired(a => a.TblDatabaseManagement).WithMany(b => b.TblMetaqueries).HasForeignKey(c => c.FkDatabaseId).WillCascadeOnDelete(false); // FK_Tbl_Metaqueries_Tbl_DatabaseManagement
+            HasRequired(a => a.TblStatus).WithMany(b => b.TblMetaqueries).HasForeignKey(c => c.FkStatusId).WillCascadeOnDelete(false); // FK_Tbl_Metaqueries_Tbl_Statuses
         }
     }
 

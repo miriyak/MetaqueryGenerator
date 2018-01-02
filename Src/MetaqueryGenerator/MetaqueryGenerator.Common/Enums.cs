@@ -7,7 +7,16 @@ namespace MetaqueryGenerator.Common
 {
     public enum StatusDB
     {
-        Accepted = 1,
-        InProcess=2
+        Received = 1,
+        InProcess=2,
+        Done = 6
+    }
+    public enum StatusMQ
+    {
+        Received = 1,
+        WaitingToSolver = 3,
+        HasResult = 4,
+        Expanded = 5,
+        Done =6
     }
 }

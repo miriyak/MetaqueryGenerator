@@ -49,16 +49,30 @@ namespace MetaqueryGenerator.BL
                 {
                     Arity = rootMQ.Arity,
                     FkDatabaseId = db.Id,
-                    FkStatusId = (int)StatusDB.Accepted,
+                    FkStatusId = (int)StatusDB.Received,
                     Metaquery = rootMQ.ToString()
                 };
                 MetaqueryDS.Create(tblMetaquery);
                 DatabaseManagementsDS.UpdateStatus(db, StatusDB.InProcess);
             }
         }
+        public void StartSendMQToSolver()
+        {
+            List<TblMetaquery> lstMQ = MetaqueryDS.GetMQForSendToSolver();
+            foreach (TblMetaquery tblMetaquery in lstMQ)
+            {
+                TblDatabaseManagement curDB = tblMetaquery.TblDatabaseManagement;
+
+                //שליחה לסולבר
+                //mtodo
+                //RabbitMQ לפי ההחלטה אם זה יהיה 
+
+                MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.WaitingToSolver);
+            }
+        }
         public void StartExpandMQProcess()
         {
-            List<TblMetaquery> lstMQ = MetaqueryDS.GetMQToExpand();
+            List<TblMetaquery> lstMQ = MetaqueryDS.GetMQForExpand();
             foreach (TblMetaquery tblMetaquery in lstMQ)
             {
                 TblDatabaseManagement curDB = tblMetaquery.TblDatabaseManagement;
@@ -74,11 +88,12 @@ namespace MetaqueryGenerator.BL
                     {
                         Arity = mq.Arity,
                         FkDatabaseId = curDB.Id,
-                        FkStatusId = (int)StatusDB.Accepted,
+                        FkStatusId = (int)StatusDB.Received,
                         Metaquery = mq.ToString()
                     };
                     MetaqueryDS.Create(newTblMetaquery);
                 }
+                MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.Expanded);
 
                 /*
                 MetaqueryDS.Create(tblMetaquery);
@@ -89,7 +104,8 @@ namespace MetaqueryGenerator.BL
         public void Start()
         {
             StartDBProcess();
-            //StartExpandMQProcess();
+            StartSendMQToSolver();
+            StartExpandMQProcess();
             /*
             //Console.WriteLine(rootMQ.ToString());
             Console.WriteLine("before 1: {0}:{1}:{2}:{3}", DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Millisecond);

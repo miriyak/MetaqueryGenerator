@@ -13,7 +13,7 @@ namespace MetaqueryGenerator.DS
         {
             using (MetaqueriesContext context = new MetaqueriesContext())
             {
-                return context.TblDatabaseManagements.Where(x => x.FkStatusId == (int)Common.StatusDB.Accepted).ToList();
+                return context.TblDatabaseManagements.Where(x => x.FkStatusId == (int)Common.StatusDB.Received).ToList();
             }
         }
 
@@ -23,8 +23,16 @@ namespace MetaqueryGenerator.DS
             {
                 tblDatabaseManagement.FkStatusId = (int)newStatus;
                 if(newStatus == StatusDB.InProcess)
+                { 
                     tblDatabaseManagement.StartTime = DateTime.Now;
+                    tblDatabaseManagement.CurrentArity = 2;
+                }
+                if (newStatus == StatusDB.Done)
+                    tblDatabaseManagement.FinishTime = DateTime.Now;
+
+
                 context.TblDatabaseManagements.Attach(tblDatabaseManagement);
+                context.Entry(tblDatabaseManagement).State = System.Data.Entity.EntityState.Modified;
                 context.SaveChanges();
             }
         }
