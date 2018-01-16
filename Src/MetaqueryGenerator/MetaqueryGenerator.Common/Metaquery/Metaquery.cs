@@ -11,12 +11,19 @@ namespace MetaqueryGenerator.Common
         public RelationsList Body { get; set; }
         public int Arity { get { return Head.Arity + Body.Arity;  } }
 
+        /// <summary>
+        /// default constructor
+        /// </summary>
         public Metaquery()
         {
             //create blank metaquery by default
             this.Head = new Relation();
             this.Body = new RelationsList();
         }
+        /// <summary>
+        /// constructor that create metaquery by string input
+        /// </summary>
+        /// <param name="strMetaqurey"></param>
         public Metaquery(string strMetaqurey)
             :this()
         {
@@ -30,7 +37,11 @@ namespace MetaqueryGenerator.Common
                 this.Body.Add(new Relation(strRelation));
             //"R0(1,2)←R1(1,2)&R2(1,2)"
         }
-
+        /// <summary>
+        /// Expand metaquery -- all types
+        /// </summary>
+        /// <param name="maxVariablesInRelation">Max of variables in relation - by the db</param>
+        /// <returns>List of expanded metaquery</returns>
         public List<Metaquery> Expand(int maxVariablesInRelation)
         {
             List<Metaquery> mqList = new List<Metaquery>();
@@ -41,7 +52,7 @@ namespace MetaqueryGenerator.Common
             
             return mqList;
         }
-
+        
         public List<Metaquery> ExpandBodyVariable(int maxVariablesInRelation)
         {
             List<Metaquery> mqList = new List<Metaquery>();

@@ -11,13 +11,18 @@ namespace MetaqueryGenerator.Test
     {
 
         #region Expand Head - Add Variable
-
+        /// <summary>
+        /// Unit test to check the Expand Head - Add Variable on the root query
+        /// </summary>
         [TestMethod]
         public void TestMethod_Expand_HeadRoot()
         {
             Metaquery rootMQ = Metaquery.GetRootMQ();
             Assert.AreEqual(rootMQ.ExpandHead().Count, 0);
         }
+        /// <summary>
+        /// Unit test to check the Expand Head - Add Variable on some query
+        /// </summary>
         [TestMethod]
         public void TestMethod_Expand_HeadTo1()
         {
@@ -26,6 +31,9 @@ namespace MetaqueryGenerator.Test
             Assert.AreEqual(listResult.Count, 1);
             Assert.AreEqual(listResult[0].ToString(), "R0(X1,X2)←R1(X1,X2)");
         }
+        /// <summary>
+        /// Unit test to check the Expand Head - Add Variable on another query
+        /// </summary>
         [TestMethod]
         public void TestMethod_Expand_HeadTo2()
         {
@@ -40,6 +48,9 @@ namespace MetaqueryGenerator.Test
         #endregion Expand Head - Add Variable
 
         #region Expand Body - Add Relation
+        /// <summary>
+        /// Unit test to check the Expand Head - Expand Body - Add Relation
+        /// </summary>
         [TestMethod]
         public void TestMethod_Expand_BodyRelationRoot()
         {
@@ -53,6 +64,9 @@ namespace MetaqueryGenerator.Test
         #endregion Expand Body - Add Relation
 
         #region Expand Body - Add Variable
+        /// <summary>
+        /// Unit test to check the Expand Head - Expand Body - Add Variable
+        /// </summary>
         [TestMethod]
         public void TestMethod_Expand_BodyVariableRoot()
         {
@@ -67,6 +81,9 @@ namespace MetaqueryGenerator.Test
 
         #region Expand - All
         [TestMethod]
+        /// <summary>
+        /// Unit test to check the Expand Head - Expand All
+        /// </summary>
         public void TestMethod_Expand_RootTo3Level()
         {
             Metaquery rootMQ = Metaquery.GetRootMQ();
@@ -89,6 +106,9 @@ namespace MetaqueryGenerator.Test
 
         }
 
+        /// <summary>
+        /// Unit test to check the Expand Metaquery with 3 parameters
+        /// </summary>
         [TestMethod]
         public void TestMethod_Expand_MetaqueryLevel3()
         {

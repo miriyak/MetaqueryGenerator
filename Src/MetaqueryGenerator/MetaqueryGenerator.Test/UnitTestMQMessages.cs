@@ -9,6 +9,9 @@ namespace MetaqueryGenerator.Test
     [TestClass]
     public class UnitTestMQMessages
     {
+        /// <summary>
+        /// Unit test to check the format of the query message
+        /// </summary>
         [TestMethod]
         public void TestSendMQMessageToJson()
         {
@@ -26,6 +29,9 @@ namespace MetaqueryGenerator.Test
 
         }
 
+        /// <summary>
+        /// Unit test to check the format of the assignment result message
+        /// </summary>
         [TestMethod]
         public void TestMQResultMessageToJson()
         {
