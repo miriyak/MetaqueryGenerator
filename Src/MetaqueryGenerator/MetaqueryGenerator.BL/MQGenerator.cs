@@ -10,8 +10,8 @@ namespace MetaqueryGenerator.BL
     public class ProcessMQDetails
     {
         
-        public static int RelationsCount { get; set; }
-        public static int VariablesCount { get; set; }
+        //public static int RelationsCount { get; set; }
+        //public static int VariablesCount { get; set; }
         public static int MaxVariablesInRelation { get; set; }
         public static List<int> RelationsVarCount { get; set; }
         
@@ -19,8 +19,8 @@ namespace MetaqueryGenerator.BL
         {
             string connectionString = @"Data Source =.\SQLEXPRESS; Initial Catalog = TestMQ; Integrated Security = True";
             MetaqueryGenerator.DS.ProcessingModelDS modelDS = new MetaqueryGenerator.DS.ProcessingModelDS(connectionString);
-            RelationsCount = modelDS.GetRelationsCount();
-            VariablesCount = modelDS.GetVariablesCount();
+            //RelationsCount = modelDS.GetRelationsCount();
+            //VariablesCount = modelDS.GetVariablesCount();
             MaxVariablesInRelation = modelDS.GetMaxVariablesInRelation();
             RelationsVarCount = modelDS.GetRelationsVarCount();
         }

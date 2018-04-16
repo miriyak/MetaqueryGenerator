@@ -60,6 +60,7 @@
     </Compile>
     <Compile Include="DS\DatabaseManagementDS.cs" />
     <Compile Include="DS\ProcessingModelDS.cs" />
+    <Compile Include="MetaqueriesContextPartial.cs" />
     <Compile Include="ProcessingMQEntities.cs" />
     <Compile Include="ProcessingMQModel.Context.cs">
       <AutoGen>True</AutoGen>

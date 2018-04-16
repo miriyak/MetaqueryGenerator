@@ -15,6 +15,7 @@ namespace MetaqueryGenerator.DS
             using (MetaqueriesContext context = new MetaqueriesContext())
             {
                 context.TblMetaqueries.Add(tblMetaquery);
+                context.MarkAsCreated(tblMetaquery);
                 context.SaveChanges();
             }
         }
@@ -53,7 +54,8 @@ namespace MetaqueryGenerator.DS
                     tblMetaquery.FinishTime = DateTime.Now;
 
                 context.TblMetaqueries.Attach(tblMetaquery);
-                context.Entry(tblMetaquery).State = System.Data.Entity.EntityState.Modified;
+                //context.Entry(tblMetaquery).State = System.Data.Entity.EntityState.Modified;
+                context.MarkAsModified(tblMetaquery);
                 context.SaveChanges();
             }
         }

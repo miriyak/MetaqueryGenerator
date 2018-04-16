@@ -61,7 +61,7 @@ namespace MetaqueryGenerator.DS
     #region Database context
 
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
-    public class MetaqueriesContext : System.Data.Entity.DbContext, IMetaqueriesContext
+    public partial class MetaqueriesContext : System.Data.Entity.DbContext, IMetaqueriesContext
     {
         public System.Data.Entity.DbSet<SysColumnsType> SysColumnsTypes { get; set; } // Sys_ColumnsTypes
         public System.Data.Entity.DbSet<TblDatabaseManagement> TblDatabaseManagements { get; set; } // Tbl_DatabaseManagement
@@ -77,26 +77,31 @@ namespace MetaqueryGenerator.DS
         public MetaqueriesContext()
             : base("Name=MetaqueriesEntities")
         {
+            InitializePartial();
         }
 
         public MetaqueriesContext(string connectionString)
             : base(connectionString)
         {
+            InitializePartial();
         }
 
         public MetaqueriesContext(string connectionString, System.Data.Entity.Infrastructure.DbCompiledModel model)
             : base(connectionString, model)
         {
+            InitializePartial();
         }
 
         public MetaqueriesContext(System.Data.Common.DbConnection existingConnection, bool contextOwnsConnection)
             : base(existingConnection, contextOwnsConnection)
         {
+            InitializePartial();
         }
 
         public MetaqueriesContext(System.Data.Common.DbConnection existingConnection, System.Data.Entity.Infrastructure.DbCompiledModel model, bool contextOwnsConnection)
             : base(existingConnection, model, contextOwnsConnection)
         {
+            InitializePartial();
         }
 
         protected override void Dispose(bool disposing)
@@ -122,6 +127,8 @@ namespace MetaqueryGenerator.DS
             modelBuilder.Configurations.Add(new TblMetaqueriesResultConfiguration());
             modelBuilder.Configurations.Add(new TblMetaqueryConfiguration());
             modelBuilder.Configurations.Add(new TblStatusConfiguration());
+
+            OnModelCreatingPartial(modelBuilder);
         }
 
         public static System.Data.Entity.DbModelBuilder CreateModel(System.Data.Entity.DbModelBuilder modelBuilder, string schema)
@@ -133,6 +140,9 @@ namespace MetaqueryGenerator.DS
             modelBuilder.Configurations.Add(new TblStatusConfiguration(schema));
             return modelBuilder;
         }
+
+        partial void InitializePartial();
+        partial void OnModelCreatingPartial(System.Data.Entity.DbModelBuilder modelBuilder);
     }
     #endregion
 
@@ -151,7 +161,7 @@ namespace MetaqueryGenerator.DS
     #region Fake Database context
 
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
-    public class FakeMetaqueriesContext : IMetaqueriesContext
+    public partial class FakeMetaqueriesContext : IMetaqueriesContext
     {
         public System.Data.Entity.DbSet<SysColumnsType> SysColumnsTypes { get; set; }
         public System.Data.Entity.DbSet<TblDatabaseManagement> TblDatabaseManagements { get; set; }
@@ -166,6 +176,8 @@ namespace MetaqueryGenerator.DS
             TblMetaqueriesResults = new FakeDbSet<TblMetaqueriesResult>("Id");
             TblMetaqueries = new FakeDbSet<TblMetaquery>("Id");
             TblStatus = new FakeDbSet<TblStatus>("Id");
+
+            InitializePartial();
         }
 
         public int SaveChangesCount { get; private set; }
@@ -186,6 +198,8 @@ namespace MetaqueryGenerator.DS
             ++SaveChangesCount;
             return System.Threading.Tasks.Task<int>.Factory.StartNew(() => 1, cancellationToken);
         }
+
+        partial void InitializePartial();
 
         protected virtual void Dispose(bool disposing)
         {
@@ -247,7 +261,7 @@ namespace MetaqueryGenerator.DS
     //      }
     //      Read more about it here: https://msdn.microsoft.com/en-us/data/dn314431.aspx
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
-    public class FakeDbSet<TEntity> : System.Data.Entity.DbSet<TEntity>, IQueryable, System.Collections.Generic.IEnumerable<TEntity>, System.Data.Entity.Infrastructure.IDbAsyncEnumerable<TEntity> where TEntity : class
+    public partial class FakeDbSet<TEntity> : System.Data.Entity.DbSet<TEntity>, IQueryable, System.Collections.Generic.IEnumerable<TEntity>, System.Data.Entity.Infrastructure.IDbAsyncEnumerable<TEntity> where TEntity : class
     {
         private readonly System.Reflection.PropertyInfo[] _primaryKeys;
         private readonly System.Collections.ObjectModel.ObservableCollection<TEntity> _data;
@@ -257,6 +271,8 @@ namespace MetaqueryGenerator.DS
         {
             _data = new System.Collections.ObjectModel.ObservableCollection<TEntity>();
             _query = _data.AsQueryable();
+
+            InitializePartial();
         }
 
         public FakeDbSet(params string[] primaryKeys)
@@ -264,6 +280,8 @@ namespace MetaqueryGenerator.DS
             _primaryKeys = typeof(TEntity).GetProperties().Where(x => primaryKeys.Contains(x.Name)).ToArray();
             _data = new System.Collections.ObjectModel.ObservableCollection<TEntity>();
             _query = _data.AsQueryable();
+
+            InitializePartial();
         }
 
         public override TEntity Find(params object[] keyValues)
@@ -380,6 +398,8 @@ namespace MetaqueryGenerator.DS
         {
             return new FakeDbAsyncEnumerator<TEntity>(_data.GetEnumerator());
         }
+
+        partial void InitializePartial();
     }
 
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
@@ -487,7 +507,7 @@ namespace MetaqueryGenerator.DS
 
     // Sys_ColumnsTypes
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
-    public class SysColumnsType
+    public partial class SysColumnsType
     {
 
         ///<summary>
@@ -504,11 +524,18 @@ namespace MetaqueryGenerator.DS
         /// סוג עמודה
         ///</summary>
         public string Type { get; set; } // Type (Primary key) (length: 100)
+
+        public SysColumnsType()
+        {
+            InitializePartial();
+        }
+
+        partial void InitializePartial();
     }
 
     // Tbl_DatabaseManagement
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
-    public class TblDatabaseManagement
+    public partial class TblDatabaseManagement
     {
 
         ///<summary>
@@ -529,12 +556,12 @@ namespace MetaqueryGenerator.DS
         ///<summary>
         /// Support- ערך סף
         ///</summary>
-        public double SupportThreshold { get; set; } // SupportThreshold
+        public decimal SupportThreshold { get; set; } // SupportThreshold
 
         ///<summary>
         /// Confidence - ערך סף
         ///</summary>
-        public double ConfidenceThreshold { get; set; } // ConfidenceThreshold
+        public decimal ConfidenceThreshold { get; set; } // ConfidenceThreshold
 
         ///<summary>
         /// תאריך יצירה
@@ -584,12 +611,15 @@ namespace MetaqueryGenerator.DS
         public TblDatabaseManagement()
         {
             TblMetaqueries = new System.Collections.Generic.List<TblMetaquery>();
+            InitializePartial();
         }
+
+        partial void InitializePartial();
     }
 
     // Tbl_MetaqueriesResults
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
-    public class TblMetaqueriesResult
+    public partial class TblMetaqueriesResult
     {
         public int Id { get; set; } // Id (Primary key)
         public int FkMetaqueryId { get; set; } // FK_MetaqueryID
@@ -615,11 +645,18 @@ namespace MetaqueryGenerator.DS
         /// Parent TblMetaquery pointed by [Tbl_MetaqueriesResults].([FkMetaqueryId]) (FK_Tbl_MetaqueriesResults_Tbl_Metaqueries)
         /// </summary>
         public virtual TblMetaquery TblMetaquery { get; set; } // FK_Tbl_MetaqueriesResults_Tbl_Metaqueries
+
+        public TblMetaqueriesResult()
+        {
+            InitializePartial();
+        }
+
+        partial void InitializePartial();
     }
 
     // Tbl_Metaqueries
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
-    public class TblMetaquery
+    public partial class TblMetaquery
     {
 
         ///<summary>
@@ -695,12 +732,15 @@ namespace MetaqueryGenerator.DS
         public TblMetaquery()
         {
             TblMetaqueriesResults = new System.Collections.Generic.List<TblMetaqueriesResult>();
+            InitializePartial();
         }
+
+        partial void InitializePartial();
     }
 
     // Tbl_Statuses
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
-    public class TblStatus
+    public partial class TblStatus
     {
         public int Id { get; set; } // Id (Primary key)
         public string Description { get; set; } // Description (length: 100)
@@ -720,7 +760,10 @@ namespace MetaqueryGenerator.DS
         {
             TblDatabaseManagements = new System.Collections.Generic.List<TblDatabaseManagement>();
             TblMetaqueries = new System.Collections.Generic.List<TblMetaquery>();
+            InitializePartial();
         }
+
+        partial void InitializePartial();
     }
 
     #endregion
@@ -729,7 +772,7 @@ namespace MetaqueryGenerator.DS
 
     // Sys_ColumnsTypes
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
-    public class SysColumnsTypeConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<SysColumnsType>
+    public partial class SysColumnsTypeConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<SysColumnsType>
     {
         public SysColumnsTypeConfiguration()
             : this("dbo")
@@ -744,12 +787,14 @@ namespace MetaqueryGenerator.DS
             Property(x => x.TableName).HasColumnName(@"TableName").HasColumnType("nvarchar").IsRequired().HasMaxLength(100).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
             Property(x => x.ColumnName).HasColumnName(@"ColumnName").HasColumnType("nvarchar").IsRequired().HasMaxLength(100).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
             Property(x => x.Type).HasColumnName(@"Type").HasColumnType("nvarchar").IsRequired().HasMaxLength(100).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            InitializePartial();
         }
+        partial void InitializePartial();
     }
 
     // Tbl_DatabaseManagement
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
-    public class TblDatabaseManagementConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<TblDatabaseManagement>
+    public partial class TblDatabaseManagementConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<TblDatabaseManagement>
     {
         public TblDatabaseManagementConfiguration()
             : this("dbo")
@@ -764,8 +809,8 @@ namespace MetaqueryGenerator.DS
             Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             Property(x => x.DbName).HasColumnName(@"DBName").HasColumnType("nvarchar").IsOptional().HasMaxLength(100);
             Property(x => x.ConnectionString).HasColumnName(@"ConnectionString").HasColumnType("nvarchar").IsOptional().HasMaxLength(500);
-            Property(x => x.SupportThreshold).HasColumnName(@"SupportThreshold").HasColumnType("float").IsRequired();
-            Property(x => x.ConfidenceThreshold).HasColumnName(@"ConfidenceThreshold").HasColumnType("float").IsRequired();
+            Property(x => x.SupportThreshold).HasColumnName(@"SupportThreshold").HasColumnType("numeric").IsRequired().HasPrecision(10,2);
+            Property(x => x.ConfidenceThreshold).HasColumnName(@"ConfidenceThreshold").HasColumnType("numeric").IsRequired().HasPrecision(10,2);
             Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime2").IsRequired();
             Property(x => x.StartTime).HasColumnName(@"StartTime").HasColumnType("datetime2").IsOptional();
             Property(x => x.FinishTime).HasColumnName(@"FinishTime").HasColumnType("datetime2").IsOptional();
@@ -776,12 +821,14 @@ namespace MetaqueryGenerator.DS
 
             // Foreign keys
             HasRequired(a => a.TblStatus).WithMany(b => b.TblDatabaseManagements).HasForeignKey(c => c.FkStatusId).WillCascadeOnDelete(false); // FK_DatabaseManagement_Statuses
+            InitializePartial();
         }
+        partial void InitializePartial();
     }
 
     // Tbl_MetaqueriesResults
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
-    public class TblMetaqueriesResultConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<TblMetaqueriesResult>
+    public partial class TblMetaqueriesResultConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<TblMetaqueriesResult>
     {
         public TblMetaqueriesResultConfiguration()
             : this("dbo")
@@ -801,12 +848,14 @@ namespace MetaqueryGenerator.DS
 
             // Foreign keys
             HasRequired(a => a.TblMetaquery).WithMany(b => b.TblMetaqueriesResults).HasForeignKey(c => c.FkMetaqueryId).WillCascadeOnDelete(false); // FK_Tbl_MetaqueriesResults_Tbl_Metaqueries
+            InitializePartial();
         }
+        partial void InitializePartial();
     }
 
     // Tbl_Metaqueries
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
-    public class TblMetaqueryConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<TblMetaquery>
+    public partial class TblMetaqueryConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<TblMetaquery>
     {
         public TblMetaqueryConfiguration()
             : this("dbo")
@@ -833,12 +882,14 @@ namespace MetaqueryGenerator.DS
             // Foreign keys
             HasRequired(a => a.TblDatabaseManagement).WithMany(b => b.TblMetaqueries).HasForeignKey(c => c.FkDatabaseId).WillCascadeOnDelete(false); // FK_Tbl_Metaqueries_Tbl_DatabaseManagement
             HasRequired(a => a.TblStatus).WithMany(b => b.TblMetaqueries).HasForeignKey(c => c.FkStatusId).WillCascadeOnDelete(false); // FK_Tbl_Metaqueries_Tbl_Statuses
+            InitializePartial();
         }
+        partial void InitializePartial();
     }
 
     // Tbl_Statuses
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
-    public class TblStatusConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<TblStatus>
+    public partial class TblStatusConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<TblStatus>
     {
         public TblStatusConfiguration()
             : this("dbo")
@@ -852,7 +903,9 @@ namespace MetaqueryGenerator.DS
 
             Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             Property(x => x.Description).HasColumnName(@"Description").HasColumnType("nvarchar").IsOptional().HasMaxLength(100);
+            InitializePartial();
         }
+        partial void InitializePartial();
     }
 
     #endregion

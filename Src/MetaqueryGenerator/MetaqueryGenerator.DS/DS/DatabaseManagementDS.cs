@@ -9,6 +9,16 @@ namespace MetaqueryGenerator.DS
 {
     public static class DatabaseManagementsDS
     {
+        public static void Create(TblDatabaseManagement tblDatabaseManagement)
+        {
+            using (MetaqueriesContext context = new MetaqueriesContext())
+            {
+                context.TblDatabaseManagements.Add(tblDatabaseManagement);
+                context.MarkAsCreated(tblDatabaseManagement);
+                context.SaveChanges();
+            }
+        }
+
         public static List<TblDatabaseManagement> GetDBToWork()
         {
             using (MetaqueriesContext context = new MetaqueriesContext())
@@ -32,7 +42,7 @@ namespace MetaqueryGenerator.DS
 
 
                 context.TblDatabaseManagements.Attach(tblDatabaseManagement);
-                context.Entry(tblDatabaseManagement).State = System.Data.Entity.EntityState.Modified;
+                context.MarkAsModified(tblDatabaseManagement);
                 context.SaveChanges();
             }
         }
