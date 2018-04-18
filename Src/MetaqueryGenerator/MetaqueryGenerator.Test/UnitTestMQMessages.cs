@@ -15,13 +15,13 @@ namespace MetaqueryGenerator.Test
         [TestMethod]
         public void TestSendMQMessageToJson()
         {
-            int[] headList = new int[] { 1, 3};
+            List<int> headList = new List<int>() { 1, 3 };
             List<int> bodyList1 = new List<int>() { 1, 2, 3 };
             List<int> bodyList2 = new List<int>() { 2, 3 };
             List<int> bodyList3 = new List<int>() {  3 };
             List<List<int>> bodyList = new List<List<int>> { bodyList1, bodyList2, bodyList3 };
 
-            SendMQMessage message = new SendMQMessage() { ID = 1,SupportThreshold = 0.2f, ConfidenceThreshold = 0.3f,Head = headList, Body = bodyList };
+            SendMQMessage message = new SendMQMessage() { ID = 1,SupportThreshold = (decimal)0.2f, ConfidenceThreshold = (decimal)0.3f,Head = headList, Body = bodyList };
 
             string strMessage = JsonConvert.SerializeObject(message);
             string strJson = "{\"ID\":1,\"SupportThreshold\":0.2,\"ConfidenceThreshold\":0.3,\"Head\":[1,3],\"Body\":[[1,2,3],[2,3],[3]]}";

@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MetaqueryGenerator.Forms.UserControls
+namespace MetaqueryGenerator.Forms.BaseControls
 {
     public partial class BaseUserControl : UserControl
     {

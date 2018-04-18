@@ -77,5 +77,10 @@ namespace MetaqueryGenerator.Forms
             openNewPanel(uc);
 
         }
-    }
+
+		private void customButton1_Click(object sender, EventArgs e)
+		{
+
+		}
+	}
 }

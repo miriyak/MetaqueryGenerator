@@ -1,4 +1,4 @@
-﻿namespace MetaqueryGenerator.Forms.UserControls
+﻿namespace MetaqueryGenerator.Forms.BaseControls
 {
     partial class BaseUserControl
     {

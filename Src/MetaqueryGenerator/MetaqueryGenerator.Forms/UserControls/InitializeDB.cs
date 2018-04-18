@@ -11,8 +11,8 @@ using Microsoft.Data.ConnectionUI;
 
 namespace MetaqueryGenerator.Forms.UserControls
 {
-    public partial class InitializeDB : BaseUserControl
-    {
+    public partial class InitializeDB : BaseControls.BaseUserControl
+	{
         bool TryGetDataConnectionStringFromUser(out string outConnectionString)
         {
             using (var dialog = new DataConnectionDialog())

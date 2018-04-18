@@ -114,12 +114,12 @@ namespace MetaqueryGenerator.Test
         {
             Metaquery metaquery = new Metaquery("R(1)←R1(1,2,3)");
             List<Metaquery> listResult = metaquery.ExpandHead();
-            Assert.AreEqual(listResult.Count, 4);
-            //Assert.AreEqual(listResult[0].ToString(), "R0(X1,X2)←R1(X1,X2)&R2(X3)");
-            //Assert.AreEqual(listResult[1].ToString(), "R0(X1,X3)←R1(X1,X2)&R2(X3)");
-        }
+            Assert.AreEqual(listResult[0].ToString(), "R0(X1,X2)←R1(X1,X2,X3)");
+            Assert.AreEqual(listResult[1].ToString(), "R0(X1,X3)←R1(X1,X2,X3)");
+            Assert.AreEqual(2, listResult.Count);
+		}
 
-        #endregion Expand - All
-    }
+		#endregion Expand - All
+	}
 
 }

@@ -55,6 +55,10 @@
       <Project>{8325b2cc-16e4-4268-8814-bbcc1f795a9d}</Project>
       <Name>MetaqueryGenerator.DS</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RabbitMQFactory\RabbitMQFactory.csproj">
+      <Project>{5811a11e-507a-41c9-93aa-12918871cce7}</Project>
+      <Name>RabbitMQFactory</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

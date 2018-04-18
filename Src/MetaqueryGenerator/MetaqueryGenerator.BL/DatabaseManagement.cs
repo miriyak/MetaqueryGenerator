@@ -17,7 +17,10 @@ namespace MetaqueryGenerator.BL
                             )
         {
             int maxVariableInRelation = 0;
-            TblDatabaseManagement tblDatabaseManagement = new TblDatabaseManagement()
+			ProcessingModelDS modelDS = new ProcessingModelDS(connectionString);
+			maxVariableInRelation = modelDS.GetMaxVariablesInRelation();
+
+			TblDatabaseManagement tblDatabaseManagement = new TblDatabaseManagement()
             {
                 DbName = dbName,
                 ConnectionString = connectionString,

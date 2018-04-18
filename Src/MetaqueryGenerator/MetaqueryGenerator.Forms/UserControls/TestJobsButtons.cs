@@ -8,11 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetaqueryGenerator.BL;
+using RabbitMQFactory;
 
 namespace MetaqueryGenerator.Forms.UserControls
 {
-    public partial class TestJobsButtons : BaseUserControl
-    {
+    public partial class TestJobsButtons : BaseControls.BaseUserControl
+	{
         public TestJobsButtons()
         {
             InitializeComponent();
@@ -25,5 +26,28 @@ namespace MetaqueryGenerator.Forms.UserControls
             ShowMessage("Start DB Process Job run successfuly");
 
         }
-    }
+
+		private void btnSendMQToSolver_Click(object sender, EventArgs e)
+		{
+			MQGenerator generator = new MQGenerator();
+			int count = generator.StartSendMQToSolver();
+			ShowMessage("Start Send MQ To Solver Job run successfuly"); 
+			ShowMessage(count + " MQ sent sucessfuly");
+		}
+
+		private void btnExpandMQP_Click(object sender, EventArgs e)
+		{
+			MQGenerator generator = new MQGenerator();
+			generator.StartExpandMQProcess();
+			ShowMessage("Start Expand MQ Process Job run successfuly"); 
+		}
+
+		private void customButton1_Click(object sender, EventArgs e)
+		{
+			RabbitProducer<string> producer = new RabbitProducer<string>("MiriTest");
+			producer.SendMessage("TEST1");
+			ShowMessage("All sent");
+
+		}
+	}
 }

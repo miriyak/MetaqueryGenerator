@@ -1,5 +1,6 @@
 ﻿using MetaqueryGenerator.Common;
 using MetaqueryGenerator.DS;
+using RabbitMQFactory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,26 +8,7 @@ using System.Text;
 
 namespace MetaqueryGenerator.BL
 {
-    public class ProcessMQDetails
-    {
-        
-        //public static int RelationsCount { get; set; }
-        //public static int VariablesCount { get; set; }
-        public static int MaxVariablesInRelation { get; set; }
-        public static List<int> RelationsVarCount { get; set; }
-        
-        static ProcessMQDetails()
-        {
-            string connectionString = @"Data Source =.\SQLEXPRESS; Initial Catalog = TestMQ; Integrated Security = True";
-            MetaqueryGenerator.DS.ProcessingModelDS modelDS = new MetaqueryGenerator.DS.ProcessingModelDS(connectionString);
-            //RelationsCount = modelDS.GetRelationsCount();
-            //VariablesCount = modelDS.GetVariablesCount();
-            MaxVariablesInRelation = modelDS.GetMaxVariablesInRelation();
-            RelationsVarCount = modelDS.GetRelationsVarCount();
-        }
-    }
-
-    public class MQGenerator
+        public class MQGenerator
     {
         //public int SupportThreshold { get; set; }
         //public int ConfidenceThreshold { get; set; }
@@ -56,21 +38,35 @@ namespace MetaqueryGenerator.BL
                 DatabaseManagementsDS.UpdateStatus(db, StatusDB.InProcess);
             }
         }
-        public void StartSendMQToSolver()
+        public int StartSendMQToSolver()
         {
             List<TblMetaquery> lstMQ = MetaqueryDS.GetMQForSendToSolver();
-            foreach (TblMetaquery tblMetaquery in lstMQ)
+			RabbitProducer<string> producer = new RabbitProducer<string>("MQToSolve");
+			int count = 0;
+			foreach (TblMetaquery tblMetaquery in lstMQ)
             {
                 TblDatabaseManagement curDB = tblMetaquery.TblDatabaseManagement;
+				Metaquery metaquery = new Metaquery(tblMetaquery.Metaquery);
+				
+				//שליחה לסולבר
+				SendMQMessage message = new SendMQMessage()
+				{
+					ID = tblMetaquery.Id,
+					SupportThreshold = curDB.SupportThreshold,
+					ConfidenceThreshold = curDB.ConfidenceThreshold,
+					Head = metaquery.Head.Variables,
+					Body = metaquery.Body.GetVariables()
+				};
+				
+				string strMessage = message.ToJson();  //JsonConvert.SerializeObject(message);
+				producer.SendMessage(strMessage);
+				count++;
 
-                //שליחה לסולבר
-                //mtodo
-                //RabbitMQ לפי ההחלטה אם זה יהיה 
-
-                MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.WaitingToSolver);
+				MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.WaitingToSolver);
             }
-        }
-        public void StartExpandMQProcess()
+			return count;
+		}
+		public void StartExpandMQProcess()
         {
             List<TblMetaquery> lstMQ = MetaqueryDS.GetMQForExpand();
             foreach (TblMetaquery tblMetaquery in lstMQ)
@@ -121,23 +117,25 @@ namespace MetaqueryGenerator.BL
             List<Metaquery> mqList = new List<Metaquery>();
 
             Metaquery newMQ;
-            //mqList.AddRange(AddVariable(query.Head, newMQ));
-            
-            //Check the possibility of adding variable to Head Relation
-            if (query.Head.Arity < ProcessMQDetails.MaxVariablesInRelation)
+			//mqList.AddRange(AddVariable(query.Head, newMQ));
+
+			//Check the possibility of adding variable to Head Relation
+			int maxVariablesInRelation = 5;
+
+			if (query.Head.Arity < maxVariablesInRelation)
             {
 
                 newMQ = query.Clone();
                 newMQ.Head.AddVariable(query.Head.Arity + 1);
                 mqList.Add(newMQ);
             }
-            List<int> relationsVarCount = ProcessMQDetails.RelationsVarCount;
+            //List<int> relationsVarCount = ProcessMQDetails.RelationsVarCount;
             //foreach (Relation bodyRelation in query.Body.List)
             for (int i = 0; i< query.Body.Count; i++)
             {
                 Relation bodyRelation = query.Body[i];
-                if (bodyRelation.Arity < relationsVarCount[i])
-                {
+                if (bodyRelation.Arity < maxVariablesInRelation) //relationsVarCount[i])
+				{
                     newMQ = query.Clone();
                     newMQ.Body[i].AddVariable(bodyRelation.Arity + 1);
                     mqList.Add(newMQ);
@@ -147,4 +145,23 @@ namespace MetaqueryGenerator.BL
             return mqList;
         }
     }
+
+	/*public class ProcessMQDetails
+    {
+        
+        //public static int RelationsCount { get; set; }
+        //public static int VariablesCount { get; set; }
+        //public static int MaxVariablesInRelation { get; set; }
+        public static List<int> RelationsVarCount { get; set; }
+        
+        static ProcessMQDetails()
+        {
+            string connectionString = @"Data Source =.\SQLEXPRESS; Initial Catalog = TestMQ; Integrated Security = True";
+            MetaqueryGenerator.DS.ProcessingModelDS modelDS = new MetaqueryGenerator.DS.ProcessingModelDS(connectionString);
+            //RelationsCount = modelDS.GetRelationsCount();
+            //VariablesCount = modelDS.GetVariablesCount();
+            //MaxVariablesInRelation = modelDS.GetMaxVariablesInRelation();
+            RelationsVarCount = modelDS.GetRelationsVarCount();
+        }
+    }*/
 }

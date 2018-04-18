@@ -21,7 +21,17 @@ namespace MetaqueryGenerator.Common
 
         }
 
-        internal List<int> GetAllVariables()
+		public List<List<int>> GetVariables()
+		{
+			List<List<int>> list = new List<List<int>>();
+			for (int i = 0; i < this.Count; i++)
+			{
+				list.Add(this[i].Variables);
+			}
+			return list;
+		}
+
+		internal List<int> GetAllVariables()
         {
             List<int> list = new List<int>();
             for (int i = 0; i < this.Count; i++)
