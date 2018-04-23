@@ -58,8 +58,8 @@
 
         public void SendMessage(T message)
         {
-
-            string strMessage = JsonConvert.SerializeObject(message);
+			
+			string strMessage = JsonConvert.SerializeObject(message);
             var messageBody = Encoding.UTF8.GetBytes(strMessage);
 
             channel.BasicPublish(string.Empty, QueueName, null, messageBody);

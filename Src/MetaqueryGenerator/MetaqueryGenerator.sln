@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaqueryGenerator.Test", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaqueryGenerator.Forms", "MetaqueryGenerator.Forms\MetaqueryGenerator.Forms.csproj", "{E72DDEFE-22CE-40C3-A68E-BB067B7453B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaquerySolver.Demo", "MetaquerySolver.Demo\MetaquerySolver.Demo.csproj", "{C3EE39AE-CF17-407A-90D4-FA14689A2E85}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -159,6 +161,22 @@ Global
 		{E72DDEFE-22CE-40C3-A68E-BB067B7453B3}.Release|x64.Build.0 = Release|Any CPU
 		{E72DDEFE-22CE-40C3-A68E-BB067B7453B3}.Release|x86.ActiveCfg = Release|Any CPU
 		{E72DDEFE-22CE-40C3-A68E-BB067B7453B3}.Release|x86.Build.0 = Release|Any CPU
+		{C3EE39AE-CF17-407A-90D4-FA14689A2E85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3EE39AE-CF17-407A-90D4-FA14689A2E85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3EE39AE-CF17-407A-90D4-FA14689A2E85}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{C3EE39AE-CF17-407A-90D4-FA14689A2E85}.Debug|ARM.Build.0 = Debug|Any CPU
+		{C3EE39AE-CF17-407A-90D4-FA14689A2E85}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C3EE39AE-CF17-407A-90D4-FA14689A2E85}.Debug|x64.Build.0 = Debug|Any CPU
+		{C3EE39AE-CF17-407A-90D4-FA14689A2E85}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C3EE39AE-CF17-407A-90D4-FA14689A2E85}.Debug|x86.Build.0 = Debug|Any CPU
+		{C3EE39AE-CF17-407A-90D4-FA14689A2E85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3EE39AE-CF17-407A-90D4-FA14689A2E85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3EE39AE-CF17-407A-90D4-FA14689A2E85}.Release|ARM.ActiveCfg = Release|Any CPU
+		{C3EE39AE-CF17-407A-90D4-FA14689A2E85}.Release|ARM.Build.0 = Release|Any CPU
+		{C3EE39AE-CF17-407A-90D4-FA14689A2E85}.Release|x64.ActiveCfg = Release|Any CPU
+		{C3EE39AE-CF17-407A-90D4-FA14689A2E85}.Release|x64.Build.0 = Release|Any CPU
+		{C3EE39AE-CF17-407A-90D4-FA14689A2E85}.Release|x86.ActiveCfg = Release|Any CPU
+		{C3EE39AE-CF17-407A-90D4-FA14689A2E85}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

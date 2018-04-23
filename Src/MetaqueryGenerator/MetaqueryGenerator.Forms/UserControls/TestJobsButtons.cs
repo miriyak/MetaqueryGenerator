@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MetaqueryGenerator.BL;
 using RabbitMQFactory;
+using System.Configuration;
 
 namespace MetaqueryGenerator.Forms.UserControls
 {
@@ -29,6 +30,7 @@ namespace MetaqueryGenerator.Forms.UserControls
 
 		private void btnSendMQToSolver_Click(object sender, EventArgs e)
 		{
+			string queueToMQSolverName = ConfigurationManager.AppSettings["QueueToMQSolverName"];
 			MQGenerator generator = new MQGenerator();
 			int count = generator.StartSendMQToSolver();
 			ShowMessage("Start Send MQ To Solver Job run successfuly"); 

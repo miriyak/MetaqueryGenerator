@@ -70,16 +70,20 @@ namespace MetaqueryGenerator.Forms
 
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            TestJobsButtons uc = new TestJobsButtons();
-            setButtonPressed(button5);
-            openNewPanel(uc);
+       
 
-        }
-
-		private void customButton1_Click(object sender, EventArgs e)
+		private void button4_Click(object sender, EventArgs e)
 		{
+			TestJobsButtons uc = new TestJobsButtons();
+			setButtonPressed(button4);
+			openNewPanel(uc);
+		}
+
+		private void button5_Click(object sender, EventArgs e)
+        {
+			MetaquerySolverDemoButtons uc = new MetaquerySolverDemoButtons();
+			setButtonPressed(button5);
+			openNewPanel(uc);
 
 		}
 	}

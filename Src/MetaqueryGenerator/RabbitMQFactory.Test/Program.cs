@@ -38,31 +38,32 @@ namespace RabbitMQFactory
             Metaquery mq = queue2.Pop();
             Console.Write(mq.Body.ToString());
 */
-            TestRabbitProducer("TestQueue");
             TestRabbitConsumer("TestQueue");
+			TestRabbitProducer("TestQueue");
 
             Console.ReadKey();
         }
 
         public static void TestRabbitConsumer(string queueName)
         {
-            RabbitConsumer<string> producer = new RabbitConsumer<string>(queueName);
-            producer.DequeueMessageDel = TestEvent;
-            producer.Pop();
-            /*producer.ProcessMessages();
-            
-             producer.ConsumeMessages();
-             producer.ConsumeMessages();*/
-            producer.ConsumeMessages();
-            Console.WriteLine("Quitting...");
+            RabbitConsumer<string> consumer = new RabbitConsumer<string>(queueName);
+			consumer.DequeueMessageDel = TestEvent;
+			//consumer.Pop();
+			consumer.ProcessMessages();
+
+			/*consumer.ConsumeMessages();
+			consumer.ConsumeMessages();
+		   consumer.ConsumeMessages();*/
+			Console.WriteLine("Quitting...");
         }
+		static int counter;
         public static void TestRabbitProducer(string queueName)
         {
             RabbitProducer<string> producer = new RabbitProducer<string>(queueName);
-            producer.SendMessage("TEST1");
-            producer.SendMessage("TEST2");
-            producer.SendMessage("TEST3");
-            producer.SendMessage("TEST4");
+            producer.SendMessage("TEST" + counter++);
+            producer.SendMessage("TEST" + counter++);
+            producer.SendMessage("TEST" + counter++);
+            producer.SendMessage("TEST" + counter++);
 
             Console.WriteLine("All sent.");
         }

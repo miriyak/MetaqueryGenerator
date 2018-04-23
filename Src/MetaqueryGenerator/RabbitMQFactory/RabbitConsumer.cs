@@ -41,6 +41,10 @@ namespace RabbitMQFactory
             this.Disconnect();
 
         }
+		public void StopConsume()
+		{
+			this.Disconnect();
+		}
         public void Disconnect()
         {
             channel = null;

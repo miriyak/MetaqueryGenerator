@@ -21,7 +21,7 @@ namespace MetaqueryGenerator.Test
             List<int> bodyList3 = new List<int>() {  3 };
             List<List<int>> bodyList = new List<List<int>> { bodyList1, bodyList2, bodyList3 };
 
-            SendMQMessage message = new SendMQMessage() { ID = 1,SupportThreshold = (decimal)0.2f, ConfidenceThreshold = (decimal)0.3f,Head = headList, Body = bodyList };
+            SendMQMessage message = new SendMQMessage() { ID = 1,SupportThreshold = 0.2m, ConfidenceThreshold = 0.3m,Head = headList, Body = bodyList };
 
             string strMessage = JsonConvert.SerializeObject(message);
             string strJson = "{\"ID\":1,\"SupportThreshold\":0.2,\"ConfidenceThreshold\":0.3,\"Head\":[1,3],\"Body\":[[1,2,3],[2,3],[3]]}";
@@ -41,7 +41,7 @@ namespace MetaqueryGenerator.Test
             string strResultMessageJson = "{\"ID\":1,\"Result\":true}";
             Assert.AreEqual(strMessage, strResultMessageJson);
 
-            MQAssignmentResultMessage assignmentResultMessage = new MQAssignmentResultMessage() { ID = 1,Assignment="Any assignment",ConfidenceValue=0.3f,SupportValue=0.1f };
+            MQAssignmentResultMessage assignmentResultMessage = new MQAssignmentResultMessage() { ID = 1,Assignment="Any assignment",ConfidenceValue=0.3m,SupportValue=0.1m };
             strMessage = JsonConvert.SerializeObject(assignmentResultMessage);
             strResultMessageJson = "{\"ID\":1,\"SupportValue\":0.1,\"ConfidenceValue\":0.3,\"Assignment\":\"Any assignment\"}";
 

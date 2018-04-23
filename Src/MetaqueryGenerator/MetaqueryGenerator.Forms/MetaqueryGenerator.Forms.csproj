@@ -50,6 +50,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Messaging" />
     <Reference Include="System.Xml.Linq" />
@@ -89,6 +90,12 @@
     <Compile Include="UserControls\InitializeDB.Designer.cs">
       <DependentUpon>InitializeDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\MetaquerySolverDemoButtons.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\MetaquerySolverDemoButtons.Designer.cs">
+      <DependentUpon>MetaquerySolverDemoButtons.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\TestJobsButtons.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -116,6 +123,9 @@
     <EmbeddedResource Include="UserControls\InitializeDB.resx">
       <DependentUpon>InitializeDB.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\MetaquerySolverDemoButtons.resx">
+      <DependentUpon>MetaquerySolverDemoButtons.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\TestJobsButtons.resx">
       <DependentUpon>TestJobsButtons.cs</DependentUpon>
     </EmbeddedResource>
@@ -137,6 +147,10 @@
     <ProjectReference Include="..\MetaqueryGenerator.BL\MetaqueryGenerator.BL.csproj">
       <Project>{225099af-92b8-4a83-8fc1-fe642d47d23a}</Project>
       <Name>MetaqueryGenerator.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MetaquerySolver.Demo\MetaquerySolver.Demo.csproj">
+      <Project>{c3ee39ae-cf17-407a-90d4-fa14689a2e85}</Project>
+      <Name>MetaquerySolver.Demo</Name>
     </ProjectReference>
     <ProjectReference Include="..\RabbitMQFactory\RabbitMQFactory.csproj">
       <Project>{5811a11e-507a-41c9-93aa-12918871cce7}</Project>

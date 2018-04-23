@@ -37,12 +37,26 @@ namespace MetaqueryGenerator.Common
                 this.Body.Add(new Relation(strRelation));
             //"R0(1,2)←R1(1,2)&R2(1,2)"
         }
-        /// <summary>
-        /// Expand metaquery -- all types
-        /// </summary>
-        /// <param name="maxVariablesInRelation">Max of variables in relation - by the db</param>
-        /// <returns>List of expanded metaquery</returns>
-        public List<Metaquery> Expand(int maxVariablesInRelation)
+
+		public Metaquery(SendMQMessage mqMessage)
+			: this()
+		{
+			this.Head = new Relation();
+			this.Head.Variables.AddRange(mqMessage.Head);
+
+			foreach (List<int> lst in mqMessage.Body)
+			{
+				Relation relation = new Relation();
+				relation.Variables.AddRange(lst);
+				this.Body.Add(relation);
+			}
+		}
+		/// <summary>
+		/// Expand metaquery -- all types
+		/// </summary>
+		/// <param name="maxVariablesInRelation">Max of variables in relation - by the db</param>
+		/// <returns>List of expanded metaquery</returns>
+		public List<Metaquery> Expand(int maxVariablesInRelation)
         {
             List<Metaquery> mqList = new List<Metaquery>();
 

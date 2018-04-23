@@ -3,6 +3,7 @@ using MetaqueryGenerator.DS;
 using RabbitMQFactory;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 
@@ -40,14 +41,15 @@ namespace MetaqueryGenerator.BL
         }
         public int StartSendMQToSolver()
         {
+			string queueToMQSolverName = ConfigurationManager.AppSettings["QueueToMQSolverName"];
             List<TblMetaquery> lstMQ = MetaqueryDS.GetMQForSendToSolver();
-			RabbitProducer<string> producer = new RabbitProducer<string>("MQToSolve");
+			RabbitProducer<string> producer = new RabbitProducer<string>(queueToMQSolverName);
 			int count = 0;
 			foreach (TblMetaquery tblMetaquery in lstMQ)
             {
                 TblDatabaseManagement curDB = tblMetaquery.TblDatabaseManagement;
 				Metaquery metaquery = new Metaquery(tblMetaquery.Metaquery);
-				
+
 				//שליחה לסולבר
 				SendMQMessage message = new SendMQMessage()
 				{
