@@ -18,14 +18,14 @@ namespace MetaquerySolver.Demo
 		public void RunConsumer(string queueName)
 		{
 			consumer = new RabbitConsumer<string>(queueName);
-			consumer.DequeueMessageDel = TestEvent;
+			consumer.DequeueMessageDel = OnGetMessageFromGenerator;
 			consumer.ProcessMessages();
 		}
 		public void StopConsume()
 		{
 			consumer.StopConsume();
 		}
-		public static void SendMQMessageToSolver(RabbitProducer<string> producer, IMQResultMessage resultMessage)
+		public static void SendMQMessageToSolver(RabbitProducer<string> producer, MQMessage resultMessage)
 		{
 			string strMessage = resultMessage.ToJson(); 
 			producer.SendMessage(strMessage);
@@ -37,27 +37,23 @@ namespace MetaquerySolver.Demo
 		//	producer.SendMessage(strMessage);
 		//}
 
-		public static void TestEvent(string strMessage)
+		public static void OnGetMessageFromGenerator(string strMessage)
 		{
 			string queueToMQGeneratorName = ConfigurationManager.AppSettings["QueueToMQGeneratorName"];
-			RabbitProducer<string> producer = new RabbitProducer<string>(queueToMQGeneratorName); 
+			RabbitProducer<string> producer = new RabbitProducer<string>(queueToMQGeneratorName);
 
 			SendMQMessage message = JsonConvert.DeserializeObject<SendMQMessage>(strMessage);
 			Metaquery metaquery = new Metaquery(message);
-			
-			//MessageBox.Show("TestEvent, string: " + metaquery.ToString());
+
 			List<ResultDemoMq> resultMQList = MetaquerySolverDemoDS.GetResultDemoMq(metaquery.ToString());
 
 			bool hasResult = resultMQList.Count > 0;
-			
-			MQResultMessage resultMessage = new MQResultMessage() { ID = message.ID, Result = hasResult };
-			//SendMQResultMessage(producer, resultMessage);
-			SendMQMessageToSolver(producer, resultMessage);
 
-			System.Threading.Thread.Sleep(3000);
+			MQResultMessage resultMessage = new MQResultMessage() { ID = message.ID, Result = hasResult };
 
 			if (hasResult)
-				foreach(ResultDemoMq resultMQ in resultMQList)
+			{
+				foreach (ResultDemoMq resultMQ in resultMQList)
 				{
 					MQAssignmentResultMessage assignmentResultMessage = new MQAssignmentResultMessage()
 					{
@@ -67,13 +63,16 @@ namespace MetaquerySolver.Demo
 						SupportValue = resultMQ.SupportValue.Value
 					};
 
-					//SendMQAssignmentResultMessage(producer, assignmentResultMessage);
 					SendMQMessageToSolver(producer, resultMessage);
 
 					System.Threading.Thread.Sleep(3000);
 
 				}
 
+			}
+			SendMQMessageToSolver(producer, resultMessage);
+
+			System.Threading.Thread.Sleep(3000);
 
 			/*
 			 * MQResultMessage resultMessage = new MQResultMessage() { ID = 1, Result = true};

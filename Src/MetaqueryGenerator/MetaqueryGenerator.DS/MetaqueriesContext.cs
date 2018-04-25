@@ -627,12 +627,12 @@ namespace MetaqueryGenerator.DS
         ///<summary>
         /// Support- ערך
         ///</summary>
-        public double SupportValue { get; set; } // SupportValue
+        public decimal SupportValue { get; set; } // SupportValue
 
         ///<summary>
         /// Confidence - ערך
         ///</summary>
-        public double ConfidenceValue { get; set; } // ConfidenceValue
+        public decimal ConfidenceValue { get; set; } // ConfidenceValue
 
         ///<summary>
         /// הצבה של הפתרון
@@ -842,8 +842,8 @@ namespace MetaqueryGenerator.DS
 
             Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             Property(x => x.FkMetaqueryId).HasColumnName(@"FK_MetaqueryID").HasColumnType("int").IsRequired();
-            Property(x => x.SupportValue).HasColumnName(@"SupportValue").HasColumnType("float").IsRequired();
-            Property(x => x.ConfidenceValue).HasColumnName(@"ConfidenceValue").HasColumnType("float").IsRequired();
+            Property(x => x.SupportValue).HasColumnName(@"SupportValue").HasColumnType("numeric").IsRequired().HasPrecision(10,2);
+            Property(x => x.ConfidenceValue).HasColumnName(@"ConfidenceValue").HasColumnType("numeric").IsRequired().HasPrecision(10,2);
             Property(x => x.Assignment).HasColumnName(@"Assignment").HasColumnType("nvarchar(max)").IsOptional();
 
             // Foreign keys

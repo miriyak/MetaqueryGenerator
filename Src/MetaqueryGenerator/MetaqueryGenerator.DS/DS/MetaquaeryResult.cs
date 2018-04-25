@@ -8,29 +8,18 @@ using MetaqueryGenerator.Common;
 
 namespace MetaqueryGenerator.DS
 {
-    public static class MetaqueryDS
-    {
-        public static void Create(TblMetaquery tblMetaquery)
+    public static class MetaquaeryResultDS
+	{
+        public static void Create(TblMetaqueriesResult tblMetaqueryResult)
         {
             using (MetaqueriesContext context = new MetaqueriesContext())
             {
-                context.TblMetaqueries.Add(tblMetaquery);
-                context.MarkAsCreated(tblMetaquery);
+                context.TblMetaqueriesResults.Add(tblMetaqueryResult);
+                context.MarkAsCreated(tblMetaqueryResult);
                 context.SaveChanges();
             }
         }
 
-		public static TblMetaquery GetByID(int id)
-		{
-			using (MetaqueriesContext context = new MetaqueriesContext())
-			{
-				return context
-                    .TblMetaqueries
-					.Include(x => x.TblDatabaseManagement)
-					.FirstOrDefault(x => x.Id == id)
-					;
-			}
-		}
         public static List<TblMetaquery> GetMQForExpand()
         {
             using (MetaqueriesContext context = new MetaqueriesContext())

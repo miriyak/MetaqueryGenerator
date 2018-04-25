@@ -38,14 +38,14 @@ namespace MetaqueryGenerator.Test
             MQResultMessage resultMessage = new MQResultMessage() { ID = 1, Result = true};
 
             string strMessage = JsonConvert.SerializeObject(resultMessage);
-            string strResultMessageJson = "{\"ID\":1,\"Result\":true}";
-            Assert.AreEqual(strMessage, strResultMessageJson);
+            string strExceptedMessageJson = "{\"Result\":true,\"ID\":1}";
+            Assert.AreEqual(strExceptedMessageJson, strMessage);
 
             MQAssignmentResultMessage assignmentResultMessage = new MQAssignmentResultMessage() { ID = 1,Assignment="Any assignment",ConfidenceValue=0.3m,SupportValue=0.1m };
             strMessage = JsonConvert.SerializeObject(assignmentResultMessage);
-            strResultMessageJson = "{\"ID\":1,\"SupportValue\":0.1,\"ConfidenceValue\":0.3,\"Assignment\":\"Any assignment\"}";
+            strExceptedMessageJson = "{\"ID\":1,\"SupportValue\":0.1,\"ConfidenceValue\":0.3,\"Assignment\":\"Any assignment\"}";
 
-            Assert.AreEqual(strMessage, strResultMessageJson);
+            Assert.AreEqual(strExceptedMessageJson, strMessage);
 
         }
     }

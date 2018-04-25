@@ -1,5 +1,7 @@
 ﻿using MetaqueryGenerator.Common;
+using MetaqueryGenerator.Common.Helpers;
 using MetaqueryGenerator.DS;
+using Newtonsoft.Json;
 using RabbitMQFactory;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,7 @@ using System.Text;
 
 namespace MetaqueryGenerator.BL
 {
-        public class MQGenerator
+    public class MQGenerator
     {
         //public int SupportThreshold { get; set; }
         //public int ConfidenceThreshold { get; set; }
@@ -98,8 +100,9 @@ namespace MetaqueryGenerator.BL
                 DatabaseManagementsDS.UpdateStatus(db, StatusDB.InProcess);*/
             }
         }
-        
-        public void Start()
+
+		
+		public void Start()
         {
             StartDBProcess();
             StartSendMQToSolver();

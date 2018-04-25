@@ -24,11 +24,13 @@ namespace MetaqueryGenerator.Forms.UserControls
 			string queueToMQSolverName = ConfigurationManager.AppSettings["QueueToMQSolverName"];
 			demo = new MetaquerySolverDemo();
 			demo.RunConsumer(queueToMQSolverName);
+			ShowMessage("Start Run MQ Solver Consumer ");
 		}
 
 		private void customButton2_Click(object sender, EventArgs e)
 		{
 			demo.StopConsume();
+			ShowMessage("MQ Solver Consumer has stopped");
 		}
 	}
 }

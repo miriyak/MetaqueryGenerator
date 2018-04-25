@@ -37,7 +37,7 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
 			this.txtDbName = new System.Windows.Forms.TextBox();
-			this.btnSave = new System.Windows.Forms.Button();
+			this.btnSave = new MetaqueryGenerator.Forms.BaseControls.CustomButton();
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.panel2.SuspendLayout();
 			this.SuspendLayout();
@@ -119,11 +119,9 @@
 			// 
 			// btnSave
 			// 
-			this.btnSave.Dock = System.Windows.Forms.DockStyle.Right;
-			this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.btnSave.Location = new System.Drawing.Point(795, 0);
+			this.btnSave.Location = new System.Drawing.Point(785, 10);
 			this.btnSave.Name = "btnSave";
-			this.btnSave.Size = new System.Drawing.Size(165, 100);
+			this.btnSave.Size = new System.Drawing.Size(165, 80);
 			this.btnSave.TabIndex = 7;
 			this.btnSave.Text = "Save";
 			this.btnSave.UseVisualStyleBackColor = true;
@@ -134,7 +132,9 @@
 			this.panel2.Controls.Add(this.btnSave);
 			this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.panel2.Location = new System.Drawing.Point(0, 360);
+			this.panel2.Margin = new System.Windows.Forms.Padding(10);
 			this.panel2.Name = "panel2";
+			this.panel2.Padding = new System.Windows.Forms.Padding(10);
 			this.panel2.Size = new System.Drawing.Size(960, 100);
 			this.panel2.TabIndex = 8;
 			// 
@@ -181,7 +181,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtDbName;
-        private System.Windows.Forms.Button btnSave;
+        private BaseControls.CustomButton btnSave;
         private System.Windows.Forms.Panel panel2;
     }
 }

@@ -51,12 +51,14 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UnitTestHelper.cs" />
     <Compile Include="UnitTestMQExpand.cs" />
     <Compile Include="UnitTestMQMessages.cs" />
     <Compile Include="UnitTestMQ.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

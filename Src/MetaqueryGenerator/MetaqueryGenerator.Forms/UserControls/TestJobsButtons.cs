@@ -15,14 +15,16 @@ namespace MetaqueryGenerator.Forms.UserControls
 {
     public partial class TestJobsButtons : BaseControls.BaseUserControl
 	{
-        public TestJobsButtons()
+		private MQGenerator generator;
+
+		public TestJobsButtons()
         {
             InitializeComponent();
-        }
+			generator = new MQGenerator();
+		}
 
-        private void btnStartDBProcess_Click(object sender, EventArgs e)
+		private void btnStartDBProcess_Click(object sender, EventArgs e)
         {
-            MQGenerator generator = new MQGenerator();
             generator.StartDBProcess();
             ShowMessage("Start DB Process Job run successfuly");
 
@@ -31,7 +33,6 @@ namespace MetaqueryGenerator.Forms.UserControls
 		private void btnSendMQToSolver_Click(object sender, EventArgs e)
 		{
 			string queueToMQSolverName = ConfigurationManager.AppSettings["QueueToMQSolverName"];
-			MQGenerator generator = new MQGenerator();
 			int count = generator.StartSendMQToSolver();
 			ShowMessage("Start Send MQ To Solver Job run successfuly"); 
 			ShowMessage(count + " MQ sent sucessfuly");
@@ -39,7 +40,6 @@ namespace MetaqueryGenerator.Forms.UserControls
 
 		private void btnExpandMQP_Click(object sender, EventArgs e)
 		{
-			MQGenerator generator = new MQGenerator();
 			generator.StartExpandMQProcess();
 			ShowMessage("Start Expand MQ Process Job run successfuly"); 
 		}
@@ -50,6 +50,19 @@ namespace MetaqueryGenerator.Forms.UserControls
 			producer.SendMessage("TEST1");
 			ShowMessage("All sent");
 
+		}
+
+		private MQGeneratorConsumer generatorConsumer;
+		private void btnRunConsumer_Click(object sender, EventArgs e)
+		{
+			generatorConsumer.StartRunConsumer();
+			ShowMessage("Start Run MQ Generator Consumer ");
+		}
+
+		private void btnStopConsumer_Click(object sender, EventArgs e)
+		{
+			generatorConsumer.StopConsumer();
+			ShowMessage("MQ Generator Consumer has stopped");
 		}
 	}
 }
