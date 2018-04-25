@@ -16,11 +16,13 @@ namespace MetaqueryGenerator.Forms.UserControls
     public partial class TestJobsButtons : BaseControls.BaseUserControl
 	{
 		private MQGenerator generator;
+		private MQGeneratorConsumer generatorConsumer;
 
 		public TestJobsButtons()
         {
             InitializeComponent();
 			generator = new MQGenerator();
+			generatorConsumer = new MQGeneratorConsumer();
 		}
 
 		private void btnStartDBProcess_Click(object sender, EventArgs e)
@@ -52,7 +54,6 @@ namespace MetaqueryGenerator.Forms.UserControls
 
 		}
 
-		private MQGeneratorConsumer generatorConsumer;
 		private void btnRunConsumer_Click(object sender, EventArgs e)
 		{
 			generatorConsumer.StartRunConsumer();
