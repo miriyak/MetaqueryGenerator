@@ -45,7 +45,12 @@ namespace MetaqueryGenerator.Forms.UserControls
 			generator.StartExpandMQProcess();
 			ShowMessage("Start Expand MQ Process Job run successfuly"); 
 		}
+		private void btnIncreaseArity_Click(object sender, EventArgs e)
+		{
+			generator.StartIncreaseDBArity();
+			ShowMessage("Start Start Increase DB Arity Job run successfuly");
 
+		}
 		private void customButton1_Click(object sender, EventArgs e)
 		{
 			RabbitProducer<string> producer = new RabbitProducer<string>("MiriTest");
@@ -65,5 +70,7 @@ namespace MetaqueryGenerator.Forms.UserControls
 			generatorConsumer.StopConsumer();
 			ShowMessage("MQ Generator Consumer has stopped");
 		}
+
+		
 	}
 }

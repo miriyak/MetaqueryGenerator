@@ -32,5 +32,7 @@ namespace MetaqueryGenerator.BL
             DatabaseManagementsDS.Create(tblDatabaseManagement);
             return true;
         }
-    }
+
+		
+	}
 }

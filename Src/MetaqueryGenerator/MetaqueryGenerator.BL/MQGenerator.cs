@@ -23,7 +23,7 @@ namespace MetaqueryGenerator.BL
         
         public void StartDBProcess()
         {
-            List<TblDatabaseManagement> lstDB = DatabaseManagementsDS.GetDBToWork();
+            List<TblDatabaseManagement> lstDB = DatabaseManagementsDS.GetDBToWork(StatusDB.Received);
             Metaquery rootMQ = Metaquery.GetRootMQ();
             foreach (TblDatabaseManagement db in lstDB)
             {
@@ -101,6 +101,25 @@ namespace MetaqueryGenerator.BL
             }
         }
 
+		public void StartIncreaseDBArity()
+		{
+			//Update status of the db that this arity is the last
+			List<TblDatabaseManagement> lstFinishDB = DatabaseManagementsDS.GetDBThatFinishedProcess();
+
+			foreach (TblDatabaseManagement db in lstFinishDB)
+			{
+				DatabaseManagementsDS.UpdateStatus(db, StatusDB.Done);
+			}
+
+			//Increase DB Arity in db that finished calculate the current arity 
+			List<TblDatabaseManagement> lstDB = DatabaseManagementsDS.GetDBToIncreaseArity();
+			foreach (TblDatabaseManagement db in lstDB)
+			{
+				db.CurrentArity++;
+				DatabaseManagementsDS.Update(db);
+			}
+
+		}
 		
 		public void Start()
         {

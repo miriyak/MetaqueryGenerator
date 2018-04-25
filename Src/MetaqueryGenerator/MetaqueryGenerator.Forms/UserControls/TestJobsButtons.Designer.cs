@@ -34,6 +34,7 @@
 			this.customButton1 = new MetaqueryGenerator.Forms.BaseControls.CustomButton();
 			this.btnRunConsumer = new System.Windows.Forms.Button();
 			this.btnStopConsumer = new System.Windows.Forms.Button();
+			this.btnIncreaseArity = new System.Windows.Forms.Button();
 			this.SuspendLayout();
 			// 
 			// btnStartDBProcess
@@ -100,6 +101,16 @@
 			this.btnStopConsumer.UseVisualStyleBackColor = true;
 			this.btnStopConsumer.Click += new System.EventHandler(this.btnStopConsumer_Click);
 			// 
+			// btnIncreaseArity
+			// 
+			this.btnIncreaseArity.Location = new System.Drawing.Point(433, 37);
+			this.btnIncreaseArity.Name = "btnIncreaseArity";
+			this.btnIncreaseArity.Size = new System.Drawing.Size(108, 116);
+			this.btnIncreaseArity.TabIndex = 2;
+			this.btnIncreaseArity.Text = "Start Increase DB Arity";
+			this.btnIncreaseArity.UseVisualStyleBackColor = true;
+			this.btnIncreaseArity.Click += new System.EventHandler(this.btnIncreaseArity_Click);
+			// 
 			// TestJobsButtons
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -107,6 +118,7 @@
 			this.Controls.Add(this.btnStopConsumer);
 			this.Controls.Add(this.btnRunConsumer);
 			this.Controls.Add(this.customButton1);
+			this.Controls.Add(this.btnIncreaseArity);
 			this.Controls.Add(this.btnExpandMQP);
 			this.Controls.Add(this.btnSendMQToSolver);
 			this.Controls.Add(this.btnStartDBProcess);
@@ -114,6 +126,7 @@
 			this.Controls.SetChildIndex(this.btnStartDBProcess, 0);
 			this.Controls.SetChildIndex(this.btnSendMQToSolver, 0);
 			this.Controls.SetChildIndex(this.btnExpandMQP, 0);
+			this.Controls.SetChildIndex(this.btnIncreaseArity, 0);
 			this.Controls.SetChildIndex(this.customButton1, 0);
 			this.Controls.SetChildIndex(this.btnRunConsumer, 0);
 			this.Controls.SetChildIndex(this.btnStopConsumer, 0);
@@ -129,5 +142,6 @@
 		private BaseControls.CustomButton customButton1;
 		private System.Windows.Forms.Button btnRunConsumer;
 		private System.Windows.Forms.Button btnStopConsumer;
+		private System.Windows.Forms.Button btnIncreaseArity;
 	}
 }

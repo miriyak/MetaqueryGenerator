@@ -54,7 +54,8 @@ namespace MetaqueryGenerator.DS
                     .ToList();
             }
         }
-        public static void UpdateStatus(TblMetaquery tblMetaquery, StatusMQ newStatus)
+		
+		public static void UpdateStatus(TblMetaquery tblMetaquery, StatusMQ newStatus)
         {
             using (MetaqueriesContext context = new MetaqueriesContext())
             {
