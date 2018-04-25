@@ -33,8 +33,8 @@ namespace RabbitMQFactory
             */
 
             RabbitQueue<Metaquery> queue2 = new RabbitQueue<Metaquery>("test3");
-            Metaquery mq = queue2.Pop();
-            Console.Write(mq.ToString());
+            //Metaquery mq = queue2.Pop();
+            //Console.Write(mq.ToString());
 
             Console.ReadKey();
         }

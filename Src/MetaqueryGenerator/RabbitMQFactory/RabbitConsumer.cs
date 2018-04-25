@@ -140,28 +140,28 @@ namespace RabbitMQFactory
                 Console.WriteLine("Failed message: {0}", ex);
             }
         }
-        public T Pop()
-        {
-            //const bool durable = true;
-            //channel.QueueDeclare(QueueName, durable, false, false, null);
+        //public T Pop()
+        //{
+        //    //const bool durable = true;
+        //    //channel.QueueDeclare(QueueName, durable, false, false, null);
 
-            var consumer = new QueueingBasicConsumer(channel);
+        //    var consumer = new QueueingBasicConsumer(channel);
 
-            // turn auto acknowledge off so we can do it manually. This is so we don't remove items from the queue until we're perfectly happy
-            const bool autoAck = false;
-            channel.BasicConsume(QueueName, autoAck, consumer);
+        //    // turn auto acknowledge off so we can do it manually. This is so we don't remove items from the queue until we're perfectly happy
+        //    const bool autoAck = false;
+        //    channel.BasicConsume(QueueName, autoAck, consumer);
 
-            var ea = (BasicDeliverEventArgs)consumer.Queue.Dequeue();
+        //    var ea = (BasicDeliverEventArgs)consumer.Queue.Dequeue();
 
-            byte[] body = ea.Body;
+        //    byte[] body = ea.Body;
 
-            string strMessage = System.Text.Encoding.UTF8.GetString(body);
-            T message = JsonConvert.DeserializeObject<T>(strMessage);
+        //    string strMessage = System.Text.Encoding.UTF8.GetString(body);
+        //    T message = JsonConvert.DeserializeObject<T>(strMessage);
 
-            // Acknowledge message received and processed
-            channel.BasicAck(ea.DeliveryTag, false);
-            return message;
-        }
+        //    // Acknowledge message received and processed
+        //    channel.BasicAck(ea.DeliveryTag, false);
+        //    return message;
+        //}
         private BasicDeliverEventArgs DequeueMessage(EventingBasicConsumer consumer)
         {
 
