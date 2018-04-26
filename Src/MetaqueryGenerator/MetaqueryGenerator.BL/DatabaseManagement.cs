@@ -30,7 +30,10 @@ namespace MetaqueryGenerator.BL
                 MaxVariablesInRelation = maxVariableInRelation
             };
             DatabaseManagementsDS.Create(tblDatabaseManagement);
-            return true;
+
+			MQGeneratorMail.SendDBInitializedMail(tblDatabaseManagement);
+
+			return true;
         }
 
 		

@@ -76,6 +76,7 @@ namespace MetaqueryGenerator.Forms.UserControls
             decimal confidence, support;
             decimal.TryParse(txtConfidence.Text,out confidence);
             decimal.TryParse(txtSupport.Text,out support);
+			 
 			if (dbManagement.Create(txtDbName.Text, txtConnectionString.Text, support, confidence))
 			{
 				if(MQGenerator.IsAutoRunJobs)

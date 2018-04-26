@@ -127,7 +127,10 @@ namespace MetaqueryGenerator.BL
 			{
 				db.CurrentArity++;
 				DatabaseManagementsDS.Update(db);
+				
 			}
+			if (lstDB.Count > 0 && IsAutoRunJobs)
+				StartSendMQToSolver();
 
 		}
 
