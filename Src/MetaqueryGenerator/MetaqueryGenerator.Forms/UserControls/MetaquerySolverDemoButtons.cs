@@ -29,8 +29,13 @@ namespace MetaqueryGenerator.Forms.UserControls
 
 		private void customButton2_Click(object sender, EventArgs e)
 		{
-			demo.StopConsume();
-			ShowMessage("MQ Solver Consumer has stopped");
+			if (demo == null)
+				ShowMessage("No Consumer Started");
+			else
+			{
+				demo.StopConsume();
+				ShowMessage("MQ Solver Consumer has stopped");
+			}
 		}
 	}
 }

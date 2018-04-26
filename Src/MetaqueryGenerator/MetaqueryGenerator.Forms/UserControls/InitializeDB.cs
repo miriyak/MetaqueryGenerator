@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Data.ConnectionUI;
+using MetaqueryGenerator.BL;
+using System.Configuration;
 
 namespace MetaqueryGenerator.Forms.UserControls
 {
@@ -74,9 +76,12 @@ namespace MetaqueryGenerator.Forms.UserControls
             decimal confidence, support;
             decimal.TryParse(txtConfidence.Text,out confidence);
             decimal.TryParse(txtSupport.Text,out support);
-            if (dbManagement.Create(txtDbName.Text, txtConnectionString.Text, support, confidence))
-                ShowMessage("DB Initialized successfuly");
-
+			if (dbManagement.Create(txtDbName.Text, txtConnectionString.Text, support, confidence))
+			{
+				if(MQGenerator.IsAutoRunJobs)
+					MQGenerator.StartDBProcess();
+				ShowMessage("DB Initialized successfuly");
+			}
         }
 
         

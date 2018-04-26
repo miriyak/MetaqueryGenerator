@@ -11,17 +11,19 @@ using System.Text;
 
 namespace MetaqueryGenerator.BL
 {
-    public class MQGenerator
+    public static class MQGenerator
     {
-        //public int SupportThreshold { get; set; }
-        //public int ConfidenceThreshold { get; set; }
-
-        public MQGenerator()
+		//public int SupportThreshold { get; set; }
+		//public int ConfidenceThreshold { get; set; }
+		public static bool IsAutoRunJobs { get; set; }
+		static MQGenerator()
         {
-            
-        }
-        
-        public void StartDBProcess()
+			bool isAutoRunJobs = false;
+			bool.TryParse(ConfigurationManager.AppSettings["AutoRunJobs"], out isAutoRunJobs);
+			IsAutoRunJobs = isAutoRunJobs;
+		}
+
+		public static void StartDBProcess()
         {
             List<TblDatabaseManagement> lstDB = DatabaseManagementsDS.GetDBToWork(StatusDB.Received);
             Metaquery rootMQ = Metaquery.GetRootMQ();
@@ -40,8 +42,12 @@ namespace MetaqueryGenerator.BL
                 MetaqueryDS.Create(tblMetaquery);
                 DatabaseManagementsDS.UpdateStatus(db, StatusDB.InProcess);
             }
-        }
-        public int StartSendMQToSolver()
+			//if at least 1 metaquery created - we can start send it to solver
+			if (lstDB.Count > 0 && IsAutoRunJobs)
+				StartSendMQToSolver();
+
+		}
+		public static int StartSendMQToSolver()
         {
 			string queueToMQSolverName = ConfigurationManager.AppSettings["QueueToMQSolverName"];
             List<TblMetaquery> lstMQ = MetaqueryDS.GetMQForSendToSolver();
@@ -70,7 +76,7 @@ namespace MetaqueryGenerator.BL
             }
 			return count;
 		}
-		public void StartExpandMQProcess()
+		public static void StartExpandMQProcess()
         {
             List<TblMetaquery> lstMQ = MetaqueryDS.GetMQForExpand();
             foreach (TblMetaquery tblMetaquery in lstMQ)
@@ -95,13 +101,17 @@ namespace MetaqueryGenerator.BL
                 }
                 MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.Expanded);
 
-                /*
+				
+				/*
                 MetaqueryDS.Create(tblMetaquery);
                 DatabaseManagementsDS.UpdateStatus(db, StatusDB.InProcess);*/
-            }
-        }
+			}
+			if (IsAutoRunJobs && lstMQ.Count > 0 )
+				StartIncreaseDBArity();
 
-		public void StartIncreaseDBArity()
+		}
+
+		public static void StartIncreaseDBArity()
 		{
 			//Update status of the db that this arity is the last
 			List<TblDatabaseManagement> lstFinishDB = DatabaseManagementsDS.GetDBThatFinishedProcess();
@@ -120,8 +130,8 @@ namespace MetaqueryGenerator.BL
 			}
 
 		}
-		
-		public void Start()
+
+		public static void Start()
         {
             StartDBProcess();
             StartSendMQToSolver();
@@ -136,7 +146,7 @@ namespace MetaqueryGenerator.BL
                 Console.WriteLine(q.ToString());*/
         }
 
-        public List<Metaquery> VariableExpand(Metaquery query)
+		public static List<Metaquery> VariableExpand(Metaquery query)
         {
             List<Metaquery> mqList = new List<Metaquery>();
 

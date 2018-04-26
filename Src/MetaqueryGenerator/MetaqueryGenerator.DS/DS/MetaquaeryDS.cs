@@ -35,10 +35,10 @@ namespace MetaqueryGenerator.DS
         {
             using (MetaqueriesContext context = new MetaqueriesContext())
             {
-                return context
-                    .TblMetaqueries
-                    .Include(x => x.TblDatabaseManagement)
-                    .Where(x => x.HasResult.HasValue && x.HasResult.Value == true && !x.IsExpanded)
+				return context
+					.TblMetaqueries
+					.Include(x => x.TblDatabaseManagement)
+					.Where(x => !x.IsExpanded && x.TblMetaqueriesResults.Any())
                     .ToList();
             }
         }
@@ -64,8 +64,10 @@ namespace MetaqueryGenerator.DS
                     tblMetaquery.StartTime = DateTime.Now;
                 if (newStatus == StatusMQ.Done)
                     tblMetaquery.FinishTime = DateTime.Now;
+				if (newStatus == StatusMQ.Expanded)
+					tblMetaquery.IsExpanded = true;
 
-                context.TblMetaqueries.Attach(tblMetaquery);
+				context.TblMetaqueries.Attach(tblMetaquery);
                 //context.Entry(tblMetaquery).State = System.Data.Entity.EntityState.Modified;
                 context.MarkAsModified(tblMetaquery);
                 context.SaveChanges();

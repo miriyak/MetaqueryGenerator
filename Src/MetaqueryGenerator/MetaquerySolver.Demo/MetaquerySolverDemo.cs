@@ -63,7 +63,7 @@ namespace MetaquerySolver.Demo
 						SupportValue = resultMQ.SupportValue.Value
 					};
 
-					SendMQMessageToSolver(producer, resultMessage);
+					SendMQMessageToSolver(producer, assignmentResultMessage);
 
 					System.Threading.Thread.Sleep(3000);
 

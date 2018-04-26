@@ -30,20 +30,11 @@ namespace MetaqueryGenerator.BL
 		{
 
 			MQMessage message = null;
-			try
-			{
+			if(strMessage.Contains("Result")) //strMessage is MQResultMessage
 				message = JsonConvert.DeserializeObject<MQResultMessage>(strMessage);
-			}
-			catch
-			{
-				try
-				{
-					message = JsonConvert.DeserializeObject<MQAssignmentResultMessage>(strMessage);
-				}
-				catch
-				{
-				}
-			}
+			else //strMessage is MQAssignmentResultMessage
+				message = JsonConvert.DeserializeObject<MQAssignmentResultMessage>(strMessage);
+
 			int metaqueryID = message.ID;
 			TblMetaquery tblMetaquery = MetaqueryDS.GetByID(metaqueryID);
 			if (tblMetaquery == null)
@@ -56,7 +47,9 @@ namespace MetaqueryGenerator.BL
 				MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.Done);
 
 				MQGeneratorMail.SendResultMail(tblMetaquery);
-
+				
+				if (MQGenerator.IsAutoRunJobs && resultMessage.Result == false)
+					MQGenerator.StartIncreaseDBArity();
 			}
 			else if (message is MQAssignmentResultMessage)
 			{
@@ -71,8 +64,12 @@ namespace MetaqueryGenerator.BL
 				MetaquaeryResultDS.Create(tblMetaqueriesResult);
 
 				MQGeneratorMail.SendAssignmentMail(tblMetaqueriesResult, tblMetaquery.Metaquery);
+				if (MQGenerator.IsAutoRunJobs)
+					MQGenerator.StartExpandMQProcess();
 
 			}
+			else
+				throw new Exception("There is an unknown metaquery id sent from solver");
 		}
 	}
 }
