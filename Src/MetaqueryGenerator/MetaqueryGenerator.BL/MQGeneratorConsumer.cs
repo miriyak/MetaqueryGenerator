@@ -8,6 +8,7 @@ using System.Configuration;
 using MetaqueryGenerator.Common;
 using Newtonsoft.Json;
 using MetaqueryGenerator.DS;
+using MetaqueryGenerator.Common.Exceptions;
 
 namespace MetaqueryGenerator.BL
 {
@@ -37,39 +38,47 @@ namespace MetaqueryGenerator.BL
 
 			int metaqueryID = message.ID;
 			TblMetaquery tblMetaquery = MetaqueryDS.GetByID(metaqueryID);
-			if (tblMetaquery == null)
-				throw new Exception("There is an unknown metaquery id sent from solver");
-
-			if (message is MQResultMessage)
+			try
 			{
-				MQResultMessage resultMessage = message as MQResultMessage;
-				tblMetaquery.HasResult = resultMessage.Result;
-				MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.Done);
+				if (tblMetaquery == null)
+					throw new UnknownMetaqueryException(string.Format("There is an unknown metaquery id sent from solver. message id: {0}. MQ Solver message :", metaqueryID, message.ToString()));
 
-				MQGeneratorMail.SendResultMail(tblMetaquery);
-				
-				if (MQGenerator.IsAutoRunJobs && resultMessage.Result == false)
-					MQGenerator.StartIncreaseDBArity();
-			}
-			else if (message is MQAssignmentResultMessage)
-			{
-				MQAssignmentResultMessage assignmentResultMessage = message as MQAssignmentResultMessage;
-				TblMetaqueriesResult tblMetaqueriesResult = new TblMetaqueriesResult()
+				if (message is MQResultMessage)
 				{
-					FkMetaqueryId = metaqueryID,
-					Assignment = assignmentResultMessage.Assignment,
-					ConfidenceValue = assignmentResultMessage.ConfidenceValue,
-					SupportValue = assignmentResultMessage.SupportValue
-				};
-				MetaquaeryResultDS.Create(tblMetaqueriesResult);
+					MQResultMessage resultMessage = message as MQResultMessage;
+					tblMetaquery.HasResult = resultMessage.Result;
+					MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.Done);
 
-				MQGeneratorMail.SendAssignmentMail(tblMetaqueriesResult, tblMetaquery.Metaquery);
-				if (MQGenerator.IsAutoRunJobs)
-					MQGenerator.StartExpandMQProcess();
+					MQGeneratorMail.SendResultMail(tblMetaquery);
+
+					if (MQGenerator.IsAutoRunJobs && resultMessage.Result == false)
+						MQGenerator.StartIncreaseDBArity();
+				}
+				else if (message is MQAssignmentResultMessage)
+				{
+					MQAssignmentResultMessage assignmentResultMessage = message as MQAssignmentResultMessage;
+					TblMetaqueriesResult tblMetaqueriesResult = new TblMetaqueriesResult()
+					{
+						FkMetaqueryId = metaqueryID,
+						Assignment = assignmentResultMessage.Assignment,
+						ConfidenceValue = assignmentResultMessage.ConfidenceValue,
+						SupportValue = assignmentResultMessage.SupportValue
+					};
+					MetaquaeryResultDS.Create(tblMetaqueriesResult);
+
+					MQGeneratorMail.SendAssignmentMail(tblMetaqueriesResult, tblMetaquery.Metaquery);
+					if (MQGenerator.IsAutoRunJobs)
+						MQGenerator.StartExpandMQProcess();
+
+				}
+				else
+					throw new UnknownMetaqueryException("There is an unknown metaquery sent from solver. MQ Solver message :" + message.ToString());
+			}
+			catch(Exception ex)
+			{
+				MQGeneratorMail.SendExceptionMail(ex);
 
 			}
-			else
-				throw new Exception("There is an unknown metaquery id sent from solver");
 		}
 	}
 }

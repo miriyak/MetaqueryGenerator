@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums.cs" />
+    <Compile Include="Exceptions\UnknownMetaqueryException.cs" />
     <Compile Include="Extentions.cs" />
     <Compile Include="Helpers\MailHelper.cs" />
     <Compile Include="Messages\MQResultMessage.cs" />
@@ -57,6 +58,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Helpers\MailTemplates\iconCreator.jpg" />
     <Content Include="Helpers\MailTemplates\result.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

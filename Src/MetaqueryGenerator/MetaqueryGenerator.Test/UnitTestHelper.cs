@@ -16,13 +16,13 @@ namespace MetaqueryGenerator.Test
         [TestMethod]
         public void TestMethodMailHelperSend()
         {
-			bool result = MailHelper.SendMail(
+			MailHelper.SendTextMailAsync(
 				"Test Mail - 1", 
 				"mail with attachment", 
 				new List<string> { "genyakobi@gmail.com" }
 				);
 
-            Assert.AreEqual(true, result);
+            Assert.AreEqual(true, true);
 		}
 		
         

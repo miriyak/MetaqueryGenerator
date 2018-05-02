@@ -69,5 +69,10 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="MailTemplates\iconCreator.jpg" />
+    <Content Include="MailTemplates\MQResult.html" />
+    <Content Include="MailTemplates\MQAssignmentResult.html" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

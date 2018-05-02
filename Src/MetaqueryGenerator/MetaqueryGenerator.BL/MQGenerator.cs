@@ -119,6 +119,7 @@ namespace MetaqueryGenerator.BL
 			foreach (TblDatabaseManagement db in lstFinishDB)
 			{
 				DatabaseManagementsDS.UpdateStatus(db, StatusDB.Done);
+				MQGeneratorMail.SendDBFinishedMail(db);
 			}
 
 			//Increase DB Arity in db that finished calculate the current arity 

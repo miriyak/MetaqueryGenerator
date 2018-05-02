@@ -113,6 +113,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="BaseControls\BaseUserControl.resx">
       <DependentUpon>BaseUserControl.cs</DependentUpon>
@@ -160,6 +161,8 @@
   <ItemGroup>
     <Content Include="Images\iconCreator.jpg" />
     <Content Include="Images\iconCreator.png" />
+    <None Include="Images\iconCreator2.jpg" />
+    <None Include="Images\iconCreator1.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
