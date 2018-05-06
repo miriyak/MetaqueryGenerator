@@ -18,8 +18,14 @@ namespace MetaqueryGenerator.DS
                 context.SaveChanges();
             }
         }
-
-        public static List<TblDatabaseManagement> GetDBToWork(StatusDB statusDB)
+		public static List<TblDatabaseManagement> Get()
+		{
+			using (MetaqueriesContext context = new MetaqueriesContext())
+			{
+				return context.TblDatabaseManagements.ToList();
+			}
+		}
+		public static List<TblDatabaseManagement> GetDBToWork(StatusDB statusDB)
         {
             using (MetaqueriesContext context = new MetaqueriesContext())
             {

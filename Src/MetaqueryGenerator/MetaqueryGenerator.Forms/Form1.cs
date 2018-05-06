@@ -66,11 +66,14 @@ namespace MetaqueryGenerator.Forms
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            setButtonPressed(button2);
 
-        }
+			DBStatusOfRun uc = new DBStatusOfRun();
+			setButtonPressed(button2);
+			openNewPanel(uc);
 
-       
+		}
+
+
 
 		private void button4_Click(object sender, EventArgs e)
 		{

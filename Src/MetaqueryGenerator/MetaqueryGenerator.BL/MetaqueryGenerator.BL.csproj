@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseManagement.cs" />
+    <Compile Include="DBQueries.cs" />
     <Compile Include="MQGenerator.cs" />
     <Compile Include="MQGeneratorConsumer.cs" />
     <Compile Include="MQGeneratorMail.cs" />

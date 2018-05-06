@@ -31,7 +31,17 @@ namespace MetaqueryGenerator.DS
 					;
 			}
 		}
-        public static List<TblMetaquery> GetMQForExpand()
+		public static List<VMetaquery> GetMetaqueriesByID(int dbID)
+		{
+			using (MetaqueriesContext context = new MetaqueriesContext())
+			{
+				return context
+					.VMetaqueries
+					.Where(x => x.FkDatabaseId == dbID)
+					.ToList();
+			}
+		}
+		public static List<TblMetaquery> GetMQForExpand()
         {
             using (MetaqueriesContext context = new MetaqueriesContext())
             {

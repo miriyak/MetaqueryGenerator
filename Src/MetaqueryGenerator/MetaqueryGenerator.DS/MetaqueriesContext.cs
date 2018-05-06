@@ -41,6 +41,8 @@ namespace MetaqueryGenerator.DS
         System.Data.Entity.DbSet<TblMetaqueriesResult> TblMetaqueriesResults { get; set; } // Tbl_MetaqueriesResults
         System.Data.Entity.DbSet<TblMetaquery> TblMetaqueries { get; set; } // Tbl_Metaqueries
         System.Data.Entity.DbSet<TblStatus> TblStatus { get; set; } // Tbl_Statuses
+        System.Data.Entity.DbSet<VMetaqueriesResult> VMetaqueriesResults { get; set; } // V_MetaqueriesResult
+        System.Data.Entity.DbSet<VMetaquery> VMetaqueries { get; set; } // V_Metaqueries
 
         int SaveChanges();
         System.Threading.Tasks.Task<int> SaveChangesAsync();
@@ -68,6 +70,8 @@ namespace MetaqueryGenerator.DS
         public System.Data.Entity.DbSet<TblMetaqueriesResult> TblMetaqueriesResults { get; set; } // Tbl_MetaqueriesResults
         public System.Data.Entity.DbSet<TblMetaquery> TblMetaqueries { get; set; } // Tbl_Metaqueries
         public System.Data.Entity.DbSet<TblStatus> TblStatus { get; set; } // Tbl_Statuses
+        public System.Data.Entity.DbSet<VMetaqueriesResult> VMetaqueriesResults { get; set; } // V_MetaqueriesResult
+        public System.Data.Entity.DbSet<VMetaquery> VMetaqueries { get; set; } // V_Metaqueries
 
         static MetaqueriesContext()
         {
@@ -127,6 +131,8 @@ namespace MetaqueryGenerator.DS
             modelBuilder.Configurations.Add(new TblMetaqueriesResultConfiguration());
             modelBuilder.Configurations.Add(new TblMetaqueryConfiguration());
             modelBuilder.Configurations.Add(new TblStatusConfiguration());
+            modelBuilder.Configurations.Add(new VMetaqueriesResultConfiguration());
+            modelBuilder.Configurations.Add(new VMetaqueryConfiguration());
 
             OnModelCreatingPartial(modelBuilder);
         }
@@ -138,6 +144,8 @@ namespace MetaqueryGenerator.DS
             modelBuilder.Configurations.Add(new TblMetaqueriesResultConfiguration(schema));
             modelBuilder.Configurations.Add(new TblMetaqueryConfiguration(schema));
             modelBuilder.Configurations.Add(new TblStatusConfiguration(schema));
+            modelBuilder.Configurations.Add(new VMetaqueriesResultConfiguration(schema));
+            modelBuilder.Configurations.Add(new VMetaqueryConfiguration(schema));
             return modelBuilder;
         }
 
@@ -168,6 +176,8 @@ namespace MetaqueryGenerator.DS
         public System.Data.Entity.DbSet<TblMetaqueriesResult> TblMetaqueriesResults { get; set; }
         public System.Data.Entity.DbSet<TblMetaquery> TblMetaqueries { get; set; }
         public System.Data.Entity.DbSet<TblStatus> TblStatus { get; set; }
+        public System.Data.Entity.DbSet<VMetaqueriesResult> VMetaqueriesResults { get; set; }
+        public System.Data.Entity.DbSet<VMetaquery> VMetaqueries { get; set; }
 
         public FakeMetaqueriesContext()
         {
@@ -176,6 +186,8 @@ namespace MetaqueryGenerator.DS
             TblMetaqueriesResults = new FakeDbSet<TblMetaqueriesResult>("Id");
             TblMetaqueries = new FakeDbSet<TblMetaquery>("Id");
             TblStatus = new FakeDbSet<TblStatus>("Id");
+            VMetaqueriesResults = new FakeDbSet<VMetaqueriesResult>("Id", "FkMetaqueryId", "Metaquery", "SupportValue", "ConfidenceValue", "Assignment");
+            VMetaqueries = new FakeDbSet<VMetaquery>("Id", "FkDatabaseId", "Metaquery", "FkStatusId", "IsExpanded", "Arity", "LastUpdatedDate");
 
             InitializePartial();
         }
@@ -766,6 +778,50 @@ namespace MetaqueryGenerator.DS
         partial void InitializePartial();
     }
 
+    // V_MetaqueriesResult
+    [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
+    public partial class VMetaqueriesResult
+    {
+        public int Id { get; set; } // Id (Primary key)
+        public int FkMetaqueryId { get; set; } // FK_MetaqueryID (Primary key)
+        public string Metaquery { get; set; } // Metaquery (Primary key)
+        public decimal SupportValue { get; set; } // SupportValue (Primary key)
+        public decimal ConfidenceValue { get; set; } // ConfidenceValue (Primary key)
+        public string Assignment { get; set; } // Assignment (Primary key)
+
+        public VMetaqueriesResult()
+        {
+            InitializePartial();
+        }
+
+        partial void InitializePartial();
+    }
+
+    // V_Metaqueries
+    [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
+    public partial class VMetaquery
+    {
+        public int Id { get; set; } // Id (Primary key)
+        public int FkDatabaseId { get; set; } // FK_DatabaseID (Primary key)
+        public string Metaquery { get; set; } // Metaquery (Primary key)
+        public int FkStatusId { get; set; } // FK_StatusId (Primary key)
+        public string Description { get; set; } // Description (length: 100)
+        public bool? HasResult { get; set; } // HasResult
+        public bool IsExpanded { get; set; } // IsExpanded (Primary key)
+        public int Arity { get; set; } // Arity (Primary key)
+        public System.DateTime? CreatedDate { get; set; } // CreatedDate
+        public System.DateTime LastUpdatedDate { get; set; } // LastUpdatedDate (Primary key)
+        public System.DateTime? StartTime { get; set; } // StartTime
+        public System.DateTime? FinishTime { get; set; } // FinishTime
+
+        public VMetaquery()
+        {
+            InitializePartial();
+        }
+
+        partial void InitializePartial();
+    }
+
     #endregion
 
     #region POCO Configuration
@@ -844,7 +900,7 @@ namespace MetaqueryGenerator.DS
             Property(x => x.FkMetaqueryId).HasColumnName(@"FK_MetaqueryID").HasColumnType("int").IsRequired();
             Property(x => x.SupportValue).HasColumnName(@"SupportValue").HasColumnType("numeric").IsRequired().HasPrecision(10,2);
             Property(x => x.ConfidenceValue).HasColumnName(@"ConfidenceValue").HasColumnType("numeric").IsRequired().HasPrecision(10,2);
-            Property(x => x.Assignment).HasColumnName(@"Assignment").HasColumnType("nvarchar(max)").IsOptional();
+            Property(x => x.Assignment).HasColumnName(@"Assignment").HasColumnType("nvarchar(max)").IsRequired();
 
             // Foreign keys
             HasRequired(a => a.TblMetaquery).WithMany(b => b.TblMetaqueriesResults).HasForeignKey(c => c.FkMetaqueryId).WillCascadeOnDelete(false); // FK_Tbl_MetaqueriesResults_Tbl_Metaqueries
@@ -903,6 +959,62 @@ namespace MetaqueryGenerator.DS
 
             Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             Property(x => x.Description).HasColumnName(@"Description").HasColumnType("nvarchar").IsOptional().HasMaxLength(100);
+            InitializePartial();
+        }
+        partial void InitializePartial();
+    }
+
+    // V_MetaqueriesResult
+    [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
+    public partial class VMetaqueriesResultConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<VMetaqueriesResult>
+    {
+        public VMetaqueriesResultConfiguration()
+            : this("dbo")
+        {
+        }
+
+        public VMetaqueriesResultConfiguration(string schema)
+        {
+            ToTable("V_MetaqueriesResult", schema);
+            HasKey(x => new { x.Id, x.FkMetaqueryId, x.Metaquery, x.SupportValue, x.ConfidenceValue, x.Assignment });
+
+            Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.FkMetaqueryId).HasColumnName(@"FK_MetaqueryID").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.Metaquery).HasColumnName(@"Metaquery").HasColumnType("nvarchar(max)").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.SupportValue).HasColumnName(@"SupportValue").HasColumnType("numeric").IsRequired().HasPrecision(10,2).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.ConfidenceValue).HasColumnName(@"ConfidenceValue").HasColumnType("numeric").IsRequired().HasPrecision(10,2).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.Assignment).HasColumnName(@"Assignment").HasColumnType("nvarchar(max)").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            InitializePartial();
+        }
+        partial void InitializePartial();
+    }
+
+    // V_Metaqueries
+    [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
+    public partial class VMetaqueryConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<VMetaquery>
+    {
+        public VMetaqueryConfiguration()
+            : this("dbo")
+        {
+        }
+
+        public VMetaqueryConfiguration(string schema)
+        {
+            ToTable("V_Metaqueries", schema);
+            HasKey(x => new { x.Id, x.FkDatabaseId, x.Metaquery, x.FkStatusId, x.IsExpanded, x.Arity, x.LastUpdatedDate });
+
+            Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.FkDatabaseId).HasColumnName(@"FK_DatabaseID").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.Metaquery).HasColumnName(@"Metaquery").HasColumnType("nvarchar(max)").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.FkStatusId).HasColumnName(@"FK_StatusId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.Description).HasColumnName(@"Description").HasColumnType("nvarchar").IsOptional().HasMaxLength(100);
+            Property(x => x.HasResult).HasColumnName(@"HasResult").HasColumnType("bit").IsOptional();
+            Property(x => x.IsExpanded).HasColumnName(@"IsExpanded").HasColumnType("bit").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.Arity).HasColumnName(@"Arity").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime2").IsOptional();
+            Property(x => x.LastUpdatedDate).HasColumnName(@"LastUpdatedDate").HasColumnType("datetime2").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.StartTime).HasColumnName(@"StartTime").HasColumnType("datetime2").IsOptional();
+            Property(x => x.FinishTime).HasColumnName(@"FinishTime").HasColumnType("datetime2").IsOptional();
             InitializePartial();
         }
         partial void InitializePartial();

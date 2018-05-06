@@ -84,6 +84,12 @@
     <Compile Include="BaseControls\CustomButton.Designer.cs">
       <DependentUpon>CustomButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\DBStatusOfRun.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\DBStatusOfRun.Designer.cs">
+      <DependentUpon>DBStatusOfRun.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\InitializeDB.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -121,6 +127,9 @@
     <EmbeddedResource Include="BaseControls\CustomButton.resx">
       <DependentUpon>CustomButton.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\DBStatusOfRun.resx">
+      <DependentUpon>DBStatusOfRun.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\InitializeDB.resx">
       <DependentUpon>InitializeDB.cs</DependentUpon>
     </EmbeddedResource>
@@ -148,6 +157,10 @@
     <ProjectReference Include="..\MetaqueryGenerator.BL\MetaqueryGenerator.BL.csproj">
       <Project>{225099af-92b8-4a83-8fc1-fe642d47d23a}</Project>
       <Name>MetaqueryGenerator.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MetaqueryGenerator.DS\MetaqueryGenerator.DS.csproj">
+      <Project>{8325b2cc-16e4-4268-8814-bbcc1f795a9d}</Project>
+      <Name>MetaqueryGenerator.DS</Name>
     </ProjectReference>
     <ProjectReference Include="..\MetaquerySolver.Demo\MetaquerySolver.Demo.csproj">
       <Project>{c3ee39ae-cf17-407a-90d4-fa14689a2e85}</Project>

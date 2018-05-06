@@ -8,7 +8,7 @@ using MetaqueryGenerator.Common;
 
 namespace MetaqueryGenerator.DS
 {
-    public static class MetaquaeryResultDS
+    public static class MetaqueryResultDS
 	{
         public static void Create(TblMetaqueriesResult tblMetaqueryResult)
         {
@@ -19,8 +19,17 @@ namespace MetaqueryGenerator.DS
                 context.SaveChanges();
             }
         }
-
-        public static List<TblMetaquery> GetMQForExpand()
+		public static List<VMetaqueriesResult> GetMetaqueriesResultByID(int metaqueryID)
+		{
+			using (MetaqueriesContext context = new MetaqueriesContext())
+			{
+				return context
+					.VMetaqueriesResults
+					.Where(x => x.FkMetaqueryId == metaqueryID)
+					.ToList();
+			}
+		}
+		public static List<TblMetaquery> GetMQForExpand()
         {
             using (MetaqueriesContext context = new MetaqueriesContext())
             {

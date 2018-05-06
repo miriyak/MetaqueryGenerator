@@ -64,7 +64,7 @@ namespace MetaqueryGenerator.BL
 						ConfidenceValue = assignmentResultMessage.ConfidenceValue,
 						SupportValue = assignmentResultMessage.SupportValue
 					};
-					MetaquaeryResultDS.Create(tblMetaqueriesResult);
+					MetaqueryResultDS.Create(tblMetaqueriesResult);
 
 					MQGeneratorMail.SendAssignmentMail(tblMetaqueriesResult, tblMetaquery.Metaquery);
 					if (MQGenerator.IsAutoRunJobs)
