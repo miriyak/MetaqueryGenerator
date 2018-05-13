@@ -12,7 +12,10 @@ namespace MetaqueryGenerator.BL
 		public static List<KeyValuePair<int, string>> GetAllDB()
 		{
 			List<TblDatabaseManagement> allDB = DatabaseManagementsDS.Get();
-			return allDB.Select(x => new KeyValuePair<int, string>(x.Id, x.DbName)).ToList();
+			List<KeyValuePair<int, string>> results = new List<KeyValuePair<int, string>>();
+			results.Add(new KeyValuePair<int, string>(0, "Select DB"));
+			results.AddRange(allDB.Select(x => new KeyValuePair<int, string>(x.Id, x.DbName)).ToList());
+			return results;
 		}
 		public static List<VMetaquery> GetMetaqueriesByDBID(int dbID)
 		{

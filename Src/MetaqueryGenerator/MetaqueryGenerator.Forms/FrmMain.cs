@@ -11,10 +11,10 @@ using MetaqueryGenerator.Forms.UserControls;
 
 namespace MetaqueryGenerator.Forms
 {
-    public partial class Form1 : Form
+    public partial class FrmMain : Form
     {
         UserControl lastPanel;
-        public Form1()
+        public FrmMain()
         {
             InitializeComponent();
         }
@@ -33,8 +33,8 @@ namespace MetaqueryGenerator.Forms
             
         }
 
-        
-        private void setButtonPressed(Button pressedButton)
+
+		private void setButtonPressed(Button pressedButton)
         {
             button1.FlatAppearance.BorderSize = 0;
             button2.FlatAppearance.BorderSize = 0;
@@ -42,8 +42,12 @@ namespace MetaqueryGenerator.Forms
             button4.FlatAppearance.BorderSize = 0;
             button5.FlatAppearance.BorderSize = 0;
             pressedButton.FlatAppearance.BorderSize = 3;
-        }
-        private void openNewPanel(UserControl uc)
+
+			lblPage.Text = pressedButton.Text;
+
+
+		}
+		private void openNewPanel(UserControl uc)
         {
             
             if (lastPanel != null)
@@ -60,15 +64,15 @@ namespace MetaqueryGenerator.Forms
         private void button1_Click(object sender, EventArgs e)
         {
 
-            InitializeDB uc = new InitializeDB();
             setButtonPressed(button1);
+			InitializeDB uc = new InitializeDB();
             openNewPanel(uc);
         }
         private void button2_Click(object sender, EventArgs e)
         {
 
-			DBStatusOfRun uc = new DBStatusOfRun();
 			setButtonPressed(button2);
+			DBStatusOfRun uc = new DBStatusOfRun();
 			openNewPanel(uc);
 
 		}
@@ -77,15 +81,15 @@ namespace MetaqueryGenerator.Forms
 
 		private void button4_Click(object sender, EventArgs e)
 		{
-			TestJobsButtons uc = new TestJobsButtons();
 			setButtonPressed(button4);
+			TestJobsButtons uc = new TestJobsButtons();
 			openNewPanel(uc);
 		}
 
 		private void button5_Click(object sender, EventArgs e)
         {
-			MetaquerySolverDemoButtons uc = new MetaquerySolverDemoButtons();
 			setButtonPressed(button5);
+			MetaquerySolverDemoButtons uc = new MetaquerySolverDemoButtons();
 			openNewPanel(uc);
 
 		}

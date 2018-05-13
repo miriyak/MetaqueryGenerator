@@ -31,9 +31,7 @@
 			this.comboDB = new System.Windows.Forms.ComboBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.gridMetaquery = new System.Windows.Forms.DataGridView();
-			this.gridMetaqueryResult = new System.Windows.Forms.DataGridView();
 			((System.ComponentModel.ISupportInitialize)(this.gridMetaquery)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.gridMetaqueryResult)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// comboDB
@@ -60,24 +58,14 @@
 			this.gridMetaquery.Location = new System.Drawing.Point(0, 84);
 			this.gridMetaquery.Name = "gridMetaquery";
 			this.gridMetaquery.RowTemplate.Height = 24;
-			this.gridMetaquery.Size = new System.Drawing.Size(638, 370);
+			this.gridMetaquery.Size = new System.Drawing.Size(915, 370);
 			this.gridMetaquery.TabIndex = 3;
 			this.gridMetaquery.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridMetaquery_CellClick);
-			// 
-			// gridMetaqueryResult
-			// 
-			this.gridMetaqueryResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.gridMetaqueryResult.Location = new System.Drawing.Point(688, 112);
-			this.gridMetaqueryResult.Name = "gridMetaqueryResult";
-			this.gridMetaqueryResult.RowTemplate.Height = 24;
-			this.gridMetaqueryResult.Size = new System.Drawing.Size(240, 150);
-			this.gridMetaqueryResult.TabIndex = 4;
 			// 
 			// DBStatusOfRun
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.gridMetaqueryResult);
 			this.Controls.Add(this.gridMetaquery);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.comboDB);
@@ -86,9 +74,7 @@
 			this.Controls.SetChildIndex(this.comboDB, 0);
 			this.Controls.SetChildIndex(this.label1, 0);
 			this.Controls.SetChildIndex(this.gridMetaquery, 0);
-			this.Controls.SetChildIndex(this.gridMetaqueryResult, 0);
 			((System.ComponentModel.ISupportInitialize)(this.gridMetaquery)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.gridMetaqueryResult)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -99,6 +85,5 @@
 		private System.Windows.Forms.ComboBox comboDB;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.DataGridView gridMetaquery;
-		private System.Windows.Forms.DataGridView gridMetaqueryResult;
 	}
 }

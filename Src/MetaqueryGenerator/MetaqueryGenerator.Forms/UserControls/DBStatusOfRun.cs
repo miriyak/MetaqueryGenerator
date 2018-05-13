@@ -40,6 +40,7 @@ namespace MetaqueryGenerator.Forms.UserControls
 			int dbID;
 			if (int.TryParse(comboDB.SelectedValue.ToString(), out dbID))
 			//var dbID = (KeyValuePair<int, string>)comboDB.SelectedValue ;
+			if(dbID >0 )
 			{
 				metaqueriesList = DBQueries.GetMetaqueriesByDBID(dbID);
 				gridMetaquery.DataSource = metaqueriesList;
@@ -49,7 +50,9 @@ namespace MetaqueryGenerator.Forms.UserControls
 		private void gridMetaquery_CellClick(object sender, DataGridViewCellEventArgs e)
 		{
 			int metaqueryID = metaqueriesList[e.RowIndex].Id;
-			gridMetaqueryResult.DataSource = DBQueries.GetMetaqueriesResultByID(metaqueryID);
+			FrmMetaqueryResult frm = new FrmMetaqueryResult(metaqueryID);
+			frm.ShowDialog();
+			//gridMetaqueryResult.DataSource = DBQueries.GetMetaqueriesResultByID(metaqueryID);
 		}
 
 	}

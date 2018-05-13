@@ -64,11 +64,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="FrmMain.Designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMetaqueryResult.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMetaqueryResult.Designer.cs">
+      <DependentUpon>FrmMetaqueryResult.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -102,14 +108,23 @@
     <Compile Include="UserControls\MetaquerySolverDemoButtons.Designer.cs">
       <DependentUpon>MetaquerySolverDemoButtons.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\MQResults.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\MQResults.Designer.cs">
+      <DependentUpon>MQResults.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\TestJobsButtons.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\TestJobsButtons.Designer.cs">
       <DependentUpon>TestJobsButtons.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMetaqueryResult.resx">
+      <DependentUpon>FrmMetaqueryResult.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -135,6 +150,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\MetaquerySolverDemoButtons.resx">
       <DependentUpon>MetaquerySolverDemoButtons.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\MQResults.resx">
+      <DependentUpon>MQResults.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\TestJobsButtons.resx">
       <DependentUpon>TestJobsButtons.cs</DependentUpon>
@@ -172,8 +190,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\iconcreator.ico" />
     <Content Include="Images\iconCreator.jpg" />
     <Content Include="Images\iconCreator.png" />
+    <Content Include="Images\iconcreator_cicle.png" />
     <None Include="Images\iconCreator2.jpg" />
     <None Include="Images\iconCreator1.jpg" />
   </ItemGroup>
