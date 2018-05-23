@@ -68,64 +68,80 @@ namespace MetaqueryGenerator.Forms.UserControls
             txtConnectionString.Text = @"Data Source =.\SQLEXPRESS; Initial Catalog = TestMQ; Integrated Security = True";
             txtConfidence.Text = "0.3";
             txtSupport.Text = "0.2";
+            txtMaxArity.Text = "10";
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
             MetaqueryGenerator.BL.DatabaseManagement dbManagement = new BL.DatabaseManagement();
             decimal confidence, support;
+            int maxArity;
             decimal.TryParse(txtConfidence.Text,out confidence);
             decimal.TryParse(txtSupport.Text,out support);
-			 
-			if (dbManagement.Create(txtDbName.Text, txtConnectionString.Text, support, confidence))
+			int.TryParse(txtMaxArity.Text,out maxArity);
+			
+			if (dbManagement.Create(txtDbName.Text, txtConnectionString.Text, support, confidence,maxArity))
 			{
 				if(MQGenerator.IsAutoRunJobs)
 					MQGenerator.StartDBProcess();
 				ShowMessage("DB Initialized successfuly");
+				txtDbName.Text = "";
 			}
         }
+		public void ClearTextboxes()
+		{
+			txtDbName.Text = "";
+			txtConnectionString.Text = "";
+			txtConfidence.Text = "";
+			txtSupport.Text = "";
+			txtMaxArity.Text = "";
+		}
+		private void btnClear_Click(object sender, EventArgs e)
+		{
+			ClearTextboxes();
+		}
 
-        
 
-        //public bool GetConnection(ref string DataSource, bool SaveConfiguration)
-        //{
-        //    object success = false;
-        //    // Warning!!! Optional parameters not supported
-        //    DataConnectionDialog dcd = new DataConnectionDialog();
-        //    DataConnectionConfiguration dcs = new DataConnectionConfiguration(null);
-        //    dcs.LoadConfiguration(dcd);
-        //    if ((DataConnectionDialog.Show(dcd) == DialogResult.OK))
-        //    {
-        //        DbProviderFactory factory = DbProviderFactories.GetFactory(dcd.SelectedDataProvider.Name);
-        //        Using;
-        //        connection = factory.CreateConnection();
-        //        connection.ConnectionString = dcd.ConnectionString;
-        //        DataSource = connection.DataSource;
-        //        connection.Open();
-        //        object cmd = connection.CreateCommand();
-        //        cmd.CommandType = CommandType.Text;
-        //        cmd.CommandText = "SELECT * FROM INFORMATION_SCHEMA.TABLES";
-        //        object dt = new DataTable();
-        //        dt.Load(cmd.ExecuteReader());
-        //        TableNames = dt.AsEnumerable().Select(Function, row, row.Field(Of, String)["table_name"]).OrderBy(Function, field, field).ToList();
-        //    }
 
-        //    mBuilder = new SqlConnectionStringBuilder();
-        //    // With...
-        //    ConnectionString = dcd.ConnectionString;
-        //    ServerName = mBuilder.DataSource;
-        //    if (SaveConfiguration)
-        //    {
-        //        dcs.SaveConfiguration(dcd);
-        //    }
+		//public bool GetConnection(ref string DataSource, bool SaveConfiguration)
+		//{
+		//    object success = false;
+		//    // Warning!!! Optional parameters not supported
+		//    DataConnectionDialog dcd = new DataConnectionDialog();
+		//    DataConnectionConfiguration dcs = new DataConnectionConfiguration(null);
+		//    dcs.LoadConfiguration(dcd);
+		//    if ((DataConnectionDialog.Show(dcd) == DialogResult.OK))
+		//    {
+		//        DbProviderFactory factory = DbProviderFactories.GetFactory(dcd.SelectedDataProvider.Name);
+		//        Using;
+		//        connection = factory.CreateConnection();
+		//        connection.ConnectionString = dcd.ConnectionString;
+		//        DataSource = connection.DataSource;
+		//        connection.Open();
+		//        object cmd = connection.CreateCommand();
+		//        cmd.CommandType = CommandType.Text;
+		//        cmd.CommandText = "SELECT * FROM INFORMATION_SCHEMA.TABLES";
+		//        object dt = new DataTable();
+		//        dt.Load(cmd.ExecuteReader());
+		//        TableNames = dt.AsEnumerable().Select(Function, row, row.Field(Of, String)["table_name"]).OrderBy(Function, field, field).ToList();
+		//    }
 
-        //    if ((TableNames.Count > 0))
-        //    {
-        //        success = true;
-        //    }
+		//    mBuilder = new SqlConnectionStringBuilder();
+		//    // With...
+		//    ConnectionString = dcd.ConnectionString;
+		//    ServerName = mBuilder.DataSource;
+		//    if (SaveConfiguration)
+		//    {
+		//        dcs.SaveConfiguration(dcd);
+		//    }
 
-        //    return success;
-        //}
+		//    if ((TableNames.Count > 0))
+		//    {
+		//        success = true;
+		//    }
 
-    }
+		//    return success;
+		//}
+
+	}
 }

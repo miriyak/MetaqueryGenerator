@@ -19,4 +19,10 @@ namespace MetaqueryGenerator.Common
         Expanded = 5,
         Done =6
     }
+	public enum ResultMQ
+	{
+		HasAnswers = 1,
+		SupportFailure,
+		ConfidenceFailure
+	}
 }

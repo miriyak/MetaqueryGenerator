@@ -35,7 +35,7 @@ namespace MetaqueryGenerator.Test
         [TestMethod]
         public void TestMQResultMessageToJson()
         {
-            MQResultMessage resultMessage = new MQResultMessage() { ID = 1, Result = true};
+            MQResultMessage resultMessage = new MQResultMessage() { ID = 1, Result = ResultMQ.HasAnswers};
 
             string strMessage = JsonConvert.SerializeObject(resultMessage);
             string strExceptedMessageJson = "{\"Result\":true,\"ID\":1}";

@@ -55,14 +55,23 @@ namespace MetaqueryGenerator.DS
 			using (MetaqueriesContext context = new MetaqueriesContext())
 			{
 				//We finished work with db db that in the current arity all the metaqueries has result and the result is false
-				return context
+				/*return context
 					.TblDatabaseManagements
 					.Where(
 							x => x.FkStatusId == (int)StatusDB.InProcess &&
 							x.TblMetaqueries.Where(m => m.Arity == x.CurrentArity)
 								.All(m => m.HasResult.HasValue && m.HasResult.Value == false)
 					)
-					.ToList();
+					.ToList();*/
+				return context
+				.TblDatabaseManagements
+				.Where(
+						x => x.FkStatusId == (int)StatusDB.InProcess &&
+						x.CurrentArity == x.MaxArity &&
+							x.TblMetaqueries.Where(m => m.Arity == x.CurrentArity)
+								.All(m => m.HasResult.HasValue)
+				)
+				.ToList();
 			}
 		}
 		public static void UpdateStatus(TblDatabaseManagement tblDatabaseManagement ,StatusDB newStatus)

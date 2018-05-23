@@ -16,7 +16,8 @@ namespace MetaqueryGenerator.Common
 	}
 	public class MQResultMessage : MQMessage
 	{
-        public bool Result;
+        public ResultMQ Result;
+
 	}
     public class MQAssignmentResultMessage : MQMessage
 	{

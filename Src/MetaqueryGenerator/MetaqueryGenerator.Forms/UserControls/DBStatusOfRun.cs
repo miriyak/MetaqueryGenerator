@@ -37,14 +37,22 @@ namespace MetaqueryGenerator.Forms.UserControls
 		List<VMetaquery> metaqueriesList;
 		private void comboDB_SelectedIndexChanged(object sender, EventArgs e)
 		{
+			ShowMetaqueryGridBySelectedDB();
+
+		}
+		public void ShowMetaqueryGridBySelectedDB()
+		{
 			int dbID;
 			if (int.TryParse(comboDB.SelectedValue.ToString(), out dbID))
-			//var dbID = (KeyValuePair<int, string>)comboDB.SelectedValue ;
-			if(dbID >0 )
-			{
-				metaqueriesList = DBQueries.GetMetaqueriesByDBID(dbID);
-				gridMetaquery.DataSource = metaqueriesList;
-			}
+				//var dbID = (KeyValuePair<int, string>)comboDB.SelectedValue ;
+				if (dbID > 0)
+				{
+					metaqueriesList = DBQueries.GetMetaqueriesByDBID(dbID);
+				}
+				else
+					metaqueriesList = null;
+
+			gridMetaquery.DataSource = metaqueriesList;
 		}
 
 		private void gridMetaquery_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -55,5 +63,9 @@ namespace MetaqueryGenerator.Forms.UserControls
 			//gridMetaqueryResult.DataSource = DBQueries.GetMetaqueriesResultByID(metaqueryID);
 		}
 
+		private void btnUrlDialog_Click(object sender, EventArgs e)
+		{
+			ShowMetaqueryGridBySelectedDB();
+		}
 	}
 }

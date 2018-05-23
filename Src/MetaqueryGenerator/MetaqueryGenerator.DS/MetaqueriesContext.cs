@@ -605,6 +605,7 @@ namespace MetaqueryGenerator.DS
         ///</summary>
         public int MaxVariablesInRelation { get; set; } // MaxVariablesInRelation
         public int CurrentArity { get; set; } // CurrentArity
+        public int MaxArity { get; set; } // MaxArity
 
         // Reverse navigation
 
@@ -690,7 +691,7 @@ namespace MetaqueryGenerator.DS
         ///<summary>
         /// האם קיים תוצאות לתבנית
         ///</summary>
-        public bool? HasResult { get; set; } // HasResult
+        public int? HasResult { get; set; } // HasResult
 
         ///<summary>
         /// האם הופעל הרחבה
@@ -806,7 +807,7 @@ namespace MetaqueryGenerator.DS
         public string Metaquery { get; set; } // Metaquery (Primary key)
         public int FkStatusId { get; set; } // FK_StatusId (Primary key)
         public string Description { get; set; } // Description (length: 100)
-        public bool? HasResult { get; set; } // HasResult
+        public int? HasResult { get; set; } // HasResult
         public bool IsExpanded { get; set; } // IsExpanded (Primary key)
         public int Arity { get; set; } // Arity (Primary key)
         public System.DateTime? CreatedDate { get; set; } // CreatedDate
@@ -874,6 +875,7 @@ namespace MetaqueryGenerator.DS
             Property(x => x.LastUpdatedDate).HasColumnName(@"LastUpdatedDate").HasColumnType("datetime2").IsRequired();
             Property(x => x.MaxVariablesInRelation).HasColumnName(@"MaxVariablesInRelation").HasColumnType("int").IsRequired();
             Property(x => x.CurrentArity).HasColumnName(@"CurrentArity").HasColumnType("int").IsRequired();
+            Property(x => x.MaxArity).HasColumnName(@"MaxArity").HasColumnType("int").IsRequired();
 
             // Foreign keys
             HasRequired(a => a.TblStatus).WithMany(b => b.TblDatabaseManagements).HasForeignKey(c => c.FkStatusId).WillCascadeOnDelete(false); // FK_DatabaseManagement_Statuses
@@ -927,7 +929,7 @@ namespace MetaqueryGenerator.DS
             Property(x => x.FkDatabaseId).HasColumnName(@"FK_DatabaseID").HasColumnType("int").IsRequired();
             Property(x => x.Metaquery).HasColumnName(@"Metaquery").HasColumnType("nvarchar(max)").IsRequired();
             Property(x => x.FkStatusId).HasColumnName(@"FK_StatusId").HasColumnType("int").IsRequired();
-            Property(x => x.HasResult).HasColumnName(@"HasResult").HasColumnType("bit").IsOptional();
+            Property(x => x.HasResult).HasColumnName(@"HasResult").HasColumnType("int").IsOptional();
             Property(x => x.IsExpanded).HasColumnName(@"IsExpanded").HasColumnType("bit").IsRequired();
             Property(x => x.Arity).HasColumnName(@"Arity").HasColumnType("int").IsRequired();
             Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime2").IsOptional();
@@ -1008,7 +1010,7 @@ namespace MetaqueryGenerator.DS
             Property(x => x.Metaquery).HasColumnName(@"Metaquery").HasColumnType("nvarchar(max)").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
             Property(x => x.FkStatusId).HasColumnName(@"FK_StatusId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
             Property(x => x.Description).HasColumnName(@"Description").HasColumnType("nvarchar").IsOptional().HasMaxLength(100);
-            Property(x => x.HasResult).HasColumnName(@"HasResult").HasColumnType("bit").IsOptional();
+            Property(x => x.HasResult).HasColumnName(@"HasResult").HasColumnType("int").IsOptional();
             Property(x => x.IsExpanded).HasColumnName(@"IsExpanded").HasColumnType("bit").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
             Property(x => x.Arity).HasColumnName(@"Arity").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
             Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime2").IsOptional();

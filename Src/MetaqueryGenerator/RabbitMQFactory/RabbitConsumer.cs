@@ -48,13 +48,15 @@ namespace RabbitMQFactory
         public void Disconnect()
         {
             channel = null;
+			if (connection != null)
+			{
+				if (connection.IsOpen)
+				{
+					connection.Close();
+				}
 
-            if (connection.IsOpen)
-            {
-                connection.Close();
-            }
-
-            connection.Dispose();
+				connection.Dispose();
+			}
             connection = null;
         }
         public void Connect()

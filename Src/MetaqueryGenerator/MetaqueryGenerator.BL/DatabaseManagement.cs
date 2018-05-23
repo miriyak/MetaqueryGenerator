@@ -13,7 +13,8 @@ namespace MetaqueryGenerator.BL
         public bool Create(string dbName,
                             string connectionString,
                             decimal supportThreshold,
-                            decimal confidenceThreshold
+                            decimal confidenceThreshold,
+							int maxArity
                             )
         {
             int maxVariableInRelation = 0;
@@ -26,7 +27,8 @@ namespace MetaqueryGenerator.BL
                 ConnectionString = connectionString,
                 SupportThreshold = supportThreshold,
                 ConfidenceThreshold = confidenceThreshold,
-                FkStatusId = (int)StatusMQ.Received,
+				MaxArity = maxArity,
+				FkStatusId = (int)StatusMQ.Received,
                 MaxVariablesInRelation = maxVariableInRelation
             };
             DatabaseManagementsDS.Create(tblDatabaseManagement);

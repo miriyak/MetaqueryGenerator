@@ -21,9 +21,11 @@ namespace MetaqueryGenerator.Forms
 
         private void Form1_Load(object sender, EventArgs e)
         {
-        }
+			lastPanel = baseUserControl1;
 
-        private void label2_Click(object sender, EventArgs e)
+		}
+
+		private void label2_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -38,7 +40,6 @@ namespace MetaqueryGenerator.Forms
         {
             button1.FlatAppearance.BorderSize = 0;
             button2.FlatAppearance.BorderSize = 0;
-            button3.FlatAppearance.BorderSize = 0;
             button4.FlatAppearance.BorderSize = 0;
             button5.FlatAppearance.BorderSize = 0;
             pressedButton.FlatAppearance.BorderSize = 3;
@@ -49,11 +50,14 @@ namespace MetaqueryGenerator.Forms
 		}
 		private void openNewPanel(UserControl uc)
         {
-            
-            if (lastPanel != null)
-                this.mainPanel.Controls.Remove(lastPanel);
+
+			//if (lastPanel != null)
+            this.mainPanel.Controls.Remove(lastPanel);
             this.mainPanel.Controls.Add(uc);
-            this.lastPanel = uc;
+			//this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+			uc.Dock = System.Windows.Forms.DockStyle.Fill;
+
+			this.lastPanel = uc;
 
         }
 

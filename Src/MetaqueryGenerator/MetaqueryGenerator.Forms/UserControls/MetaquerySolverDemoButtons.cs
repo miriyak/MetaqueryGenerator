@@ -37,5 +37,18 @@ namespace MetaqueryGenerator.Forms.UserControls
 				ShowMessage("MQ Solver Consumer has stopped");
 			}
 		}
+
+		private void groupBox2_Enter(object sender, EventArgs e)
+		{
+
+		}
+
+		private void customButton4_Click(object sender, EventArgs e)
+		{
+			string queueToMQSolverName = ConfigurationManager.AppSettings["QueueToMQSolverName"];
+			demo = new MetaquerySolverDemoRandom();
+			demo.RunConsumer(queueToMQSolverName);
+			ShowMessage("Start Run MQ Solver Consumer ");
+		}
 	}
 }

@@ -88,18 +88,18 @@
 			this.label2.AutoSize = true;
 			this.label2.Location = new System.Drawing.Point(61, 121);
 			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(46, 17);
+			this.label2.Size = new System.Drawing.Size(79, 17);
 			this.label2.TabIndex = 6;
-			this.label2.Text = "label1";
+			this.label2.Text = "Confidence";
 			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
 			this.label3.Location = new System.Drawing.Point(61, 95);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(46, 17);
+			this.label3.Size = new System.Drawing.Size(58, 17);
 			this.label3.TabIndex = 5;
-			this.label3.Text = "label1";
+			this.label3.Text = "Support";
 			// 
 			// label4
 			// 

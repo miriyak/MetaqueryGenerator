@@ -46,13 +46,13 @@ namespace MetaqueryGenerator.BL
 				if (message is MQResultMessage)
 				{
 					MQResultMessage resultMessage = message as MQResultMessage;
-					tblMetaquery.HasResult = resultMessage.Result;
+					tblMetaquery.HasResult = (int)resultMessage.Result;
 					MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.Done);
 
 					MQGeneratorMail.SendResultMail(tblMetaquery);
-
-					if (MQGenerator.IsAutoRunJobs && resultMessage.Result == false)
-						MQGenerator.StartIncreaseDBArity();
+					//todo
+					/*if (MQGenerator.IsAutoRunJobs && resultMessage.Result == false)
+						MQGenerator.StartIncreaseDBArity();*/
 				}
 				else if (message is MQAssignmentResultMessage)
 				{

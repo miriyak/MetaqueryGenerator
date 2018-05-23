@@ -11,33 +11,15 @@ using System.Windows.Forms;
 
 namespace MetaquerySolver.Demo
 {
-    public class MetaquerySolverDemo
-    {
-		protected RabbitConsumer<string> consumer;
-		
-		public void RunConsumer(string queueName)
-		{
-			consumer = new RabbitConsumer<string>(queueName);
-			consumer.DequeueMessageDel = OnGetMessageFromGenerator;
-			consumer.ProcessMessages();
-		}
-		public void StopConsume()
-		{
-			consumer.StopConsume();
-		}
-		public static void SendMQMessageToSolver(RabbitProducer<string> producer, MQMessage resultMessage)
-		{
-			string strMessage = resultMessage.ToJson(); 
-			producer.SendMessage(strMessage);
-		}
-
+    public class MetaquerySolverDemoRandom : MetaquerySolverDemo
+	{
 		//public static void SendMQAssignmentResultMessage(RabbitProducer<string> producer, MQAssignmentResultMessage resultMessage)
 		//{
 		//	string strMessage = resultMessage.ToJson();
 		//	producer.SendMessage(strMessage);
 		//}
 
-		public virtual void OnGetMessageFromGenerator(string strMessage)
+		public override void OnGetMessageFromGenerator(string strMessage)
 		{
 			string queueToMQGeneratorName = ConfigurationManager.AppSettings["QueueToMQGeneratorName"];
 			RabbitProducer<string> producer = new RabbitProducer<string>(queueToMQGeneratorName);

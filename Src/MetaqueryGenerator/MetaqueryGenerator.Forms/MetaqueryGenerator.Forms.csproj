@@ -64,6 +64,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseControls\CustomLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BaseControls\CustomLabel.Designer.cs">
+      <DependentUpon>CustomLabel.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,6 +126,9 @@
     <Compile Include="UserControls\TestJobsButtons.Designer.cs">
       <DependentUpon>TestJobsButtons.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BaseControls\CustomLabel.resx">
+      <DependentUpon>CustomLabel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -194,6 +203,8 @@
     <Content Include="Images\iconCreator.jpg" />
     <Content Include="Images\iconCreator.png" />
     <Content Include="Images\iconcreator_cicle.png" />
+    <None Include="Images\refresh.jpg" />
+    <None Include="Images\selectDB.png" />
     <None Include="Images\iconCreator2.jpg" />
     <None Include="Images\iconCreator1.jpg" />
   </ItemGroup>

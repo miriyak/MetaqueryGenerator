@@ -38,7 +38,7 @@
 			// lblMessage
 			// 
 			this.lblMessage.AutoSize = true;
-			this.lblMessage.Location = new System.Drawing.Point(501, 62);
+			this.lblMessage.Location = new System.Drawing.Point(404, 95);
 			this.lblMessage.Name = "lblMessage";
 			this.lblMessage.Size = new System.Drawing.Size(234, 17);
 			this.lblMessage.TabIndex = 0;
@@ -67,7 +67,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.ClientSize = new System.Drawing.Size(354, 450);
 			this.Controls.Add(this.flowLayoutPanel1);
 			this.Controls.Add(this.gridMetaqueryResult);
 			this.Controls.Add(this.lblMessage);

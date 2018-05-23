@@ -72,7 +72,6 @@
 			this.customButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(53)))), ((int)(((byte)(62)))));
 			this.customButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.customButton1.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.customButton1.ForeColor = System.Drawing.Color.White;
 			this.customButton1.Location = new System.Drawing.Point(46, 184);
 			this.customButton1.Name = "customButton1";
 			this.customButton1.Size = new System.Drawing.Size(120, 120);
