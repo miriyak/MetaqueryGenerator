@@ -46,7 +46,7 @@ namespace MetaqueryGenerator.BL
 				if (message is MQResultMessage)
 				{
 					MQResultMessage resultMessage = message as MQResultMessage;
-					tblMetaquery.HasResult = (int)resultMessage.Result;
+					tblMetaquery.FkResult = (int)resultMessage.Result;
 					MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.Done);
 
 					MQGeneratorMail.SendResultMail(tblMetaquery);

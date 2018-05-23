@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using MetaqueryGenerator.Forms.BaseControls;
 using MetaqueryGenerator.BL;
 using MetaqueryGenerator.DS;
+using MetaqueryGenerator.Common;
 
 namespace MetaqueryGenerator.Forms.UserControls
 {
@@ -57,15 +58,24 @@ namespace MetaqueryGenerator.Forms.UserControls
 
 		private void gridMetaquery_CellClick(object sender, DataGridViewCellEventArgs e)
 		{
-			int metaqueryID = metaqueriesList[e.RowIndex].Id;
-			FrmMetaqueryResult frm = new FrmMetaqueryResult(metaqueryID);
-			frm.ShowDialog();
+			if (e.RowIndex >= 0)
+			{
+				int metaqueryID = metaqueriesList[e.RowIndex].Id;
+				if (metaqueriesList.First(x => x.Id == metaqueryID).FkResult == (int)ResultMQ.HasAnswers)
+				{
+					FrmMetaqueryResult frm = new FrmMetaqueryResult(metaqueryID);
+					frm.ShowDialog();
+				}
+			}
 			//gridMetaqueryResult.DataSource = DBQueries.GetMetaqueriesResultByID(metaqueryID);
 		}
 
-		private void btnUrlDialog_Click(object sender, EventArgs e)
+		private void btnRefresh_Click(object sender, EventArgs e)
 		{
 			ShowMetaqueryGridBySelectedDB();
+
 		}
+
+		
 	}
 }

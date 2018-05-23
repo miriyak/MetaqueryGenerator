@@ -36,7 +36,7 @@ namespace MetaqueryGenerator.DS
                 return context
                     .TblMetaqueries
                     .Include(x => x.TblDatabaseManagement)
-                    .Where(x => x.HasResult.HasValue /*&& x.HasResult.Value == true && !x.IsExpanded*/)
+                    .Where(x => x.FkResult.HasValue /*&& x.HasResult.Value == true && !x.IsExpanded*/)
                     .ToList();
             }
         }

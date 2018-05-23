@@ -185,6 +185,10 @@
       <Project>{225099af-92b8-4a83-8fc1-fe642d47d23a}</Project>
       <Name>MetaqueryGenerator.BL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MetaqueryGenerator.Common\MetaqueryGenerator.Common.csproj">
+      <Project>{1E72031B-2242-4B06-82DE-4275243F1F65}</Project>
+      <Name>MetaqueryGenerator.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MetaqueryGenerator.DS\MetaqueryGenerator.DS.csproj">
       <Project>{8325b2cc-16e4-4268-8814-bbcc1f795a9d}</Project>
       <Name>MetaqueryGenerator.DS</Name>

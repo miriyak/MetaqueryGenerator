@@ -38,13 +38,13 @@ namespace MetaqueryGenerator.Forms
 
 		private void setButtonPressed(Button pressedButton)
         {
+			lblPage.Text = pressedButton.Text;
             button1.FlatAppearance.BorderSize = 0;
             button2.FlatAppearance.BorderSize = 0;
             button4.FlatAppearance.BorderSize = 0;
             button5.FlatAppearance.BorderSize = 0;
             pressedButton.FlatAppearance.BorderSize = 3;
 
-			lblPage.Text = pressedButton.Text;
 
 
 		}

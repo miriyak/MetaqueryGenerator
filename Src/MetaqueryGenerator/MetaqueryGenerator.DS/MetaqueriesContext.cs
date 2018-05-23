@@ -40,6 +40,7 @@ namespace MetaqueryGenerator.DS
         System.Data.Entity.DbSet<TblDatabaseManagement> TblDatabaseManagements { get; set; } // Tbl_DatabaseManagement
         System.Data.Entity.DbSet<TblMetaqueriesResult> TblMetaqueriesResults { get; set; } // Tbl_MetaqueriesResults
         System.Data.Entity.DbSet<TblMetaquery> TblMetaqueries { get; set; } // Tbl_Metaqueries
+        System.Data.Entity.DbSet<TblResultType> TblResultTypes { get; set; } // Tbl_ResultTypes
         System.Data.Entity.DbSet<TblStatus> TblStatus { get; set; } // Tbl_Statuses
         System.Data.Entity.DbSet<VMetaqueriesResult> VMetaqueriesResults { get; set; } // V_MetaqueriesResult
         System.Data.Entity.DbSet<VMetaquery> VMetaqueries { get; set; } // V_Metaqueries
@@ -69,6 +70,7 @@ namespace MetaqueryGenerator.DS
         public System.Data.Entity.DbSet<TblDatabaseManagement> TblDatabaseManagements { get; set; } // Tbl_DatabaseManagement
         public System.Data.Entity.DbSet<TblMetaqueriesResult> TblMetaqueriesResults { get; set; } // Tbl_MetaqueriesResults
         public System.Data.Entity.DbSet<TblMetaquery> TblMetaqueries { get; set; } // Tbl_Metaqueries
+        public System.Data.Entity.DbSet<TblResultType> TblResultTypes { get; set; } // Tbl_ResultTypes
         public System.Data.Entity.DbSet<TblStatus> TblStatus { get; set; } // Tbl_Statuses
         public System.Data.Entity.DbSet<VMetaqueriesResult> VMetaqueriesResults { get; set; } // V_MetaqueriesResult
         public System.Data.Entity.DbSet<VMetaquery> VMetaqueries { get; set; } // V_Metaqueries
@@ -130,6 +132,7 @@ namespace MetaqueryGenerator.DS
             modelBuilder.Configurations.Add(new TblDatabaseManagementConfiguration());
             modelBuilder.Configurations.Add(new TblMetaqueriesResultConfiguration());
             modelBuilder.Configurations.Add(new TblMetaqueryConfiguration());
+            modelBuilder.Configurations.Add(new TblResultTypeConfiguration());
             modelBuilder.Configurations.Add(new TblStatusConfiguration());
             modelBuilder.Configurations.Add(new VMetaqueriesResultConfiguration());
             modelBuilder.Configurations.Add(new VMetaqueryConfiguration());
@@ -143,6 +146,7 @@ namespace MetaqueryGenerator.DS
             modelBuilder.Configurations.Add(new TblDatabaseManagementConfiguration(schema));
             modelBuilder.Configurations.Add(new TblMetaqueriesResultConfiguration(schema));
             modelBuilder.Configurations.Add(new TblMetaqueryConfiguration(schema));
+            modelBuilder.Configurations.Add(new TblResultTypeConfiguration(schema));
             modelBuilder.Configurations.Add(new TblStatusConfiguration(schema));
             modelBuilder.Configurations.Add(new VMetaqueriesResultConfiguration(schema));
             modelBuilder.Configurations.Add(new VMetaqueryConfiguration(schema));
@@ -175,6 +179,7 @@ namespace MetaqueryGenerator.DS
         public System.Data.Entity.DbSet<TblDatabaseManagement> TblDatabaseManagements { get; set; }
         public System.Data.Entity.DbSet<TblMetaqueriesResult> TblMetaqueriesResults { get; set; }
         public System.Data.Entity.DbSet<TblMetaquery> TblMetaqueries { get; set; }
+        public System.Data.Entity.DbSet<TblResultType> TblResultTypes { get; set; }
         public System.Data.Entity.DbSet<TblStatus> TblStatus { get; set; }
         public System.Data.Entity.DbSet<VMetaqueriesResult> VMetaqueriesResults { get; set; }
         public System.Data.Entity.DbSet<VMetaquery> VMetaqueries { get; set; }
@@ -185,6 +190,7 @@ namespace MetaqueryGenerator.DS
             TblDatabaseManagements = new FakeDbSet<TblDatabaseManagement>("Id");
             TblMetaqueriesResults = new FakeDbSet<TblMetaqueriesResult>("Id");
             TblMetaqueries = new FakeDbSet<TblMetaquery>("Id");
+            TblResultTypes = new FakeDbSet<TblResultType>("Id");
             TblStatus = new FakeDbSet<TblStatus>("Id");
             VMetaqueriesResults = new FakeDbSet<VMetaqueriesResult>("Id", "FkMetaqueryId", "Metaquery", "SupportValue", "ConfidenceValue", "Assignment");
             VMetaqueries = new FakeDbSet<VMetaquery>("Id", "FkDatabaseId", "Metaquery", "FkStatusId", "IsExpanded", "Arity", "LastUpdatedDate");
@@ -691,7 +697,7 @@ namespace MetaqueryGenerator.DS
         ///<summary>
         /// האם קיים תוצאות לתבנית
         ///</summary>
-        public int? HasResult { get; set; } // HasResult
+        public int? FkResult { get; set; } // FK_Result
 
         ///<summary>
         /// האם הופעל הרחבה
@@ -729,6 +735,10 @@ namespace MetaqueryGenerator.DS
         /// Child TblMetaqueriesResults where [Tbl_MetaqueriesResults].[FK_MetaqueryID] point to this entity (FK_Tbl_MetaqueriesResults_Tbl_Metaqueries)
         /// </summary>
         public virtual System.Collections.Generic.ICollection<TblMetaqueriesResult> TblMetaqueriesResults { get; set; } // Tbl_MetaqueriesResults.FK_Tbl_MetaqueriesResults_Tbl_Metaqueries
+        /// <summary>
+        /// Parent (One-to-One) TblMetaquery pointed by [Tbl_Metaqueries].[Id] (FK_Tbl_Metaqueries_Tbl_Metaqueries)
+        /// </summary>
+        public virtual TblMetaquery TblMetaquery1 { get; set; } // Tbl_Metaqueries.FK_Tbl_Metaqueries_Tbl_Metaqueries
 
         // Foreign keys
 
@@ -738,6 +748,16 @@ namespace MetaqueryGenerator.DS
         public virtual TblDatabaseManagement TblDatabaseManagement { get; set; } // FK_Tbl_Metaqueries_Tbl_DatabaseManagement
 
         /// <summary>
+        /// Parent TblMetaquery pointed by [Tbl_Metaqueries].([Id]) (FK_Tbl_Metaqueries_Tbl_Metaqueries)
+        /// </summary>
+        public virtual TblMetaquery TblMetaquery_Id { get; set; } // FK_Tbl_Metaqueries_Tbl_Metaqueries
+
+        /// <summary>
+        /// Parent TblResultType pointed by [Tbl_Metaqueries].([FkResult]) (FK_Tbl_Metaqueries_Tbl_ResultsTypes)
+        /// </summary>
+        public virtual TblResultType TblResultType { get; set; } // FK_Tbl_Metaqueries_Tbl_ResultsTypes
+
+        /// <summary>
         /// Parent TblStatus pointed by [Tbl_Metaqueries].([FkStatusId]) (FK_Tbl_Metaqueries_Tbl_Statuses)
         /// </summary>
         public virtual TblStatus TblStatus { get; set; } // FK_Tbl_Metaqueries_Tbl_Statuses
@@ -745,6 +765,29 @@ namespace MetaqueryGenerator.DS
         public TblMetaquery()
         {
             TblMetaqueriesResults = new System.Collections.Generic.List<TblMetaqueriesResult>();
+            InitializePartial();
+        }
+
+        partial void InitializePartial();
+    }
+
+    // Tbl_ResultTypes
+    [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
+    public partial class TblResultType
+    {
+        public int Id { get; set; } // Id (Primary key)
+        public string Description { get; set; } // Description (length: 100)
+
+        // Reverse navigation
+
+        /// <summary>
+        /// Child TblMetaqueries where [Tbl_Metaqueries].[FK_Result] point to this entity (FK_Tbl_Metaqueries_Tbl_ResultsTypes)
+        /// </summary>
+        public virtual System.Collections.Generic.ICollection<TblMetaquery> TblMetaqueries { get; set; } // Tbl_Metaqueries.FK_Tbl_Metaqueries_Tbl_ResultsTypes
+
+        public TblResultType()
+        {
+            TblMetaqueries = new System.Collections.Generic.List<TblMetaquery>();
             InitializePartial();
         }
 
@@ -806,8 +849,9 @@ namespace MetaqueryGenerator.DS
         public int FkDatabaseId { get; set; } // FK_DatabaseID (Primary key)
         public string Metaquery { get; set; } // Metaquery (Primary key)
         public int FkStatusId { get; set; } // FK_StatusId (Primary key)
-        public string Description { get; set; } // Description (length: 100)
-        public int? HasResult { get; set; } // HasResult
+        public string StatusDescription { get; set; } // StatusDescription (length: 100)
+        public int? FkResult { get; set; } // FK_Result
+        public string ResultDescription { get; set; } // ResultDescription (length: 100)
         public bool IsExpanded { get; set; } // IsExpanded (Primary key)
         public int Arity { get; set; } // Arity (Primary key)
         public System.DateTime? CreatedDate { get; set; } // CreatedDate
@@ -929,7 +973,7 @@ namespace MetaqueryGenerator.DS
             Property(x => x.FkDatabaseId).HasColumnName(@"FK_DatabaseID").HasColumnType("int").IsRequired();
             Property(x => x.Metaquery).HasColumnName(@"Metaquery").HasColumnType("nvarchar(max)").IsRequired();
             Property(x => x.FkStatusId).HasColumnName(@"FK_StatusId").HasColumnType("int").IsRequired();
-            Property(x => x.HasResult).HasColumnName(@"HasResult").HasColumnType("int").IsOptional();
+            Property(x => x.FkResult).HasColumnName(@"FK_Result").HasColumnType("int").IsOptional();
             Property(x => x.IsExpanded).HasColumnName(@"IsExpanded").HasColumnType("bit").IsRequired();
             Property(x => x.Arity).HasColumnName(@"Arity").HasColumnType("int").IsRequired();
             Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime2").IsOptional();
@@ -938,8 +982,31 @@ namespace MetaqueryGenerator.DS
             Property(x => x.FinishTime).HasColumnName(@"FinishTime").HasColumnType("datetime2").IsOptional();
 
             // Foreign keys
+            HasOptional(a => a.TblResultType).WithMany(b => b.TblMetaqueries).HasForeignKey(c => c.FkResult).WillCascadeOnDelete(false); // FK_Tbl_Metaqueries_Tbl_ResultsTypes
             HasRequired(a => a.TblDatabaseManagement).WithMany(b => b.TblMetaqueries).HasForeignKey(c => c.FkDatabaseId).WillCascadeOnDelete(false); // FK_Tbl_Metaqueries_Tbl_DatabaseManagement
+            HasRequired(a => a.TblMetaquery_Id).WithOptional(b => b.TblMetaquery1).WillCascadeOnDelete(false); // FK_Tbl_Metaqueries_Tbl_Metaqueries
             HasRequired(a => a.TblStatus).WithMany(b => b.TblMetaqueries).HasForeignKey(c => c.FkStatusId).WillCascadeOnDelete(false); // FK_Tbl_Metaqueries_Tbl_Statuses
+            InitializePartial();
+        }
+        partial void InitializePartial();
+    }
+
+    // Tbl_ResultTypes
+    [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
+    public partial class TblResultTypeConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<TblResultType>
+    {
+        public TblResultTypeConfiguration()
+            : this("dbo")
+        {
+        }
+
+        public TblResultTypeConfiguration(string schema)
+        {
+            ToTable("Tbl_ResultTypes", schema);
+            HasKey(x => x.Id);
+
+            Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
+            Property(x => x.Description).HasColumnName(@"Description").HasColumnType("nvarchar").IsOptional().HasMaxLength(100);
             InitializePartial();
         }
         partial void InitializePartial();
@@ -1009,8 +1076,9 @@ namespace MetaqueryGenerator.DS
             Property(x => x.FkDatabaseId).HasColumnName(@"FK_DatabaseID").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
             Property(x => x.Metaquery).HasColumnName(@"Metaquery").HasColumnType("nvarchar(max)").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
             Property(x => x.FkStatusId).HasColumnName(@"FK_StatusId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
-            Property(x => x.Description).HasColumnName(@"Description").HasColumnType("nvarchar").IsOptional().HasMaxLength(100);
-            Property(x => x.HasResult).HasColumnName(@"HasResult").HasColumnType("int").IsOptional();
+            Property(x => x.StatusDescription).HasColumnName(@"StatusDescription").HasColumnType("nvarchar").IsOptional().HasMaxLength(100);
+            Property(x => x.FkResult).HasColumnName(@"FK_Result").HasColumnType("int").IsOptional();
+            Property(x => x.ResultDescription).HasColumnName(@"ResultDescription").HasColumnType("nvarchar").IsOptional().HasMaxLength(100);
             Property(x => x.IsExpanded).HasColumnName(@"IsExpanded").HasColumnType("bit").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
             Property(x => x.Arity).HasColumnName(@"Arity").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
             Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime2").IsOptional();

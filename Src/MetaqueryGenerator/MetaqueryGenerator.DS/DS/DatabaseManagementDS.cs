@@ -69,7 +69,7 @@ namespace MetaqueryGenerator.DS
 						x => x.FkStatusId == (int)StatusDB.InProcess &&
 						x.CurrentArity == x.MaxArity &&
 							x.TblMetaqueries.Where(m => m.Arity == x.CurrentArity)
-								.All(m => m.HasResult.HasValue)
+								.All(m => m.FkResult.HasValue)
 				)
 				.ToList();
 			}

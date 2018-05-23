@@ -26,7 +26,7 @@ namespace MetaqueryGenerator.BL
 		public static void SendResultMail(TblMetaquery tblMetaquery)
 		{
 			string strMessage = "Result to Metaquery {0} Done";
-			if (tblMetaquery.HasResult.HasValue && tblMetaquery.HasResult.Value == (int)ResultMQ.HasAnswers)
+			if (tblMetaquery.FkResult.HasValue && tblMetaquery.FkResult.Value == (int)ResultMQ.HasAnswers)
 				strMessage = "Result to Metaquery {0} Done";
 			else
 				strMessage = "There is no result for Metaquery {0}";
