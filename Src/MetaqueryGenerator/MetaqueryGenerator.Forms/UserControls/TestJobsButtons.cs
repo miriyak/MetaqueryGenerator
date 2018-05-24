@@ -65,8 +65,15 @@ namespace MetaqueryGenerator.Forms.UserControls
 
 		private void btnStopConsumer_Click(object sender, EventArgs e)
 		{
-			generatorConsumer.StopConsumer();
-			ShowMessage("MQ Generator Consumer has stopped");
+			if (generatorConsumer.IsRunConsumer())
+			{
+				generatorConsumer.StopConsumer();
+				ShowMessage("MQ Generator Consumer has stopped");
+			}
+
+			else
+				ShowMessage("No Consumer Started");
+
 		}
 
 		

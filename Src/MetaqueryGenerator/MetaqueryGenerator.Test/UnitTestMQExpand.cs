@@ -88,7 +88,7 @@ namespace MetaqueryGenerator.Test
         {
             Metaquery rootMQ = Metaquery.GetRootMQ();
             //mtodo
-            List<Metaquery> listResultLevel2 = rootMQ.Expand(5);
+            List<Metaquery> listResultLevel2 = rootMQ.Expand(5,ExpandType.All);
 
             List<Metaquery> listResultLevel3 = new List<Metaquery>();
             int[] cnt = new int[3];
@@ -96,7 +96,7 @@ namespace MetaqueryGenerator.Test
             {
                 Metaquery metaquery = listResultLevel2[i];
             //mtodo
-                var list = metaquery.Expand(5);
+                var list = metaquery.Expand(5, ExpandType.All);
                 listResultLevel3.AddRange(list);
                 cnt[i] = list.Count;
             }

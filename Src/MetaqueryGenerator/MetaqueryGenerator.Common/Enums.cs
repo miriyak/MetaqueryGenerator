@@ -15,9 +15,10 @@ namespace MetaqueryGenerator.Common
     {
         Received = 1,
         WaitingToSolver = 3,
-        HasResult = 4,
-        Expanded = 5,
-        Done =6
+        WaitingToExpand = 4,
+		HasPartialResult = 5,
+		Expanded = 6,
+        Done =7,
     }
 	public enum ResultMQ
 	{
@@ -25,4 +26,12 @@ namespace MetaqueryGenerator.Common
 		SupportFailure,
 		ConfidenceFailure
 	}
+	public enum ExpandType
+	{
+		All,
+		InBodyOnly,
+		NewRelationOnly
+	}
+
+
 }

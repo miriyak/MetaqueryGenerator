@@ -87,7 +87,13 @@ namespace MetaqueryGenerator.BL
                 //create first level
                 //int MaxVariablesInRelation = ProcessMQDetails.MaxVariablesInRelation;
                 int maxVariables = curDB.MaxVariablesInRelation;
-                List <Metaquery> list = metaqueryToExpand.Expand(maxVariables);
+				ExpandType expandType = ExpandType.All;
+				if (tblMetaquery.FkResult == (int)ResultMQ.SupportFailure)
+					expandType = ExpandType.NewRelationOnly;
+				if (tblMetaquery.FkResult == (int)ResultMQ.ConfidenceFailure)
+					expandType = ExpandType.InBodyOnly;
+
+				List<Metaquery> list = metaqueryToExpand.Expand(maxVariables, expandType);
                 foreach (Metaquery mq in list)
                 {
                     TblMetaquery newTblMetaquery = new TblMetaquery()
@@ -100,15 +106,16 @@ namespace MetaqueryGenerator.BL
                     MetaqueryDS.Create(newTblMetaquery);
                 }
                 MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.Expanded);
+				if(tblMetaquery.FkResult != (int)ResultMQ.HasAnswers)
+					MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.Done);
 
-				
+
 				/*
                 MetaqueryDS.Create(tblMetaquery);
                 DatabaseManagementsDS.UpdateStatus(db, StatusDB.InProcess);*/
 			}
-			if (IsAutoRunJobs && lstMQ.Count > 0 )
+			if (IsAutoRunJobs)
 				StartIncreaseDBArity();
-
 		}
 
 		public static void StartIncreaseDBArity()

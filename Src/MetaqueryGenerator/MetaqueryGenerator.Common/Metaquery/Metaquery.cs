@@ -56,13 +56,17 @@ namespace MetaqueryGenerator.Common
 		/// </summary>
 		/// <param name="maxVariablesInRelation">Max of variables in relation - by the db</param>
 		/// <returns>List of expanded metaquery</returns>
-		public List<Metaquery> Expand(int maxVariablesInRelation)
+		public List<Metaquery> Expand(int maxVariablesInRelation, ExpandType expandType)
         {
             List<Metaquery> mqList = new List<Metaquery>();
 
-            mqList.AddRange(this.ExpandBodyVariable(maxVariablesInRelation));
-            mqList.AddRange(this.ExpandHead());
-            mqList.AddRange(this.ExpandBodyRelation());
+			if(expandType == ExpandType.All)
+				mqList.AddRange(this.ExpandHead());
+
+			if (expandType !=  ExpandType.NewRelationOnly)
+				mqList.AddRange(this.ExpandBodyVariable(maxVariablesInRelation));
+
+			mqList.AddRange(this.ExpandBodyRelation());
             
             return mqList;
         }
@@ -74,8 +78,6 @@ namespace MetaqueryGenerator.Common
             { 
                 Metaquery newMQ;
 
-                //Check the possibility of adding variable to Head Relation
-            
                 newMQ = this.Clone();
                 Relation relation = newMQ.Body.Last();
                 relation.AddNextVariable();
@@ -91,7 +93,6 @@ namespace MetaqueryGenerator.Common
             List<Metaquery> mqList = new List<Metaquery>();
             Metaquery newMQ;
 
-            //Check the possibility of adding variable to Head Relation
             List<int> allBodyVariables = this.Body.GetAllVariables();
             int maxVariableInBody = allBodyVariables.Max();
 

@@ -48,7 +48,9 @@ namespace MetaqueryGenerator.DS
 				return context
 					.TblMetaqueries
 					.Include(x => x.TblDatabaseManagement)
-					.Where(x => !x.IsExpanded && x.TblMetaqueriesResults.Any())
+					.Where(x => !x.IsExpanded 
+								&& ( x.TblMetaqueriesResults.Any() || x.FkResult.HasValue )
+								&& x.Arity < x.TblDatabaseManagement.MaxArity)
                     .ToList();
             }
         }

@@ -22,7 +22,10 @@ namespace MetaqueryGenerator.BL
 			consumer.DequeueMessageDel = OnGetMessageFromSolver;
 			consumer.ProcessMessages();
 		}
-
+		public bool IsRunConsumer()
+		{
+			return consumer != null;
+		}
 		public void StopConsumer()
 		{
 			consumer.StopConsume();
@@ -47,9 +50,14 @@ namespace MetaqueryGenerator.BL
 				{
 					MQResultMessage resultMessage = message as MQResultMessage;
 					tblMetaquery.FkResult = (int)resultMessage.Result;
-					MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.Done);
+					StatusMQ statusMQ = (resultMessage.Result == ResultMQ.HasAnswers ? StatusMQ.Done : StatusMQ.WaitingToExpand);
+					MetaqueryDS.UpdateStatus(tblMetaquery, statusMQ);
+					bool execSendMail = bool.Parse(ConfigurationManager.AppSettings["ExecSendMail"]);
+					if (execSendMail)
+						MQGeneratorMail.SendResultMail(tblMetaquery);
 
-					MQGeneratorMail.SendResultMail(tblMetaquery);
+					if (MQGenerator.IsAutoRunJobs && statusMQ == StatusMQ.WaitingToExpand)
+						MQGenerator.StartExpandMQProcess();
 					//todo
 					/*if (MQGenerator.IsAutoRunJobs && resultMessage.Result == false)
 						MQGenerator.StartIncreaseDBArity();*/
@@ -66,7 +74,9 @@ namespace MetaqueryGenerator.BL
 					};
 					MetaqueryResultDS.Create(tblMetaqueriesResult);
 
-					MQGeneratorMail.SendAssignmentMail(tblMetaqueriesResult, tblMetaquery.Metaquery);
+					bool execSendMail = bool.Parse(ConfigurationManager.AppSettings["ExecSendMail"]);
+					if (execSendMail)
+						MQGeneratorMail.SendAssignmentMail(tblMetaqueriesResult, tblMetaquery.Metaquery);
 					if (MQGenerator.IsAutoRunJobs)
 						MQGenerator.StartExpandMQProcess();
 

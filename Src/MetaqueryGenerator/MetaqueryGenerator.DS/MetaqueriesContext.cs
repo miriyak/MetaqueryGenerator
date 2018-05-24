@@ -735,10 +735,6 @@ namespace MetaqueryGenerator.DS
         /// Child TblMetaqueriesResults where [Tbl_MetaqueriesResults].[FK_MetaqueryID] point to this entity (FK_Tbl_MetaqueriesResults_Tbl_Metaqueries)
         /// </summary>
         public virtual System.Collections.Generic.ICollection<TblMetaqueriesResult> TblMetaqueriesResults { get; set; } // Tbl_MetaqueriesResults.FK_Tbl_MetaqueriesResults_Tbl_Metaqueries
-        /// <summary>
-        /// Parent (One-to-One) TblMetaquery pointed by [Tbl_Metaqueries].[Id] (FK_Tbl_Metaqueries_Tbl_Metaqueries)
-        /// </summary>
-        public virtual TblMetaquery TblMetaquery1 { get; set; } // Tbl_Metaqueries.FK_Tbl_Metaqueries_Tbl_Metaqueries
 
         // Foreign keys
 
@@ -746,11 +742,6 @@ namespace MetaqueryGenerator.DS
         /// Parent TblDatabaseManagement pointed by [Tbl_Metaqueries].([FkDatabaseId]) (FK_Tbl_Metaqueries_Tbl_DatabaseManagement)
         /// </summary>
         public virtual TblDatabaseManagement TblDatabaseManagement { get; set; } // FK_Tbl_Metaqueries_Tbl_DatabaseManagement
-
-        /// <summary>
-        /// Parent TblMetaquery pointed by [Tbl_Metaqueries].([Id]) (FK_Tbl_Metaqueries_Tbl_Metaqueries)
-        /// </summary>
-        public virtual TblMetaquery TblMetaquery_Id { get; set; } // FK_Tbl_Metaqueries_Tbl_Metaqueries
 
         /// <summary>
         /// Parent TblResultType pointed by [Tbl_Metaqueries].([FkResult]) (FK_Tbl_Metaqueries_Tbl_ResultsTypes)
@@ -984,7 +975,6 @@ namespace MetaqueryGenerator.DS
             // Foreign keys
             HasOptional(a => a.TblResultType).WithMany(b => b.TblMetaqueries).HasForeignKey(c => c.FkResult).WillCascadeOnDelete(false); // FK_Tbl_Metaqueries_Tbl_ResultsTypes
             HasRequired(a => a.TblDatabaseManagement).WithMany(b => b.TblMetaqueries).HasForeignKey(c => c.FkDatabaseId).WillCascadeOnDelete(false); // FK_Tbl_Metaqueries_Tbl_DatabaseManagement
-            HasRequired(a => a.TblMetaquery_Id).WithOptional(b => b.TblMetaquery1).WillCascadeOnDelete(false); // FK_Tbl_Metaqueries_Tbl_Metaqueries
             HasRequired(a => a.TblStatus).WithMany(b => b.TblMetaqueries).HasForeignKey(c => c.FkStatusId).WillCascadeOnDelete(false); // FK_Tbl_Metaqueries_Tbl_Statuses
             InitializePartial();
         }
