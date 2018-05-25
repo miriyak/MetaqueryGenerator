@@ -35,6 +35,7 @@
 			// 
 			// panel1
 			// 
+			this.panel1.BackColor = System.Drawing.Color.SeaShell;
 			this.panel1.Controls.Add(this.lblMessage);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.panel1.Location = new System.Drawing.Point(0, 460);

@@ -2,6 +2,7 @@
 using MetaqueryGenerator.DS;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,13 @@ namespace MetaqueryGenerator.BL
         {
             int maxVariableInRelation = 0;
 			ProcessingModelDS modelDS = new ProcessingModelDS(connectionString);
-			maxVariableInRelation = modelDS.GetMaxVariablesInRelation();
+			int demoDbMaxCol = 0;
+			int.TryParse(ConfigurationManager.AppSettings["DemoDbMaxCol"], out demoDbMaxCol);
+
+			if (demoDbMaxCol > 0)
+				maxVariableInRelation = demoDbMaxCol;
+			else
+				maxVariableInRelation = modelDS.GetMaxVariablesInRelation();
 
 			TblDatabaseManagement tblDatabaseManagement = new TblDatabaseManagement()
             {

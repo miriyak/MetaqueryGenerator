@@ -33,8 +33,8 @@
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.customLabel1 = new MetaqueryGenerator.Forms.BaseControls.CustomLabel();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-			this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+			this.numericConfidence = new System.Windows.Forms.NumericUpDown();
+			this.numericSupport = new System.Windows.Forms.NumericUpDown();
 			this.label4 = new System.Windows.Forms.Label();
 			this.customButton4 = new MetaqueryGenerator.Forms.BaseControls.CustomButton();
 			this.customButton3 = new MetaqueryGenerator.Forms.BaseControls.CustomButton();
@@ -44,8 +44,8 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericConfidence)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericSupport)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// customButton1
@@ -102,8 +102,8 @@
 			// 
 			// groupBox2
 			// 
-			this.groupBox2.Controls.Add(this.numericUpDown2);
-			this.groupBox2.Controls.Add(this.numericUpDown1);
+			this.groupBox2.Controls.Add(this.numericConfidence);
+			this.groupBox2.Controls.Add(this.numericSupport);
 			this.groupBox2.Controls.Add(this.label4);
 			this.groupBox2.Controls.Add(this.customButton4);
 			this.groupBox2.Controls.Add(this.customButton3);
@@ -120,21 +120,21 @@
 			this.groupBox2.Text = "MQ Solver Random Demo";
 			this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
 			// 
-			// numericUpDown2
+			// numericConfidence
 			// 
-			this.numericUpDown2.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-			this.numericUpDown2.Location = new System.Drawing.Point(198, 170);
-			this.numericUpDown2.Name = "numericUpDown2";
-			this.numericUpDown2.Size = new System.Drawing.Size(71, 22);
-			this.numericUpDown2.TabIndex = 12;
+			this.numericConfidence.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+			this.numericConfidence.Location = new System.Drawing.Point(198, 170);
+			this.numericConfidence.Name = "numericConfidence";
+			this.numericConfidence.Size = new System.Drawing.Size(71, 22);
+			this.numericConfidence.TabIndex = 12;
 			// 
-			// numericUpDown1
+			// numericSupport
 			// 
-			this.numericUpDown1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-			this.numericUpDown1.Location = new System.Drawing.Point(198, 139);
-			this.numericUpDown1.Name = "numericUpDown1";
-			this.numericUpDown1.Size = new System.Drawing.Size(71, 22);
-			this.numericUpDown1.TabIndex = 8;
+			this.numericSupport.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+			this.numericSupport.Location = new System.Drawing.Point(198, 139);
+			this.numericSupport.Name = "numericSupport";
+			this.numericSupport.Size = new System.Drawing.Size(71, 22);
+			this.numericSupport.TabIndex = 8;
 			// 
 			// label4
 			// 
@@ -192,7 +192,7 @@
 			this.customLabel5.Name = "customLabel5";
 			this.customLabel5.Size = new System.Drawing.Size(374, 75);
 			this.customLabel5.TabIndex = 8;
-			this.customLabel5.Text = "Allow you to run demo that based on db containig results from solver";
+			this.customLabel5.Text = "Allow you to run demo that based on random results from solver";
 			// 
 			// label1
 			// 
@@ -226,8 +226,8 @@
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericConfidence)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericSupport)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -244,8 +244,8 @@
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.NumericUpDown numericUpDown2;
-		private System.Windows.Forms.NumericUpDown numericUpDown1;
+		private System.Windows.Forms.NumericUpDown numericConfidence;
+		private System.Windows.Forms.NumericUpDown numericSupport;
 		private BaseControls.CustomLabel customLabel5;
 		private BaseControls.CustomLabel customLabel1;
 	}

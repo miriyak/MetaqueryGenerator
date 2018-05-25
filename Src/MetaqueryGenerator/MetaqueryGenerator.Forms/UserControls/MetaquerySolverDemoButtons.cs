@@ -47,7 +47,9 @@ namespace MetaqueryGenerator.Forms.UserControls
 		{
 			string queueToMQSolverName = ConfigurationManager.AppSettings["QueueToMQSolverName"];
 			demo = new MetaquerySolverDemoRandom();
-			demo.RunConsumer(queueToMQSolverName);
+			int supportProbability = (int)numericSupport.Value;
+			int confidenceProbability = (int)numericConfidence.Value;
+			(demo as MetaquerySolverDemoRandom).RunConsumer(queueToMQSolverName, supportProbability,confidenceProbability);
 			ShowMessage("Start Run MQ Solver Consumer ");
 		}
 	}

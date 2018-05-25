@@ -18,7 +18,15 @@ namespace MetaquerySolver.Demo
 		//	string strMessage = resultMessage.ToJson();
 		//	producer.SendMessage(strMessage);
 		//}
+		public int SupportProbability { get; set; }
+		public int ConfidenceProbability { get; set; }
+		public void RunConsumer(string queueName, int supportProbability, int confidenceProbability)
+		{
+			base.RunConsumer(queueName);
 
+			SupportProbability = supportProbability;
+			ConfidenceProbability = confidenceProbability;
+		}
 		public override void OnGetMessageFromGenerator(string strMessage)
 		{
 			string queueToMQGeneratorName = ConfigurationManager.AppSettings["QueueToMQGeneratorName"];
@@ -27,58 +35,36 @@ namespace MetaquerySolver.Demo
 			SendMQMessage message = JsonConvert.DeserializeObject<SendMQMessage>(strMessage);
 			Metaquery metaquery = new Metaquery(message);
 
-			List<ResultDemoMq> resultMQList = MetaquerySolverDemoDS.GetResultDemoMq(metaquery.ToString());
-
-			bool hasResult = resultMQList.Count > 0;
 			ResultMQ resultMQ = ResultMQ.HasAnswers;
-			if (!hasResult)
-			{
-				Random rnd = new Random();
-				int rndNum = rnd.Next(2);
-				if (rndNum == 0)
-					resultMQ = ResultMQ.ConfidenceFailure;
-				else
-					resultMQ = ResultMQ.SupportFailure;
 
+			// Random the probability of the result
+			Random rnd = new Random();
+			int rndSupport = rnd.Next(100);
+			//Probability of  support failure
+			if (rndSupport < SupportProbability)
+				resultMQ = ResultMQ.SupportFailure;
+			else
+			{
+				//Probability of  confidence failure
+				int rndConfidence = rnd.Next(100);
+				if (rndConfidence < ConfidenceProbability)
+					resultMQ = ResultMQ.ConfidenceFailure;
 			}
 			MQResultMessage resultMessage = new MQResultMessage() { ID = message.ID, Result = resultMQ };
 
-			if (hasResult)
+			if (resultMQ == ResultMQ.HasAnswers)
 			{
-				foreach (ResultDemoMq resultDemoMQ in resultMQList)
+				MQAssignmentResultMessage assignmentResultMessage = new MQAssignmentResultMessage()
 				{
-					MQAssignmentResultMessage assignmentResultMessage = new MQAssignmentResultMessage()
-					{
-						ID = message.ID,
-						Assignment = resultDemoMQ.Assignment,
-						ConfidenceValue = resultDemoMQ.ConfidenceValue.Value,
-						SupportValue = resultDemoMQ.SupportValue.Value
-					};
+					ID = message.ID,
+					Assignment = "TEST - Assignment",
+					ConfidenceValue = 0,
+					SupportValue = 0
+				};
 
-					SendMQMessageToSolver(producer, assignmentResultMessage);
-
-					//System.Threading.Thread.Sleep(3000);
-
-				}
-
+				SendMQMessageToSolver(producer, assignmentResultMessage);
 			}
 			SendMQMessageToSolver(producer, resultMessage);
-
-			//System.Threading.Thread.Sleep(3000);
-
-			/*
-			 * MQResultMessage resultMessage = new MQResultMessage() { ID = 1, Result = true};
-
-            string strMessage = JsonConvert.SerializeObject(resultMessage);
-            string strResultMessageJson = "{\"ID\":1,\"Result\":true}";
-            Assert.AreEqual(strMessage, strResultMessageJson);
-
-            MQAssignmentResultMessage assignmentResultMessage = new MQAssignmentResultMessage() { ID = 1,Assignment="Any assignment",ConfidenceValue=0.3f,SupportValue=0.1f };
-            strMessage = JsonConvert.SerializeObject(assignmentResultMessage);
-            strResultMessageJson = "{\"ID\":1,\"SupportValue\":0.1,\"ConfidenceValue\":0.3,\"Assignment\":\"Any assignment\"}";
-*/
-			//MessageBox.Show("TestEvent, string: " + result.Metaquery);
-
 
 		}
 	}

@@ -50,17 +50,19 @@ namespace MetaqueryGenerator.BL
 				{
 					MQResultMessage resultMessage = message as MQResultMessage;
 					tblMetaquery.FkResult = (int)resultMessage.Result;
-					StatusMQ statusMQ = (resultMessage.Result == ResultMQ.HasAnswers ? StatusMQ.Done : StatusMQ.WaitingToExpand);
+					StatusMQ statusMQ = (tblMetaquery.IsExpanded || tblMetaquery.Arity == tblMetaquery.TblDatabaseManagement.MaxArity ? StatusMQ.Done : StatusMQ.WaitingToExpand);
 					MetaqueryDS.UpdateStatus(tblMetaquery, statusMQ);
 					bool execSendMail = bool.Parse(ConfigurationManager.AppSettings["ExecSendMail"]);
 					if (execSendMail)
 						MQGeneratorMail.SendResultMail(tblMetaquery);
 
-					if (MQGenerator.IsAutoRunJobs && statusMQ == StatusMQ.WaitingToExpand)
-						MQGenerator.StartExpandMQProcess();
-					//todo
-					/*if (MQGenerator.IsAutoRunJobs && resultMessage.Result == false)
-						MQGenerator.StartIncreaseDBArity();*/
+					if (MQGenerator.IsAutoRunJobs)
+					{
+						if (statusMQ == StatusMQ.WaitingToExpand)
+							MQGenerator.StartExpandMQProcess();
+						else if (statusMQ == StatusMQ.Done)
+							MQGenerator.StartIncreaseDBArity();
+					}
 				}
 				else if (message is MQAssignmentResultMessage)
 				{
@@ -77,7 +79,7 @@ namespace MetaqueryGenerator.BL
 					bool execSendMail = bool.Parse(ConfigurationManager.AppSettings["ExecSendMail"]);
 					if (execSendMail)
 						MQGeneratorMail.SendAssignmentMail(tblMetaqueriesResult, tblMetaquery.Metaquery);
-					if (MQGenerator.IsAutoRunJobs)
+					if (MQGenerator.IsAutoRunJobs && !tblMetaquery.IsExpanded)
 						MQGenerator.StartExpandMQProcess();
 
 				}

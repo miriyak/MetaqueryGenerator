@@ -72,7 +72,7 @@ namespace MetaqueryGenerator.BL
 				producer.SendMessage(strMessage);
 				count++;
 
-				MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.WaitingToSolver);
+				//MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.WaitingToSolver);
             }
 			return count;
 		}

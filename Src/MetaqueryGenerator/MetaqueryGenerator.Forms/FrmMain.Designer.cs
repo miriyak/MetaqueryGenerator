@@ -30,10 +30,9 @@
         {
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
 			this.leftPanel = new System.Windows.Forms.Panel();
-			this.button5 = new MetaqueryGenerator.Forms.BaseControls.CustomButton();
-			this.button4 = new MetaqueryGenerator.Forms.BaseControls.CustomButton();
-			this.button2 = new MetaqueryGenerator.Forms.BaseControls.CustomButton();
-			this.button1 = new MetaqueryGenerator.Forms.BaseControls.CustomButton();
+			this.panel1 = new System.Windows.Forms.Panel();
+			this.pictureBox2 = new System.Windows.Forms.PictureBox();
+			this.label2 = new System.Windows.Forms.Label();
 			this.logoPanel = new System.Windows.Forms.Panel();
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
 			this.label1 = new System.Windows.Forms.Label();
@@ -41,7 +40,13 @@
 			this.lblPage = new System.Windows.Forms.Label();
 			this.mainPanel = new System.Windows.Forms.Panel();
 			this.baseUserControl1 = new MetaqueryGenerator.Forms.BaseControls.BaseUserControl();
+			this.button5 = new MetaqueryGenerator.Forms.BaseControls.CustomButton();
+			this.button4 = new MetaqueryGenerator.Forms.BaseControls.CustomButton();
+			this.button2 = new MetaqueryGenerator.Forms.BaseControls.CustomButton();
+			this.button1 = new MetaqueryGenerator.Forms.BaseControls.CustomButton();
 			this.leftPanel.SuspendLayout();
+			this.panel1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
 			this.logoPanel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.headerPanel.SuspendLayout();
@@ -51,6 +56,7 @@
 			// leftPanel
 			// 
 			this.leftPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(53)))), ((int)(((byte)(62)))));
+			this.leftPanel.Controls.Add(this.panel1);
 			this.leftPanel.Controls.Add(this.button5);
 			this.leftPanel.Controls.Add(this.button4);
 			this.leftPanel.Controls.Add(this.button2);
@@ -62,61 +68,39 @@
 			this.leftPanel.Size = new System.Drawing.Size(310, 771);
 			this.leftPanel.TabIndex = 0;
 			// 
-			// button5
+			// panel1
 			// 
-			this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(53)))), ((int)(((byte)(62)))));
-			this.button5.Dock = System.Windows.Forms.DockStyle.Top;
-			this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button5.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button5.Location = new System.Drawing.Point(0, 275);
-			this.button5.Name = "button5";
-			this.button5.Size = new System.Drawing.Size(310, 62);
-			this.button5.TabIndex = 5;
-			this.button5.Text = "MetaquerySolver Demo";
-			this.button5.UseVisualStyleBackColor = true;
-			this.button5.Click += new System.EventHandler(this.button5_Click);
+			this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(129)))), ((int)(((byte)(49)))));
+			this.panel1.Controls.Add(this.pictureBox2);
+			this.panel1.Controls.Add(this.label2);
+			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.panel1.Location = new System.Drawing.Point(0, 671);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(310, 100);
+			this.panel1.TabIndex = 6;
 			// 
-			// button4
+			// pictureBox2
 			// 
-			this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(53)))), ((int)(((byte)(62)))));
-			this.button4.Dock = System.Windows.Forms.DockStyle.Top;
-			this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button4.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button4.Location = new System.Drawing.Point(0, 213);
-			this.button4.Name = "button4";
-			this.button4.Size = new System.Drawing.Size(310, 62);
-			this.button4.TabIndex = 4;
-			this.button4.Text = "Test Buttons";
-			this.button4.UseVisualStyleBackColor = true;
-			this.button4.Click += new System.EventHandler(this.button4_Click);
+			this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+			this.pictureBox2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.BackgroundImage")));
+			this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.pictureBox2.ImageLocation = "";
+			this.pictureBox2.InitialImage = null;
+			this.pictureBox2.Location = new System.Drawing.Point(215, 25);
+			this.pictureBox2.Name = "pictureBox2";
+			this.pictureBox2.Size = new System.Drawing.Size(64, 54);
+			this.pictureBox2.TabIndex = 3;
+			this.pictureBox2.TabStop = false;
 			// 
-			// button2
+			// label2
 			// 
-			this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(53)))), ((int)(((byte)(62)))));
-			this.button2.Dock = System.Windows.Forms.DockStyle.Top;
-			this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button2.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button2.Location = new System.Drawing.Point(0, 151);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(310, 62);
-			this.button2.TabIndex = 2;
-			this.button2.Text = "Status Page";
-			this.button2.UseVisualStyleBackColor = false;
-			this.button2.Click += new System.EventHandler(this.button2_Click);
-			// 
-			// button1
-			// 
-			this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(53)))), ((int)(((byte)(62)))));
-			this.button1.Dock = System.Windows.Forms.DockStyle.Top;
-			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.button1.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.button1.Location = new System.Drawing.Point(0, 89);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(310, 62);
-			this.button1.TabIndex = 1;
-			this.button1.Text = "Init Database";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.button1_Click);
+			this.label2.AutoSize = true;
+			this.label2.Font = new System.Drawing.Font("Malgun Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+			this.label2.Location = new System.Drawing.Point(12, 51);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(120, 28);
+			this.label2.TabIndex = 2;
+			this.label2.Text = "Miri Yakobi";
 			// 
 			// logoPanel
 			// 
@@ -193,6 +177,66 @@
 			this.baseUserControl1.Size = new System.Drawing.Size(1074, 681);
 			this.baseUserControl1.TabIndex = 0;
 			// 
+			// button5
+			// 
+			this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(53)))), ((int)(((byte)(62)))));
+			this.button5.Dock = System.Windows.Forms.DockStyle.Top;
+			this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.button5.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button5.ForeColor = System.Drawing.Color.White;
+			this.button5.Location = new System.Drawing.Point(0, 275);
+			this.button5.Name = "button5";
+			this.button5.Size = new System.Drawing.Size(310, 62);
+			this.button5.TabIndex = 5;
+			this.button5.Text = "MetaquerySolver Demo";
+			this.button5.UseVisualStyleBackColor = true;
+			this.button5.Click += new System.EventHandler(this.button5_Click);
+			// 
+			// button4
+			// 
+			this.button4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(53)))), ((int)(((byte)(62)))));
+			this.button4.Dock = System.Windows.Forms.DockStyle.Top;
+			this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.button4.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button4.ForeColor = System.Drawing.Color.White;
+			this.button4.Location = new System.Drawing.Point(0, 213);
+			this.button4.Name = "button4";
+			this.button4.Size = new System.Drawing.Size(310, 62);
+			this.button4.TabIndex = 4;
+			this.button4.Text = "Test Buttons";
+			this.button4.UseVisualStyleBackColor = true;
+			this.button4.Click += new System.EventHandler(this.button4_Click);
+			// 
+			// button2
+			// 
+			this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(53)))), ((int)(((byte)(62)))));
+			this.button2.Dock = System.Windows.Forms.DockStyle.Top;
+			this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.button2.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button2.ForeColor = System.Drawing.Color.White;
+			this.button2.Location = new System.Drawing.Point(0, 151);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(310, 62);
+			this.button2.TabIndex = 2;
+			this.button2.Text = "Status Page";
+			this.button2.UseVisualStyleBackColor = false;
+			this.button2.Click += new System.EventHandler(this.button2_Click);
+			// 
+			// button1
+			// 
+			this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(53)))), ((int)(((byte)(62)))));
+			this.button1.Dock = System.Windows.Forms.DockStyle.Top;
+			this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.button1.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.button1.ForeColor = System.Drawing.Color.White;
+			this.button1.Location = new System.Drawing.Point(0, 89);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(310, 62);
+			this.button1.TabIndex = 1;
+			this.button1.Text = "Init Database";
+			this.button1.UseVisualStyleBackColor = true;
+			this.button1.Click += new System.EventHandler(this.button1_Click);
+			// 
 			// FrmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -209,6 +253,9 @@
 			this.Text = "Metaquery Generator";
 			this.Load += new System.EventHandler(this.Form1_Load);
 			this.leftPanel.ResumeLayout(false);
+			this.panel1.ResumeLayout(false);
+			this.panel1.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
 			this.logoPanel.ResumeLayout(false);
 			this.logoPanel.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -233,6 +280,9 @@
 		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.Label lblPage;
 		private BaseControls.BaseUserControl baseUserControl1;
+		private System.Windows.Forms.Panel panel1;
+		private System.Windows.Forms.PictureBox pictureBox2;
+		private System.Windows.Forms.Label label2;
 	}
 }
 

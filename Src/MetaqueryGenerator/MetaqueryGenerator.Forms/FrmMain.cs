@@ -67,7 +67,6 @@ namespace MetaqueryGenerator.Forms
         }
         private void button1_Click(object sender, EventArgs e)
         {
-
             setButtonPressed(button1);
 			InitializeDB uc = new InitializeDB();
             openNewPanel(uc);

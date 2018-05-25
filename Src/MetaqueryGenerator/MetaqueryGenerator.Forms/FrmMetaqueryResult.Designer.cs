@@ -38,7 +38,7 @@
 			// lblMessage
 			// 
 			this.lblMessage.AutoSize = true;
-			this.lblMessage.Location = new System.Drawing.Point(404, 95);
+			this.lblMessage.Location = new System.Drawing.Point(499, 93);
 			this.lblMessage.Name = "lblMessage";
 			this.lblMessage.Size = new System.Drawing.Size(234, 17);
 			this.lblMessage.TabIndex = 0;
@@ -48,10 +48,10 @@
 			// gridMetaqueryResult
 			// 
 			this.gridMetaqueryResult.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.gridMetaqueryResult.Location = new System.Drawing.Point(398, 137);
+			this.gridMetaqueryResult.Location = new System.Drawing.Point(499, 137);
 			this.gridMetaqueryResult.Name = "gridMetaqueryResult";
 			this.gridMetaqueryResult.RowTemplate.Height = 24;
-			this.gridMetaqueryResult.Size = new System.Drawing.Size(240, 150);
+			this.gridMetaqueryResult.Size = new System.Drawing.Size(139, 150);
 			this.gridMetaqueryResult.TabIndex = 5;
 			// 
 			// flowLayoutPanel1
@@ -60,14 +60,14 @@
 			this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Left;
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-			this.flowLayoutPanel1.Size = new System.Drawing.Size(352, 450);
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(493, 450);
 			this.flowLayoutPanel1.TabIndex = 6;
 			// 
 			// FrmMetaqueryResult
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(354, 450);
+			this.ClientSize = new System.Drawing.Size(643, 450);
 			this.Controls.Add(this.flowLayoutPanel1);
 			this.Controls.Add(this.gridMetaqueryResult);
 			this.Controls.Add(this.lblMessage);
