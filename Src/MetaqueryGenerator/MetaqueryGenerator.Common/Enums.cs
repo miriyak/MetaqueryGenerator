@@ -19,7 +19,8 @@ namespace MetaqueryGenerator.Common
 		HasPartialResult = 5,
 		Expanded = 6,
         Done =7,
-    }
+		ExpandedAndDone = 1000,
+	}
 	public enum ResultMQ
 	{
 		HasAnswers = 1,

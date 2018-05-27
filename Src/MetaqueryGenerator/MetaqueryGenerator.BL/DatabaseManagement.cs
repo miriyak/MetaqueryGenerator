@@ -36,7 +36,8 @@ namespace MetaqueryGenerator.BL
                 ConfidenceThreshold = confidenceThreshold,
 				MaxArity = maxArity,
 				FkStatusId = (int)StatusMQ.Received,
-                MaxVariablesInRelation = maxVariableInRelation
+                MaxVariablesInRelation = maxVariableInRelation,
+				ForExperiment = false
             };
             DatabaseManagementsDS.Create(tblDatabaseManagement);
 

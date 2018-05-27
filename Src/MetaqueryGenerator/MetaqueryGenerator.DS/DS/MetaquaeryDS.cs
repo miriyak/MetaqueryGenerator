@@ -71,14 +71,16 @@ namespace MetaqueryGenerator.DS
         {
             using (MetaqueriesContext context = new MetaqueriesContext())
             {
-                tblMetaquery.FkStatusId = (int)newStatus;
+                tblMetaquery.FkStatusId = (int)(newStatus == StatusMQ.ExpandedAndDone ? StatusMQ.Done : newStatus );
+
                 if (newStatus == StatusMQ.WaitingToSolver)
                     tblMetaquery.StartTime = DateTime.Now;
-                if (newStatus == StatusMQ.Done)
+                if (newStatus == StatusMQ.Done || newStatus == StatusMQ.ExpandedAndDone)
                     tblMetaquery.FinishTime = DateTime.Now;
-				if (newStatus == StatusMQ.Expanded)
+				if (newStatus == StatusMQ.Expanded || newStatus == StatusMQ.ExpandedAndDone)
 					tblMetaquery.IsExpanded = true;
 
+				tblMetaquery.TblDatabaseManagement = null;
 				context.TblMetaqueries.Attach(tblMetaquery);
                 //context.Entry(tblMetaquery).State = System.Data.Entity.EntityState.Modified;
                 context.MarkAsModified(tblMetaquery);

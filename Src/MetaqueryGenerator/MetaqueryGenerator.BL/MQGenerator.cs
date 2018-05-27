@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace MetaqueryGenerator.BL
 {
@@ -44,36 +45,69 @@ namespace MetaqueryGenerator.BL
             }
 			//if at least 1 metaquery created - we can start send it to solver
 			if (lstDB.Count > 0 && IsAutoRunJobs)
-				StartSendMQToSolver();
+				ThreadPool.QueueUserWorkItem(delegate
+				{
+					StartSendMQToSolver();
+				});
 
 		}
 		public static int StartSendMQToSolver()
         {
-			string queueToMQSolverName = ConfigurationManager.AppSettings["QueueToMQSolverName"];
             List<TblMetaquery> lstMQ = MetaqueryDS.GetMQForSendToSolver();
-			RabbitProducer<string> producer = new RabbitProducer<string>(queueToMQSolverName);
+			RabbitProducer<string> producer = null; 
 			int count = 0;
+			bool doStartExpandMQProcess = false, doStartIncreaseDBArity = false;
 			foreach (TblMetaquery tblMetaquery in lstMQ)
             {
+
                 TblDatabaseManagement curDB = tblMetaquery.TblDatabaseManagement;
-				Metaquery metaquery = new Metaquery(tblMetaquery.Metaquery);
-
-				//שליחה לסולבר
-				SendMQMessage message = new SendMQMessage()
+				if (!curDB.ForExperiment)
 				{
-					ID = tblMetaquery.Id,
-					SupportThreshold = curDB.SupportThreshold,
-					ConfidenceThreshold = curDB.ConfidenceThreshold,
-					Head = metaquery.Head.Variables,
-					Body = metaquery.Body.GetVariables()
-				};
-				
-				string strMessage = message.ToJson();  //JsonConvert.SerializeObject(message);
-				producer.SendMessage(strMessage);
-				count++;
+					if (producer == null)
+					{
+						string queueToMQSolverName = ConfigurationManager.AppSettings["QueueToMQSolverName"];
+						producer = new RabbitProducer<string>(queueToMQSolverName);
+					}
+					Metaquery metaquery = new Metaquery(tblMetaquery.Metaquery);
+					//שליחה לסולבר
+					SendMQMessage message = new SendMQMessage()
+					{
+						ID = tblMetaquery.Id,
+						SupportThreshold = curDB.SupportThreshold,
+						ConfidenceThreshold = curDB.ConfidenceThreshold,
+						Head = metaquery.Head.Variables,
+						Body = metaquery.Body.GetVariables()
+					};
 
-				MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.WaitingToSolver);
-            }
+					string strMessage = message.ToJson();  //JsonConvert.SerializeObject(message);
+					producer.SendMessage(strMessage);
+					count++;
+
+					MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.WaitingToSolver);
+				}
+				else
+				{
+
+					RandomMQProbability randomMQProbability = new RandomMQProbability(curDB.SupportProbability.Value, curDB.ConfidenceProbability.Value);
+					tblMetaquery.FkResult = (int)randomMQProbability.GetRandomResultMQ();
+
+					StatusMQ statusMQ = (tblMetaquery.IsExpanded || tblMetaquery.Arity == tblMetaquery.TblDatabaseManagement.MaxArity ? StatusMQ.Done : StatusMQ.WaitingToExpand);
+					MetaqueryDS.UpdateStatus(tblMetaquery, statusMQ);
+					
+					if (statusMQ == StatusMQ.WaitingToExpand)
+						doStartExpandMQProcess = true;
+					else if (statusMQ == StatusMQ.Done)
+						doStartIncreaseDBArity = true;
+
+				}
+			}
+			if (MQGenerator.IsAutoRunJobs)
+			{
+				if (doStartExpandMQProcess)
+					MQGenerator.StartExpandMQProcess();
+				else if (doStartIncreaseDBArity)
+					MQGenerator.StartIncreaseDBArity();
+			}
 			return count;
 		}
 		public static void StartExpandMQProcess()
@@ -105,10 +139,14 @@ namespace MetaqueryGenerator.BL
                     };
                     MetaqueryDS.Create(newTblMetaquery);
                 }
-                MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.Expanded);
+				/*MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.Expanded);
 				if(tblMetaquery.FkResult != (int)ResultMQ.HasAnswers)
 					MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.Done);
-
+					*/
+				if(curDB.ForExperiment || tblMetaquery.FkResult != (int)ResultMQ.HasAnswers)
+					MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.ExpandedAndDone);
+				else
+					MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.Expanded);
 
 				/*
                 MetaqueryDS.Create(tblMetaquery);
