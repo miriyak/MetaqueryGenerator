@@ -76,6 +76,9 @@ namespace MetaqueryGenerator.Forms.UserControls
 
 		}
 
-		
+		private void btnRunProbExperiment_Click(object sender, EventArgs e)
+		{
+			ProbabilityExperiment.Run();
+		}
 	}
 }

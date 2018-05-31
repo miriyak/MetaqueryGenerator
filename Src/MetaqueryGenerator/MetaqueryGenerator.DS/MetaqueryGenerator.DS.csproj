@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DS\ProbabilityExperimentDS.cs" />
     <Compile Include="DS\MetaqueryResult.cs" />
     <Compile Include="DS\MetaquaeryDS.cs" />
     <Compile Include="MetaqueriesContext.cs">

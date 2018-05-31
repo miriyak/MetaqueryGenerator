@@ -628,6 +628,10 @@ namespace MetaqueryGenerator.DS
         /// Child TblMetaqueries where [Tbl_Metaqueries].[FK_DatabaseID] point to this entity (FK_Tbl_Metaqueries_Tbl_DatabaseManagement)
         /// </summary>
         public virtual System.Collections.Generic.ICollection<TblMetaquery> TblMetaqueries { get; set; } // Tbl_Metaqueries.FK_Tbl_Metaqueries_Tbl_DatabaseManagement
+        /// <summary>
+        /// Child TblProbabilityExperiments where [Tbl_ProbabilityExperiment].[FK_DatabaseID] point to this entity (FK_Tbl_ProbabilityExperiment_Tbl_DatabaseManagement)
+        /// </summary>
+        public virtual System.Collections.Generic.ICollection<TblProbabilityExperiment> TblProbabilityExperiments { get; set; } // Tbl_ProbabilityExperiment.FK_Tbl_ProbabilityExperiment_Tbl_DatabaseManagement
 
         // Foreign keys
 
@@ -639,6 +643,7 @@ namespace MetaqueryGenerator.DS
         public TblDatabaseManagement()
         {
             TblMetaqueries = new System.Collections.Generic.List<TblMetaquery>();
+            TblProbabilityExperiments = new System.Collections.Generic.List<TblProbabilityExperiment>();
             InitializePartial();
         }
 
@@ -788,10 +793,18 @@ namespace MetaqueryGenerator.DS
         ///</summary>
         public int MaxVariablesInRelation { get; set; } // MaxVariablesInRelation
         public int MaxArity { get; set; } // MaxArity
+        public int? FkDatabaseId { get; set; } // FK_DatabaseID
         public int? MqCount { get; set; } // MQCount
         public int? HasResultCount { get; set; } // HasResultCount
         public int? SupportFailureCount { get; set; } // SupportFailureCount
         public int? ConfidenceFailureCount { get; set; } // ConfidenceFailureCount
+
+        // Foreign keys
+
+        /// <summary>
+        /// Parent TblDatabaseManagement pointed by [Tbl_ProbabilityExperiment].([FkDatabaseId]) (FK_Tbl_ProbabilityExperiment_Tbl_DatabaseManagement)
+        /// </summary>
+        public virtual TblDatabaseManagement TblDatabaseManagement { get; set; } // FK_Tbl_ProbabilityExperiment_Tbl_DatabaseManagement
 
         public TblProbabilityExperiment()
         {
@@ -1042,10 +1055,14 @@ namespace MetaqueryGenerator.DS
             Property(x => x.ConfidenceProbability).HasColumnName(@"ConfidenceProbability").HasColumnType("int").IsRequired();
             Property(x => x.MaxVariablesInRelation).HasColumnName(@"MaxVariablesInRelation").HasColumnType("int").IsRequired();
             Property(x => x.MaxArity).HasColumnName(@"MaxArity").HasColumnType("int").IsRequired();
+            Property(x => x.FkDatabaseId).HasColumnName(@"FK_DatabaseID").HasColumnType("int").IsOptional();
             Property(x => x.MqCount).HasColumnName(@"MQCount").HasColumnType("int").IsOptional();
             Property(x => x.HasResultCount).HasColumnName(@"HasResultCount").HasColumnType("int").IsOptional();
             Property(x => x.SupportFailureCount).HasColumnName(@"SupportFailureCount").HasColumnType("int").IsOptional();
             Property(x => x.ConfidenceFailureCount).HasColumnName(@"ConfidenceFailureCount").HasColumnType("int").IsOptional();
+
+            // Foreign keys
+            HasOptional(a => a.TblDatabaseManagement).WithMany(b => b.TblProbabilityExperiments).HasForeignKey(c => c.FkDatabaseId).WillCascadeOnDelete(false); // FK_Tbl_ProbabilityExperiment_Tbl_DatabaseManagement
             InitializePartial();
         }
         partial void InitializePartial();

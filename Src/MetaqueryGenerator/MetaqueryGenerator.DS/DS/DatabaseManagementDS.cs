@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MetaqueryGenerator.Common;
-
+using System.Data.Entity;
 namespace MetaqueryGenerator.DS
 {
     public static class DatabaseManagementsDS
@@ -18,11 +18,21 @@ namespace MetaqueryGenerator.DS
                 context.SaveChanges();
             }
         }
-		public static List<TblDatabaseManagement> Get()
+		public static List<TblDatabaseManagement> GetNotForExperiment()
 		{
 			using (MetaqueriesContext context = new MetaqueriesContext())
 			{
-				return context.TblDatabaseManagements.ToList();
+				return context.TblDatabaseManagements.Where(x=> x.ForExperiment == false).ToList();
+			}
+		}
+		public static TblDatabaseManagement Get(int id)
+		{
+			using (MetaqueriesContext context = new MetaqueriesContext())
+			{
+				return context
+					.TblDatabaseManagements
+					.Include(x => x.TblStatus)
+					.FirstOrDefault(x => x.Id == id);
 			}
 		}
 		public static List<TblDatabaseManagement> GetDBToWork(StatusDB statusDB)

@@ -53,6 +53,7 @@
     <Compile Include="MQGeneratorMail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomMQProbability.cs" />
+    <Compile Include="ProbabilityExperiment.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MetaqueryGenerator.Common\MetaqueryGenerator.Common.csproj">

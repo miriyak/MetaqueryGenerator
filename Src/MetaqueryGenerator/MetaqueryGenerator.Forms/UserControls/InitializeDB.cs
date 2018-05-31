@@ -66,9 +66,9 @@ namespace MetaqueryGenerator.Forms.UserControls
         {
             //MTODO - REMOVE DEFAULT
             txtConnectionString.Text = @"Data Source =.\SQLEXPRESS; Initial Catalog = TestMQ; Integrated Security = True";
-            txtConfidence.Text = "0.3";
-            txtSupport.Text = "0.2";
-            txtMaxArity.Text = "10";
+			numericSupport.Text = "0.3";
+			numericConfidence.Text = "0.2";
+			numericMaxArity.Text = "10";
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -76,9 +76,9 @@ namespace MetaqueryGenerator.Forms.UserControls
             MetaqueryGenerator.BL.DatabaseManagement dbManagement = new BL.DatabaseManagement();
             decimal confidence, support;
             int maxArity;
-            decimal.TryParse(txtConfidence.Text,out confidence);
-            decimal.TryParse(txtSupport.Text,out support);
-			int.TryParse(txtMaxArity.Text,out maxArity);
+            decimal.TryParse(numericConfidence.Text,out confidence);
+            decimal.TryParse(numericSupport.Text,out support);
+			int.TryParse(numericMaxArity.Text,out maxArity);
 			
 			if (dbManagement.Create(txtDbName.Text, txtConnectionString.Text, support, confidence,maxArity))
 			{
@@ -92,9 +92,9 @@ namespace MetaqueryGenerator.Forms.UserControls
 		{
 			txtDbName.Text = "";
 			txtConnectionString.Text = "";
-			txtConfidence.Text = "";
-			txtSupport.Text = "";
-			txtMaxArity.Text = "";
+			numericConfidence.Text = "";
+			numericSupport.Text = "";
+			numericMaxArity.Text = "";
 		}
 		private void btnClear_Click(object sender, EventArgs e)
 		{

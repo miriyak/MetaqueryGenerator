@@ -38,9 +38,9 @@
 			this.panel1.BackColor = System.Drawing.Color.SeaShell;
 			this.panel1.Controls.Add(this.lblMessage);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.panel1.Location = new System.Drawing.Point(0, 460);
+			this.panel1.Location = new System.Drawing.Point(0, 905);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(960, 100);
+			this.panel1.Size = new System.Drawing.Size(1610, 95);
 			this.panel1.TabIndex = 0;
 			// 
 			// lblMessage
@@ -59,7 +59,7 @@
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(229)))), ((int)(((byte)(129)))), ((int)(((byte)(49)))));
 			this.Controls.Add(this.panel1);
 			this.Name = "BaseUserControl";
-			this.Size = new System.Drawing.Size(960, 560);
+			this.Size = new System.Drawing.Size(1610, 1000);
 			this.Load += new System.EventHandler(this.BaseUserControl_Load);
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();

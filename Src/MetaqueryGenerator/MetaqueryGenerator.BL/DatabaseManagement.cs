@@ -9,16 +9,25 @@ using System.Threading.Tasks;
 
 namespace MetaqueryGenerator.BL
 {
-    public class DatabaseManagement
-    {
-        public bool Create(string dbName,
-                            string connectionString,
-                            decimal supportThreshold,
-                            decimal confidenceThreshold,
+	public class DatabaseManagement
+	{
+
+		private TblDatabaseManagement Create(TblDatabaseManagement tblDatabaseManagement)
+		{
+			DatabaseManagementsDS.Create(tblDatabaseManagement);
+
+			MQGeneratorMail.SendDBInitializedMail(tblDatabaseManagement);
+
+			return tblDatabaseManagement;
+		}
+		public bool Create(string dbName,
+							string connectionString,
+							decimal supportThreshold,
+							decimal confidenceThreshold,
 							int maxArity
-                            )
-        {
-            int maxVariableInRelation = 0;
+							)
+		{
+			int maxVariableInRelation = 0;
 			ProcessingModelDS modelDS = new ProcessingModelDS(connectionString);
 			int demoDbMaxCol = 0;
 			int.TryParse(ConfigurationManager.AppSettings["DemoDbMaxCol"], out demoDbMaxCol);
@@ -29,24 +38,44 @@ namespace MetaqueryGenerator.BL
 				maxVariableInRelation = modelDS.GetMaxVariablesInRelation();
 
 			TblDatabaseManagement tblDatabaseManagement = new TblDatabaseManagement()
-            {
-                DbName = dbName,
-                ConnectionString = connectionString,
-                SupportThreshold = supportThreshold,
-                ConfidenceThreshold = confidenceThreshold,
+			{
+				DbName = dbName,
+				ConnectionString = connectionString,
+				SupportThreshold = supportThreshold,
+				ConfidenceThreshold = confidenceThreshold,
 				MaxArity = maxArity,
 				FkStatusId = (int)StatusMQ.Received,
-                MaxVariablesInRelation = maxVariableInRelation,
+				MaxVariablesInRelation = maxVariableInRelation,
 				ForExperiment = false
-            };
-            DatabaseManagementsDS.Create(tblDatabaseManagement);
-
-			MQGeneratorMail.SendDBInitializedMail(tblDatabaseManagement);
-
+			};
+			Create(tblDatabaseManagement);
 			return true;
-        }
+		}
 
 
-		
+		public TblDatabaseManagement CreateForExperiment(string dbName,
+							int maxArity,
+							int maxVariableInRelation,
+							int supportProbability,
+							int confidenceProbability
+							)
+		{
+			TblDatabaseManagement tblDatabaseManagement = new TblDatabaseManagement()
+			{
+				DbName = dbName,
+				ConnectionString = "FOR_Experiment",
+				SupportThreshold = 0,
+				ConfidenceThreshold = 0,
+				MaxArity = maxArity,
+				FkStatusId = (int)StatusMQ.Received,
+				MaxVariablesInRelation = maxVariableInRelation,
+				ForExperiment = true,
+				SupportProbability = supportProbability,
+				ConfidenceProbability = confidenceProbability
+			};
+			return Create(tblDatabaseManagement);
+		}
+
+
 	}
 }

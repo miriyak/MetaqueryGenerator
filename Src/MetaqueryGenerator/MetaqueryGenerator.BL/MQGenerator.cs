@@ -53,53 +53,59 @@ namespace MetaqueryGenerator.BL
 		}
 		public static int StartSendMQToSolver()
         {
-            List<TblMetaquery> lstMQ = MetaqueryDS.GetMQForSendToSolver();
-			RabbitProducer<string> producer = null; 
+			List<TblMetaquery> lstMQ = MetaqueryDS.GetMQForSendToSolver();
+
 			int count = 0;
 			bool doStartExpandMQProcess = false, doStartIncreaseDBArity = false;
-			foreach (TblMetaquery tblMetaquery in lstMQ)
-            {
-
-                TblDatabaseManagement curDB = tblMetaquery.TblDatabaseManagement;
-				if (!curDB.ForExperiment)
+			while (lstMQ.Count>0)
+			{
+				RabbitProducer<string> producer = null;
+				foreach (TblMetaquery tblMetaquery in lstMQ)
 				{
-					if (producer == null)
-					{
-						string queueToMQSolverName = ConfigurationManager.AppSettings["QueueToMQSolverName"];
-						producer = new RabbitProducer<string>(queueToMQSolverName);
-					}
-					Metaquery metaquery = new Metaquery(tblMetaquery.Metaquery);
-					//שליחה לסולבר
-					SendMQMessage message = new SendMQMessage()
-					{
-						ID = tblMetaquery.Id,
-						SupportThreshold = curDB.SupportThreshold,
-						ConfidenceThreshold = curDB.ConfidenceThreshold,
-						Head = metaquery.Head.Variables,
-						Body = metaquery.Body.GetVariables()
-					};
 
-					string strMessage = message.ToJson();  //JsonConvert.SerializeObject(message);
-					producer.SendMessage(strMessage);
+					TblDatabaseManagement curDB = tblMetaquery.TblDatabaseManagement;
+					if (!curDB.ForExperiment)
+					{
+						if (producer == null)
+						{
+							string queueToMQSolverName = ConfigurationManager.AppSettings["QueueToMQSolverName"];
+							producer = new RabbitProducer<string>(queueToMQSolverName);
+						}
+						Metaquery metaquery = new Metaquery(tblMetaquery.Metaquery);
+						//שליחה לסולבר
+						SendMQMessage message = new SendMQMessage()
+						{
+							ID = tblMetaquery.Id,
+							SupportThreshold = curDB.SupportThreshold,
+							ConfidenceThreshold = curDB.ConfidenceThreshold,
+							Head = metaquery.Head.Variables,
+							Body = metaquery.Body.GetVariables()
+						};
+
+						string strMessage = message.ToJson();  //JsonConvert.SerializeObject(message);
+						producer.SendMessage(strMessage);
+
+						MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.WaitingToSolver);
+					}
+					else
+					{
+
+						RandomMQProbability randomMQProbability = new RandomMQProbability(curDB.SupportProbability.Value, curDB.ConfidenceProbability.Value);
+						tblMetaquery.FkResult = (int)randomMQProbability.GetRandomResultMQ();
+
+						StatusMQ statusMQ = (tblMetaquery.IsExpanded || tblMetaquery.Arity == tblMetaquery.TblDatabaseManagement.MaxArity ? StatusMQ.Done : StatusMQ.WaitingToExpand);
+						MetaqueryDS.UpdateStatus(tblMetaquery, statusMQ);
+
+						if (statusMQ == StatusMQ.WaitingToExpand)
+							doStartExpandMQProcess = true;
+						else if (statusMQ == StatusMQ.Done)
+							doStartIncreaseDBArity = true;
+
+					}
 					count++;
 
-					MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.WaitingToSolver);
 				}
-				else
-				{
-
-					RandomMQProbability randomMQProbability = new RandomMQProbability(curDB.SupportProbability.Value, curDB.ConfidenceProbability.Value);
-					tblMetaquery.FkResult = (int)randomMQProbability.GetRandomResultMQ();
-
-					StatusMQ statusMQ = (tblMetaquery.IsExpanded || tblMetaquery.Arity == tblMetaquery.TblDatabaseManagement.MaxArity ? StatusMQ.Done : StatusMQ.WaitingToExpand);
-					MetaqueryDS.UpdateStatus(tblMetaquery, statusMQ);
-					
-					if (statusMQ == StatusMQ.WaitingToExpand)
-						doStartExpandMQProcess = true;
-					else if (statusMQ == StatusMQ.Done)
-						doStartIncreaseDBArity = true;
-
-				}
+				lstMQ = MetaqueryDS.GetMQForSendToSolver();
 			}
 			if (MQGenerator.IsAutoRunJobs)
 			{
@@ -113,45 +119,50 @@ namespace MetaqueryGenerator.BL
 		public static void StartExpandMQProcess()
         {
             List<TblMetaquery> lstMQ = MetaqueryDS.GetMQForExpand();
-            foreach (TblMetaquery tblMetaquery in lstMQ)
-            {
-                TblDatabaseManagement curDB = tblMetaquery.TblDatabaseManagement;
-                Metaquery metaqueryToExpand = new Metaquery(tblMetaquery.Metaquery);
+			while (lstMQ.Count > 0)
+			{
+				foreach (TblMetaquery tblMetaquery in lstMQ)
+				{
+					TblDatabaseManagement curDB = tblMetaquery.TblDatabaseManagement;
+					Metaquery metaqueryToExpand = new Metaquery(tblMetaquery.Metaquery);
 
-                //create first level
-                //int MaxVariablesInRelation = ProcessMQDetails.MaxVariablesInRelation;
-                int maxVariables = curDB.MaxVariablesInRelation;
-				ExpandType expandType = ExpandType.All;
-				if (tblMetaquery.FkResult == (int)ResultMQ.SupportFailure)
-					expandType = ExpandType.NewRelationOnly;
-				if (tblMetaquery.FkResult == (int)ResultMQ.ConfidenceFailure)
-					expandType = ExpandType.InBodyOnly;
+					//create first level
+					//int MaxVariablesInRelation = ProcessMQDetails.MaxVariablesInRelation;
+					int maxVariables = curDB.MaxVariablesInRelation;
+					ExpandType expandType = ExpandType.All;
+					if (tblMetaquery.FkResult == (int)ResultMQ.SupportFailure)
+						expandType = ExpandType.NewRelationOnly;
+					if (tblMetaquery.FkResult == (int)ResultMQ.ConfidenceFailure)
+						expandType = ExpandType.InBodyOnly;
 
-				List<Metaquery> list = metaqueryToExpand.Expand(maxVariables, expandType);
-                foreach (Metaquery mq in list)
-                {
-                    TblMetaquery newTblMetaquery = new TblMetaquery()
-                    {
-                        Arity = mq.Arity,
-                        FkDatabaseId = curDB.Id,
-                        FkStatusId = (int)StatusDB.Received,
-                        Metaquery = mq.ToString()
-                    };
-                    MetaqueryDS.Create(newTblMetaquery);
-                }
-				/*MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.Expanded);
-				if(tblMetaquery.FkResult != (int)ResultMQ.HasAnswers)
-					MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.Done);
-					*/
-				if(curDB.ForExperiment || tblMetaquery.FkResult != (int)ResultMQ.HasAnswers)
-					MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.ExpandedAndDone);
-				else
-					MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.Expanded);
+					List<Metaquery> list = metaqueryToExpand.Expand(maxVariables, expandType);
+					foreach (Metaquery mq in list)
+					{
+						TblMetaquery newTblMetaquery = new TblMetaquery()
+						{
+							Arity = mq.Arity,
+							FkDatabaseId = curDB.Id,
+							FkStatusId = (int)StatusDB.Received,
+							Metaquery = mq.ToString()
+						};
+						MetaqueryDS.Create(newTblMetaquery);
+					}
+					/*MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.Expanded);
+					if(tblMetaquery.FkResult != (int)ResultMQ.HasAnswers)
+						MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.Done);
+						*/
+					if (curDB.ForExperiment || tblMetaquery.FkResult != (int)ResultMQ.HasAnswers)
+						MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.ExpandedAndDone);
+					else
+						MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.Expanded);
 
-				/*
-                MetaqueryDS.Create(tblMetaquery);
-                DatabaseManagementsDS.UpdateStatus(db, StatusDB.InProcess);*/
+					/*
+					MetaqueryDS.Create(tblMetaquery);
+					DatabaseManagementsDS.UpdateStatus(db, StatusDB.InProcess);*/
+				}
+				lstMQ = MetaqueryDS.GetMQForExpand();
 			}
+
 			if (IsAutoRunJobs)
 				StartIncreaseDBArity();
 		}
@@ -176,7 +187,10 @@ namespace MetaqueryGenerator.BL
 				
 			}
 			if (lstDB.Count > 0 && IsAutoRunJobs)
-				StartSendMQToSolver();
+				ThreadPool.QueueUserWorkItem(delegate
+				{
+					StartSendMQToSolver();
+				}); 
 
 		}
 

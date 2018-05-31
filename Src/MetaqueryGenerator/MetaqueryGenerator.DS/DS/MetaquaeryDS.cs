@@ -31,6 +31,18 @@ namespace MetaqueryGenerator.DS
 					;
 			}
 		}
+		public static List<int> GetDBArityExists(int dbID)
+		{
+			using (MetaqueriesContext context = new MetaqueriesContext())
+			{
+				return context
+					.TblMetaqueries
+					.Where(x => x.FkDatabaseId == dbID)
+					.Select(x => x.Arity)
+					.Distinct()
+					.ToList();
+			}
+		}
 		public static List<VMetaquery> GetMetaqueriesByID(int dbID)
 		{
 			using (MetaqueriesContext context = new MetaqueriesContext())
@@ -51,6 +63,7 @@ namespace MetaqueryGenerator.DS
 					.Where(x => !x.IsExpanded 
 								&& ( x.TblMetaqueriesResults.Any() || x.FkResult.HasValue )
 								&& x.Arity < x.TblDatabaseManagement.MaxArity)
+					.Take(10000)
                     .ToList();
             }
         }
@@ -63,6 +76,7 @@ namespace MetaqueryGenerator.DS
                     .TblMetaqueries
                     .Include(x => x.TblDatabaseManagement)
                     .Where(x => x.FkStatusId == (int)StatusMQ.Received && x.Arity == x.TblDatabaseManagement.CurrentArity)
+					.Take(10000)
                     .ToList();
             }
         }

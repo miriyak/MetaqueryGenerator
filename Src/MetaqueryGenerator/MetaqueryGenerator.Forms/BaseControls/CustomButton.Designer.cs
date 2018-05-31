@@ -36,7 +36,7 @@
 			this.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.ForeColor = System.Drawing.Color.White;
-			this.Size = new System.Drawing.Size(120, 120);
+			this.Size = new System.Drawing.Size(145, 50);
 			this.UseVisualStyleBackColor = false;
 			this.ResumeLayout(false);
 
