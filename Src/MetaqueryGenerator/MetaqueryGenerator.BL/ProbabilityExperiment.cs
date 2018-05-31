@@ -30,6 +30,7 @@ namespace MetaqueryGenerator.BL
 					, tblExp.MaxVariablesInRelation
 					, tblExp.SupportProbability
 					, tblExp.ConfidenceProbability
+					, tblExp.ProbabilityIncreaseByArity
 					);
 				if(newDB!=null)
 				{

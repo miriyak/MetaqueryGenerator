@@ -621,6 +621,7 @@ namespace MetaqueryGenerator.DS
         public bool ForExperiment { get; set; } // ForExperiment
         public int? SupportProbability { get; set; } // SupportProbability
         public int? ConfidenceProbability { get; set; } // ConfidenceProbability
+        public int? ProbabilityIncreaseByArity { get; set; } // ProbabilityIncreaseByArity
 
         // Reverse navigation
 
@@ -798,6 +799,7 @@ namespace MetaqueryGenerator.DS
         public int? HasResultCount { get; set; } // HasResultCount
         public int? SupportFailureCount { get; set; } // SupportFailureCount
         public int? ConfidenceFailureCount { get; set; } // ConfidenceFailureCount
+        public int? ProbabilityIncreaseByArity { get; set; } // ProbabilityIncreaseByArity
 
         // Foreign keys
 
@@ -966,6 +968,7 @@ namespace MetaqueryGenerator.DS
             Property(x => x.ForExperiment).HasColumnName(@"ForExperiment").HasColumnType("bit").IsRequired();
             Property(x => x.SupportProbability).HasColumnName(@"SupportProbability").HasColumnType("int").IsOptional();
             Property(x => x.ConfidenceProbability).HasColumnName(@"ConfidenceProbability").HasColumnType("int").IsOptional();
+            Property(x => x.ProbabilityIncreaseByArity).HasColumnName(@"ProbabilityIncreaseByArity").HasColumnType("int").IsOptional();
 
             // Foreign keys
             HasRequired(a => a.TblStatus).WithMany(b => b.TblDatabaseManagements).HasForeignKey(c => c.FkStatusId).WillCascadeOnDelete(false); // FK_DatabaseManagement_Statuses
@@ -1060,6 +1063,7 @@ namespace MetaqueryGenerator.DS
             Property(x => x.HasResultCount).HasColumnName(@"HasResultCount").HasColumnType("int").IsOptional();
             Property(x => x.SupportFailureCount).HasColumnName(@"SupportFailureCount").HasColumnType("int").IsOptional();
             Property(x => x.ConfidenceFailureCount).HasColumnName(@"ConfidenceFailureCount").HasColumnType("int").IsOptional();
+            Property(x => x.ProbabilityIncreaseByArity).HasColumnName(@"ProbabilityIncreaseByArity").HasColumnType("int").IsOptional();
 
             // Foreign keys
             HasOptional(a => a.TblDatabaseManagement).WithMany(b => b.TblProbabilityExperiments).HasForeignKey(c => c.FkDatabaseId).WillCascadeOnDelete(false); // FK_Tbl_ProbabilityExperiment_Tbl_DatabaseManagement

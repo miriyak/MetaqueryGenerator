@@ -90,7 +90,7 @@ namespace MetaqueryGenerator.BL
 					else
 					{
 
-						RandomMQProbability randomMQProbability = new RandomMQProbability(curDB.SupportProbability.Value, curDB.ConfidenceProbability.Value);
+						RandomMQProbability randomMQProbability = new RandomMQProbability(curDB.SupportProbability.Value, curDB.ConfidenceProbability.Value, curDB.ProbabilityIncreaseByArity ?? 0, tblMetaquery.Arity);
 						tblMetaquery.FkResult = (int)randomMQProbability.GetRandomResultMQ();
 
 						StatusMQ statusMQ = (tblMetaquery.IsExpanded || tblMetaquery.Arity == tblMetaquery.TblDatabaseManagement.MaxArity ? StatusMQ.Done : StatusMQ.WaitingToExpand);

@@ -57,7 +57,8 @@ namespace MetaqueryGenerator.BL
 							int maxArity,
 							int maxVariableInRelation,
 							int supportProbability,
-							int confidenceProbability
+							int confidenceProbability,
+							int? probabilityIncreaseByArity
 							)
 		{
 			TblDatabaseManagement tblDatabaseManagement = new TblDatabaseManagement()
@@ -71,7 +72,8 @@ namespace MetaqueryGenerator.BL
 				MaxVariablesInRelation = maxVariableInRelation,
 				ForExperiment = true,
 				SupportProbability = supportProbability,
-				ConfidenceProbability = confidenceProbability
+				ConfidenceProbability = confidenceProbability,
+				ProbabilityIncreaseByArity = probabilityIncreaseByArity
 			};
 			return Create(tblDatabaseManagement);
 		}

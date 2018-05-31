@@ -11,10 +11,15 @@ namespace MetaqueryGenerator.BL
 	{
 		public int SupportProbability { get; set; }
 		public int ConfidenceProbability { get; set; }
-		public RandomMQProbability(int supportProbability, int confidenceProbability)
+		public int ProbabilityIncreaseByArity { get; set; }
+		public int MQArity { get; set; }
+
+		public RandomMQProbability(int supportProbability, int confidenceProbability, int probabilityIncreaseByArity, int mqArity)
 		{
 			SupportProbability = supportProbability;
 			ConfidenceProbability = confidenceProbability;
+			ProbabilityIncreaseByArity = probabilityIncreaseByArity;
+			MQArity = mqArity;
 		}
 
 		public ResultMQ GetRandomResultMQ()
@@ -24,13 +29,13 @@ namespace MetaqueryGenerator.BL
 			Random rnd = new Random();
 			int rndSupport = rnd.Next(100);
 			//Probability of  support failure
-			if (rndSupport < SupportProbability)
+			if (rndSupport < (SupportProbability + (MQArity - 2 ) * ProbabilityIncreaseByArity ))
 				resultMQ = ResultMQ.SupportFailure;
 			else
 			{
 				//Probability of  confidence failure
 				int rndConfidence = rnd.Next(100);
-				if (rndConfidence < ConfidenceProbability)
+				if (rndConfidence < ( ConfidenceProbability + (MQArity - 2) * ProbabilityIncreaseByArity))
 					resultMQ = ResultMQ.ConfidenceFailure;
 			}
 			return resultMQ;
