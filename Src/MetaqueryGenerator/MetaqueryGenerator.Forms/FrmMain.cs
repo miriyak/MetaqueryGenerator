@@ -7,13 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetaqueryGenerator.BL;
+using MetaqueryGenerator.Common;
 using MetaqueryGenerator.Forms.UserControls;
 
 namespace MetaqueryGenerator.Forms
 {
     public partial class FrmMain : Form
     {
-        UserControl lastPanel;
+		List<KeyValue> ListOfDB = DBQueries.GetDBNotForExperiment();
+		UserControl lastPanel;
         public FrmMain()
         {
             InitializeComponent();
@@ -75,7 +78,7 @@ namespace MetaqueryGenerator.Forms
         {
 
 			setButtonPressed(button2);
-			DBStatusOfRun uc = new DBStatusOfRun();
+			DBStatusOfRun uc = new DBStatusOfRun(ListOfDB);
 			openNewPanel(uc);
 
 		}

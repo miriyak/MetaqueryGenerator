@@ -18,11 +18,19 @@ namespace MetaqueryGenerator.DS
                 context.SaveChanges();
             }
         }
-		public static List<TblDatabaseManagement> GetNotForExperiment()
+		public static List<KeyValue> GetNotForExperiment()
 		{
 			using (MetaqueriesContext context = new MetaqueriesContext())
 			{
-				return context.TblDatabaseManagements.Where(x=> x.ForExperiment == false).ToList();
+				return context
+					.TblDatabaseManagements
+					.Where(x=> x.ForExperiment == false)
+					.Select(x => new KeyValue
+					{
+						Key = x.Id
+						,Value = x.DbName
+					})
+					.ToList();
 			}
 		}
 		public static TblDatabaseManagement Get(int id)

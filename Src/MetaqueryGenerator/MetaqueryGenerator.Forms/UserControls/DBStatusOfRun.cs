@@ -16,14 +16,16 @@ namespace MetaqueryGenerator.Forms.UserControls
 {
 	public partial class DBStatusOfRun : BaseUserControl
 	{
-		public DBStatusOfRun()
+		List<KeyValue> ListOfDB;
+		public DBStatusOfRun(List<KeyValue>  listOfDB)
 		{
 			InitializeComponent();
+			ListOfDB = listOfDB;
+
 		}
 		public void FillDBDropDownList()
 		{
-			var lst = DBQueries.GetDBNotForExperiment();
-			comboDB.DataSource = lst;
+			comboDB.DataSource = ListOfDB;
 			comboDB.ValueMember = "Key";
 			comboDB.DisplayMember = "Value";
 
@@ -134,11 +136,6 @@ namespace MetaqueryGenerator.Forms.UserControls
 
 		}
 
-		private void panel2_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
-
 		private void comboArity_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			int arity;
@@ -152,9 +149,6 @@ namespace MetaqueryGenerator.Forms.UserControls
 			}
 		}
 
-		private void pnlFilter_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
+	
 	}
 }

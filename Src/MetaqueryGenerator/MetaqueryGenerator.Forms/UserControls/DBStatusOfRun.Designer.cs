@@ -257,7 +257,6 @@
 			this.panel2.Name = "panel2";
 			this.panel2.Size = new System.Drawing.Size(1610, 100);
 			this.panel2.TabIndex = 16;
-			this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
 			// 
 			// pnlFilter
 			// 
@@ -268,7 +267,6 @@
 			this.pnlFilter.Name = "pnlFilter";
 			this.pnlFilter.Size = new System.Drawing.Size(1114, 100);
 			this.pnlFilter.TabIndex = 11;
-			this.pnlFilter.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlFilter_Paint);
 			// 
 			// comboArity
 			// 
@@ -320,7 +318,7 @@
 			this.pnlDBProperties.Dock = System.Windows.Forms.DockStyle.Left;
 			this.pnlDBProperties.Location = new System.Drawing.Point(0, 100);
 			this.pnlDBProperties.Name = "pnlDBProperties";
-			this.pnlDBProperties.Size = new System.Drawing.Size(490, 733);
+			this.pnlDBProperties.Size = new System.Drawing.Size(490, 805);
 			this.pnlDBProperties.TabIndex = 23;
 			// 
 			// propMaxArity
@@ -438,7 +436,7 @@
 			this.pnlCountMQ.Controls.Add(this.propHasAnswer);
 			this.pnlCountMQ.Controls.Add(this.propSupportFailure);
 			this.pnlCountMQ.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.pnlCountMQ.Location = new System.Drawing.Point(490, 713);
+			this.pnlCountMQ.Location = new System.Drawing.Point(490, 785);
 			this.pnlCountMQ.Name = "pnlCountMQ";
 			this.pnlCountMQ.Size = new System.Drawing.Size(1120, 120);
 			this.pnlCountMQ.TabIndex = 28;

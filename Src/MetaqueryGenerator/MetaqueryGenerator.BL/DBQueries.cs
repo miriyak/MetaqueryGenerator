@@ -1,4 +1,5 @@
-﻿using MetaqueryGenerator.DS;
+﻿using MetaqueryGenerator.Common;
+using MetaqueryGenerator.DS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,20 +10,19 @@ namespace MetaqueryGenerator.BL
 {
 	public static class DBQueries
 	{
-		public static List<KeyValuePair<int, string>> GetDBNotForExperiment()
+		public static List<KeyValue> GetDBNotForExperiment()
 		{
-			List<TblDatabaseManagement> allDB = DatabaseManagementsDS.GetNotForExperiment();
-			List<KeyValuePair<int, string>> results = new List<KeyValuePair<int, string>>();
-			results.Add(new KeyValuePair<int, string>(0, "Select DB"));
-			results.AddRange(allDB.Select(x => new KeyValuePair<int, string>(x.Id, x.DbName)).ToList());
-			return results;
+			
+			List<KeyValue> allDB = DatabaseManagementsDS.GetNotForExperiment();
+			allDB.Insert(0,new KeyValue(0, "Select DB"));
+			return allDB;
 		}
-		public static List<KeyValuePair<int, string>> GetDBArityExists(int dbID)
+		public static List<KeyValue> GetDBArityExists(int dbID)
 		{
 			var list = MetaqueryDS.GetDBArityExists(dbID);
-			List<KeyValuePair<int, string>> results = new List<KeyValuePair<int, string>>();
-			results.Add(new KeyValuePair<int, string>(0, "Select Arity"));
-			results.AddRange(list.Select(x => new KeyValuePair<int, string>(x, x.ToString())).ToList());
+			List<KeyValue> results = new List<KeyValue>();
+			results.Add(new KeyValue(0, "Select Arity"));
+			results.AddRange(list.Select(x => new KeyValue(x, x.ToString())).ToList());
 			return results;
 
 		}
