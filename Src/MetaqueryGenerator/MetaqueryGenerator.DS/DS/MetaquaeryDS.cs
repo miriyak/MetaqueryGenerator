@@ -38,6 +38,7 @@ namespace MetaqueryGenerator.DS
 				return context
 					.TblMetaqueries
 					.Where(x => x.FkDatabaseId == dbID)
+					.OrderBy(x => x.Arity)
 					.Select(x => x.Arity)
 					.Distinct()
 					.ToList();

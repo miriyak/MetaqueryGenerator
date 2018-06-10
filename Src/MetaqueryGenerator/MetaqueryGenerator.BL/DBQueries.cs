@@ -36,5 +36,28 @@ namespace MetaqueryGenerator.BL
 			return MetaqueryResultDS.GetMetaqueriesResultByID(metaqueryID);
 		}
 
+		public static List<KeyValue> GetSupportExistsInProbabiltyExperiment()
+		{
+			var list = ProbabilityExperimentDS.GetSupportExistsInProbabiltyExperiment();
+			List<KeyValue> results = new List<KeyValue>();
+			results.Add(new KeyValue(0, "Select"));
+			results.AddRange(list.Select(x => new KeyValue(x, x.ToString())).ToList());
+			return results;
+		}
+		public static List<KeyValue> GetConfidenceExistsInProbabiltyExperiment()
+		{
+			var list = ProbabilityExperimentDS.GetConfidenceExistsInProbabiltyExperiment();
+			List<KeyValue> results = new List<KeyValue>();
+			results.Add(new KeyValue(0, "Select"));
+			results.AddRange(list.Select(x => new KeyValue(x, x.ToString())).ToList());
+			return results;
+		}
+		public static List<VProbabilityExperimentResult> GetProbabilityExperimentResult()
+		{
+			var list = ProbabilityExperimentDS.GetProbabilityExperimentResult();
+			return list;
+		}
+
+
 	}
 }

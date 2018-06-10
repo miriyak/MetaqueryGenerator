@@ -36,6 +36,8 @@ namespace MetaqueryGenerator.DS
 
     public interface IMetaqueriesContext : System.IDisposable
     {
+        System.Data.Entity.DbSet<HstMetaquery> HstMetaqueries { get; set; } // HST_Metaqueries
+        System.Data.Entity.DbSet<HstProbabilityExperiment> HstProbabilityExperiments { get; set; } // HST_ProbabilityExperiment
         System.Data.Entity.DbSet<SysColumnsType> SysColumnsTypes { get; set; } // Sys_ColumnsTypes
         System.Data.Entity.DbSet<TblDatabaseManagement> TblDatabaseManagements { get; set; } // Tbl_DatabaseManagement
         System.Data.Entity.DbSet<TblMetaqueriesResult> TblMetaqueriesResults { get; set; } // Tbl_MetaqueriesResults
@@ -45,6 +47,7 @@ namespace MetaqueryGenerator.DS
         System.Data.Entity.DbSet<TblStatus> TblStatus { get; set; } // Tbl_Statuses
         System.Data.Entity.DbSet<VMetaqueriesResult> VMetaqueriesResults { get; set; } // V_MetaqueriesResult
         System.Data.Entity.DbSet<VMetaquery> VMetaqueries { get; set; } // V_Metaqueries
+        System.Data.Entity.DbSet<VProbabilityExperimentResult> VProbabilityExperimentResults { get; set; } // V_ProbabilityExperimentResult
 
         int SaveChanges();
         System.Threading.Tasks.Task<int> SaveChangesAsync();
@@ -58,6 +61,11 @@ namespace MetaqueryGenerator.DS
         System.Data.Entity.DbSet Set(System.Type entityType);
         System.Data.Entity.DbSet<TEntity> Set<TEntity>() where TEntity : class;
         string ToString();
+
+        // Stored Procedures
+        int UpdateExperimentResultsAndClearDb();
+        // UpdateExperimentResultsAndClearDbAsync cannot be created due to having out parameters, or is relying on the procedure result (int)
+
     }
 
     #endregion
@@ -67,6 +75,8 @@ namespace MetaqueryGenerator.DS
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
     public partial class MetaqueriesContext : System.Data.Entity.DbContext, IMetaqueriesContext
     {
+        public System.Data.Entity.DbSet<HstMetaquery> HstMetaqueries { get; set; } // HST_Metaqueries
+        public System.Data.Entity.DbSet<HstProbabilityExperiment> HstProbabilityExperiments { get; set; } // HST_ProbabilityExperiment
         public System.Data.Entity.DbSet<SysColumnsType> SysColumnsTypes { get; set; } // Sys_ColumnsTypes
         public System.Data.Entity.DbSet<TblDatabaseManagement> TblDatabaseManagements { get; set; } // Tbl_DatabaseManagement
         public System.Data.Entity.DbSet<TblMetaqueriesResult> TblMetaqueriesResults { get; set; } // Tbl_MetaqueriesResults
@@ -76,6 +86,7 @@ namespace MetaqueryGenerator.DS
         public System.Data.Entity.DbSet<TblStatus> TblStatus { get; set; } // Tbl_Statuses
         public System.Data.Entity.DbSet<VMetaqueriesResult> VMetaqueriesResults { get; set; } // V_MetaqueriesResult
         public System.Data.Entity.DbSet<VMetaquery> VMetaqueries { get; set; } // V_Metaqueries
+        public System.Data.Entity.DbSet<VProbabilityExperimentResult> VProbabilityExperimentResults { get; set; } // V_ProbabilityExperimentResult
 
         static MetaqueriesContext()
         {
@@ -130,6 +141,8 @@ namespace MetaqueryGenerator.DS
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Configurations.Add(new HstMetaqueryConfiguration());
+            modelBuilder.Configurations.Add(new HstProbabilityExperimentConfiguration());
             modelBuilder.Configurations.Add(new SysColumnsTypeConfiguration());
             modelBuilder.Configurations.Add(new TblDatabaseManagementConfiguration());
             modelBuilder.Configurations.Add(new TblMetaqueriesResultConfiguration());
@@ -139,12 +152,15 @@ namespace MetaqueryGenerator.DS
             modelBuilder.Configurations.Add(new TblStatusConfiguration());
             modelBuilder.Configurations.Add(new VMetaqueriesResultConfiguration());
             modelBuilder.Configurations.Add(new VMetaqueryConfiguration());
+            modelBuilder.Configurations.Add(new VProbabilityExperimentResultConfiguration());
 
             OnModelCreatingPartial(modelBuilder);
         }
 
         public static System.Data.Entity.DbModelBuilder CreateModel(System.Data.Entity.DbModelBuilder modelBuilder, string schema)
         {
+            modelBuilder.Configurations.Add(new HstMetaqueryConfiguration(schema));
+            modelBuilder.Configurations.Add(new HstProbabilityExperimentConfiguration(schema));
             modelBuilder.Configurations.Add(new SysColumnsTypeConfiguration(schema));
             modelBuilder.Configurations.Add(new TblDatabaseManagementConfiguration(schema));
             modelBuilder.Configurations.Add(new TblMetaqueriesResultConfiguration(schema));
@@ -154,11 +170,23 @@ namespace MetaqueryGenerator.DS
             modelBuilder.Configurations.Add(new TblStatusConfiguration(schema));
             modelBuilder.Configurations.Add(new VMetaqueriesResultConfiguration(schema));
             modelBuilder.Configurations.Add(new VMetaqueryConfiguration(schema));
+            modelBuilder.Configurations.Add(new VProbabilityExperimentResultConfiguration(schema));
             return modelBuilder;
         }
 
         partial void InitializePartial();
         partial void OnModelCreatingPartial(System.Data.Entity.DbModelBuilder modelBuilder);
+
+        // Stored Procedures
+        public int UpdateExperimentResultsAndClearDb()
+        {
+            var procResultParam = new System.Data.SqlClient.SqlParameter { ParameterName = "@procResult", SqlDbType = System.Data.SqlDbType.Int, Direction = System.Data.ParameterDirection.Output };
+
+            Database.ExecuteSqlCommand(System.Data.Entity.TransactionalBehavior.DoNotEnsureTransaction, "EXEC @procResult = [dbo].[UpdateExperimentResultsAndClearDB] ", procResultParam);
+
+            return (int) procResultParam.Value;
+        }
+
     }
     #endregion
 
@@ -179,6 +207,8 @@ namespace MetaqueryGenerator.DS
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
     public partial class FakeMetaqueriesContext : IMetaqueriesContext
     {
+        public System.Data.Entity.DbSet<HstMetaquery> HstMetaqueries { get; set; }
+        public System.Data.Entity.DbSet<HstProbabilityExperiment> HstProbabilityExperiments { get; set; }
         public System.Data.Entity.DbSet<SysColumnsType> SysColumnsTypes { get; set; }
         public System.Data.Entity.DbSet<TblDatabaseManagement> TblDatabaseManagements { get; set; }
         public System.Data.Entity.DbSet<TblMetaqueriesResult> TblMetaqueriesResults { get; set; }
@@ -188,9 +218,12 @@ namespace MetaqueryGenerator.DS
         public System.Data.Entity.DbSet<TblStatus> TblStatus { get; set; }
         public System.Data.Entity.DbSet<VMetaqueriesResult> VMetaqueriesResults { get; set; }
         public System.Data.Entity.DbSet<VMetaquery> VMetaqueries { get; set; }
+        public System.Data.Entity.DbSet<VProbabilityExperimentResult> VProbabilityExperimentResults { get; set; }
 
         public FakeMetaqueriesContext()
         {
+            HstMetaqueries = new FakeDbSet<HstMetaquery>("Id", "FkDatabaseId", "Metaquery", "FkStatusId", "IsExpanded", "Arity", "LastUpdatedDate");
+            HstProbabilityExperiments = new FakeDbSet<HstProbabilityExperiment>("Id", "SupportProbability", "ConfidenceProbability", "MaxVariablesInRelation", "MaxArity");
             SysColumnsTypes = new FakeDbSet<SysColumnsType>("TableName", "ColumnName", "Type");
             TblDatabaseManagements = new FakeDbSet<TblDatabaseManagement>("Id");
             TblMetaqueriesResults = new FakeDbSet<TblMetaqueriesResult>("Id");
@@ -200,6 +233,7 @@ namespace MetaqueryGenerator.DS
             TblStatus = new FakeDbSet<TblStatus>("Id");
             VMetaqueriesResults = new FakeDbSet<VMetaqueriesResult>("Id", "FkMetaqueryId", "Metaquery", "SupportValue", "ConfidenceValue", "Assignment");
             VMetaqueries = new FakeDbSet<VMetaquery>("Id", "FkDatabaseId", "Metaquery", "FkStatusId", "IsExpanded", "Arity", "LastUpdatedDate");
+            VProbabilityExperimentResults = new FakeDbSet<VProbabilityExperimentResult>("SupportProbability", "ConfidenceProbability");
 
             InitializePartial();
         }
@@ -263,6 +297,14 @@ namespace MetaqueryGenerator.DS
         public override string ToString()
         {
             throw new System.NotImplementedException();
+        }
+
+
+        // Stored Procedures
+        public int UpdateExperimentResultsAndClearDb()
+        {
+
+            return 0;
         }
 
     }
@@ -528,6 +570,54 @@ namespace MetaqueryGenerator.DS
     #endregion
 
     #region POCO classes
+
+    // HST_Metaqueries
+    [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
+    public partial class HstMetaquery
+    {
+        public int Id { get; set; } // Id (Primary key)
+        public int FkDatabaseId { get; set; } // FK_DatabaseID (Primary key)
+        public string Metaquery { get; set; } // Metaquery (Primary key)
+        public int FkStatusId { get; set; } // FK_StatusId (Primary key)
+        public int? FkResult { get; set; } // FK_Result
+        public bool IsExpanded { get; set; } // IsExpanded (Primary key)
+        public int Arity { get; set; } // Arity (Primary key)
+        public System.DateTime? CreatedDate { get; set; } // CreatedDate
+        public System.DateTime LastUpdatedDate { get; set; } // LastUpdatedDate (Primary key)
+        public System.DateTime? StartTime { get; set; } // StartTime
+        public System.DateTime? FinishTime { get; set; } // FinishTime
+
+        public HstMetaquery()
+        {
+            InitializePartial();
+        }
+
+        partial void InitializePartial();
+    }
+
+    // HST_ProbabilityExperiment
+    [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
+    public partial class HstProbabilityExperiment
+    {
+        public int Id { get; set; } // Id (Primary key)
+        public int SupportProbability { get; set; } // SupportProbability (Primary key)
+        public int ConfidenceProbability { get; set; } // ConfidenceProbability (Primary key)
+        public int MaxVariablesInRelation { get; set; } // MaxVariablesInRelation (Primary key)
+        public int MaxArity { get; set; } // MaxArity (Primary key)
+        public int? FkDatabaseId { get; set; } // FK_DatabaseID
+        public int? MqCount { get; set; } // MQCount
+        public int? HasResultCount { get; set; } // HasResultCount
+        public int? SupportFailureCount { get; set; } // SupportFailureCount
+        public int? ConfidenceFailureCount { get; set; } // ConfidenceFailureCount
+        public int? ProbabilityIncreaseByArity { get; set; } // ProbabilityIncreaseByArity
+
+        public HstProbabilityExperiment()
+        {
+            InitializePartial();
+        }
+
+        partial void InitializePartial();
+    }
 
     // Sys_ColumnsTypes
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
@@ -912,9 +1002,87 @@ namespace MetaqueryGenerator.DS
         partial void InitializePartial();
     }
 
+    // V_ProbabilityExperimentResult
+    [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
+    public partial class VProbabilityExperimentResult
+    {
+        public int SupportProbability { get; set; } // SupportProbability (Primary key)
+        public int ConfidenceProbability { get; set; } // ConfidenceProbability (Primary key)
+        public int? Col3Count { get; set; } // Col3Count
+        public int? Col4Count { get; set; } // Col4Count
+        public int? Col5Count { get; set; } // Col5Count
+
+        public VProbabilityExperimentResult()
+        {
+            InitializePartial();
+        }
+
+        partial void InitializePartial();
+    }
+
     #endregion
 
     #region POCO Configuration
+
+    // HST_Metaqueries
+    [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
+    public partial class HstMetaqueryConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<HstMetaquery>
+    {
+        public HstMetaqueryConfiguration()
+            : this("dbo")
+        {
+        }
+
+        public HstMetaqueryConfiguration(string schema)
+        {
+            ToTable("HST_Metaqueries", schema);
+            HasKey(x => new { x.Id, x.FkDatabaseId, x.Metaquery, x.FkStatusId, x.IsExpanded, x.Arity, x.LastUpdatedDate });
+
+            Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
+            Property(x => x.FkDatabaseId).HasColumnName(@"FK_DatabaseID").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.Metaquery).HasColumnName(@"Metaquery").HasColumnType("nvarchar(max)").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.FkStatusId).HasColumnName(@"FK_StatusId").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.FkResult).HasColumnName(@"FK_Result").HasColumnType("int").IsOptional();
+            Property(x => x.IsExpanded).HasColumnName(@"IsExpanded").HasColumnType("bit").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.Arity).HasColumnName(@"Arity").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.CreatedDate).HasColumnName(@"CreatedDate").HasColumnType("datetime2").IsOptional();
+            Property(x => x.LastUpdatedDate).HasColumnName(@"LastUpdatedDate").HasColumnType("datetime2").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.StartTime).HasColumnName(@"StartTime").HasColumnType("datetime2").IsOptional();
+            Property(x => x.FinishTime).HasColumnName(@"FinishTime").HasColumnType("datetime2").IsOptional();
+            InitializePartial();
+        }
+        partial void InitializePartial();
+    }
+
+    // HST_ProbabilityExperiment
+    [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
+    public partial class HstProbabilityExperimentConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<HstProbabilityExperiment>
+    {
+        public HstProbabilityExperimentConfiguration()
+            : this("dbo")
+        {
+        }
+
+        public HstProbabilityExperimentConfiguration(string schema)
+        {
+            ToTable("HST_ProbabilityExperiment", schema);
+            HasKey(x => new { x.Id, x.SupportProbability, x.ConfidenceProbability, x.MaxVariablesInRelation, x.MaxArity });
+
+            Property(x => x.Id).HasColumnName(@"Id").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
+            Property(x => x.SupportProbability).HasColumnName(@"SupportProbability").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.ConfidenceProbability).HasColumnName(@"ConfidenceProbability").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.MaxVariablesInRelation).HasColumnName(@"MaxVariablesInRelation").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.MaxArity).HasColumnName(@"MaxArity").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.FkDatabaseId).HasColumnName(@"FK_DatabaseID").HasColumnType("int").IsOptional();
+            Property(x => x.MqCount).HasColumnName(@"MQCount").HasColumnType("int").IsOptional();
+            Property(x => x.HasResultCount).HasColumnName(@"HasResultCount").HasColumnType("int").IsOptional();
+            Property(x => x.SupportFailureCount).HasColumnName(@"SupportFailureCount").HasColumnType("int").IsOptional();
+            Property(x => x.ConfidenceFailureCount).HasColumnName(@"ConfidenceFailureCount").HasColumnType("int").IsOptional();
+            Property(x => x.ProbabilityIncreaseByArity).HasColumnName(@"ProbabilityIncreaseByArity").HasColumnType("int").IsOptional();
+            InitializePartial();
+        }
+        partial void InitializePartial();
+    }
 
     // Sys_ColumnsTypes
     [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
@@ -1170,6 +1338,34 @@ namespace MetaqueryGenerator.DS
         }
         partial void InitializePartial();
     }
+
+    // V_ProbabilityExperimentResult
+    [System.CodeDom.Compiler.GeneratedCode("EF.Reverse.POCO.Generator", "2.34.1.0")]
+    public partial class VProbabilityExperimentResultConfiguration : System.Data.Entity.ModelConfiguration.EntityTypeConfiguration<VProbabilityExperimentResult>
+    {
+        public VProbabilityExperimentResultConfiguration()
+            : this("dbo")
+        {
+        }
+
+        public VProbabilityExperimentResultConfiguration(string schema)
+        {
+            ToTable("V_ProbabilityExperimentResult", schema);
+            HasKey(x => new { x.SupportProbability, x.ConfidenceProbability });
+
+            Property(x => x.SupportProbability).HasColumnName(@"SupportProbability").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.ConfidenceProbability).HasColumnName(@"ConfidenceProbability").HasColumnType("int").IsRequired().HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.None);
+            Property(x => x.Col3Count).HasColumnName(@"Col3Count").HasColumnType("int").IsOptional();
+            Property(x => x.Col4Count).HasColumnName(@"Col4Count").HasColumnType("int").IsOptional();
+            Property(x => x.Col5Count).HasColumnName(@"Col5Count").HasColumnType("int").IsOptional();
+            InitializePartial();
+        }
+        partial void InitializePartial();
+    }
+
+    #endregion
+
+    #region Stored procedure return models
 
     #endregion
 

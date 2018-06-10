@@ -79,6 +79,19 @@ namespace MetaqueryGenerator.Forms.UserControls
 		private void btnRunProbExperiment_Click(object sender, EventArgs e)
 		{
 			ProbabilityExperiment.Run();
+			ShowMessage("Probabilty experiment Job run successfuly");
+		}
+
+		private void btnLoadExperiment_Click(object sender, EventArgs e)
+		{
+
+			FrmProbabiltyExperiment frm = new FrmProbabiltyExperiment();
+			frm.ShowDialog();
+		}
+
+		private void btnUpdateExperimentResult_Click(object sender, EventArgs e)
+		{
+			ProbabilityExperiment.UpdateExperimentResultsAndClear();
 		}
 	}
 }

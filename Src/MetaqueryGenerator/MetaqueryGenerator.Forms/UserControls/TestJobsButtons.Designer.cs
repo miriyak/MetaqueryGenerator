@@ -47,6 +47,11 @@
 			this.customLabel3 = new MetaqueryGenerator.Forms.BaseControls.CustomLabel();
 			this.customLabel4 = new MetaqueryGenerator.Forms.BaseControls.CustomLabel();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.btnUpdateExperimentResult = new MetaqueryGenerator.Forms.BaseControls.CustomButton();
+			this.customLabel12 = new MetaqueryGenerator.Forms.BaseControls.CustomLabel();
+			this.btnLoadExperiment = new MetaqueryGenerator.Forms.BaseControls.CustomButton();
+			this.customLabel5 = new MetaqueryGenerator.Forms.BaseControls.CustomLabel();
+			this.customLabel11 = new MetaqueryGenerator.Forms.BaseControls.CustomLabel();
 			this.customLabel6 = new MetaqueryGenerator.Forms.BaseControls.CustomLabel();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -157,7 +162,7 @@
 			this.btnRunProbExperiment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
 			this.btnRunProbExperiment.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.btnRunProbExperiment.ForeColor = System.Drawing.Color.White;
-			this.btnRunProbExperiment.Location = new System.Drawing.Point(164, 338);
+			this.btnRunProbExperiment.Location = new System.Drawing.Point(309, 284);
 			this.btnRunProbExperiment.Name = "btnRunProbExperiment";
 			this.btnRunProbExperiment.Size = new System.Drawing.Size(145, 50);
 			this.btnRunProbExperiment.TabIndex = 6;
@@ -306,8 +311,13 @@
 			// 
 			// groupBox3
 			// 
-			this.groupBox3.Controls.Add(this.customLabel6);
+			this.groupBox3.Controls.Add(this.btnUpdateExperimentResult);
+			this.groupBox3.Controls.Add(this.customLabel12);
+			this.groupBox3.Controls.Add(this.btnLoadExperiment);
 			this.groupBox3.Controls.Add(this.btnRunProbExperiment);
+			this.groupBox3.Controls.Add(this.customLabel5);
+			this.groupBox3.Controls.Add(this.customLabel11);
+			this.groupBox3.Controls.Add(this.customLabel6);
 			this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
 			this.groupBox3.Location = new System.Drawing.Point(1249, 130);
 			this.groupBox3.Name = "groupBox3";
@@ -315,6 +325,73 @@
 			this.groupBox3.TabIndex = 15;
 			this.groupBox3.TabStop = false;
 			this.groupBox3.Text = "Probabilty experiment";
+			// 
+			// btnUpdateExperimentResult
+			// 
+			this.btnUpdateExperimentResult.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(53)))), ((int)(((byte)(62)))));
+			this.btnUpdateExperimentResult.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnUpdateExperimentResult.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnUpdateExperimentResult.ForeColor = System.Drawing.Color.White;
+			this.btnUpdateExperimentResult.Location = new System.Drawing.Point(308, 375);
+			this.btnUpdateExperimentResult.Name = "btnUpdateExperimentResult";
+			this.btnUpdateExperimentResult.Size = new System.Drawing.Size(145, 50);
+			this.btnUpdateExperimentResult.TabIndex = 20;
+			this.btnUpdateExperimentResult.Text = "Run";
+			this.btnUpdateExperimentResult.UseVisualStyleBackColor = true;
+			this.btnUpdateExperimentResult.Click += new System.EventHandler(this.btnUpdateExperimentResult_Click);
+			// 
+			// customLabel12
+			// 
+			this.customLabel12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.customLabel12.Font = new System.Drawing.Font("Candara", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.customLabel12.ForeColor = System.Drawing.Color.White;
+			this.customLabel12.Location = new System.Drawing.Point(21, 379);
+			this.customLabel12.Name = "customLabel12";
+			this.customLabel12.OutlineForeColor = System.Drawing.Color.Black;
+			this.customLabel12.OutlineWidth = 2F;
+			this.customLabel12.Size = new System.Drawing.Size(266, 60);
+			this.customLabel12.TabIndex = 21;
+			this.customLabel12.Text = "Update Experiment results\r\nand clear DB";
+			// 
+			// btnLoadExperiment
+			// 
+			this.btnLoadExperiment.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(53)))), ((int)(((byte)(62)))));
+			this.btnLoadExperiment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.btnLoadExperiment.Font = new System.Drawing.Font("Candara", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.btnLoadExperiment.ForeColor = System.Drawing.Color.White;
+			this.btnLoadExperiment.Location = new System.Drawing.Point(309, 197);
+			this.btnLoadExperiment.Name = "btnLoadExperiment";
+			this.btnLoadExperiment.Size = new System.Drawing.Size(145, 50);
+			this.btnLoadExperiment.TabIndex = 14;
+			this.btnLoadExperiment.Text = "Load";
+			this.btnLoadExperiment.UseVisualStyleBackColor = true;
+			this.btnLoadExperiment.Click += new System.EventHandler(this.btnLoadExperiment_Click);
+			// 
+			// customLabel5
+			// 
+			this.customLabel5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.customLabel5.Font = new System.Drawing.Font("Candara", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.customLabel5.ForeColor = System.Drawing.Color.White;
+			this.customLabel5.Location = new System.Drawing.Point(22, 297);
+			this.customLabel5.Name = "customLabel5";
+			this.customLabel5.OutlineForeColor = System.Drawing.Color.Black;
+			this.customLabel5.OutlineWidth = 2F;
+			this.customLabel5.Size = new System.Drawing.Size(266, 37);
+			this.customLabel5.TabIndex = 19;
+			this.customLabel5.Text = "Start DB Process";
+			// 
+			// customLabel11
+			// 
+			this.customLabel11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.customLabel11.Font = new System.Drawing.Font("Candara", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.customLabel11.ForeColor = System.Drawing.Color.White;
+			this.customLabel11.Location = new System.Drawing.Point(21, 207);
+			this.customLabel11.Name = "customLabel11";
+			this.customLabel11.OutlineForeColor = System.Drawing.Color.Black;
+			this.customLabel11.OutlineWidth = 2F;
+			this.customLabel11.Size = new System.Drawing.Size(266, 37);
+			this.customLabel11.TabIndex = 18;
+			this.customLabel11.Text = "Initialize experiment";
 			// 
 			// customLabel6
 			// 
@@ -368,5 +445,10 @@
 		private BaseControls.CustomLabel customLabel8;
 		private BaseControls.CustomLabel customLabel7;
 		private BaseControls.CustomLabel customLabel10;
+		private BaseControls.CustomLabel customLabel5;
+		private BaseControls.CustomLabel customLabel11;
+		private BaseControls.CustomButton btnLoadExperiment;
+		private BaseControls.CustomButton btnUpdateExperimentResult;
+		private BaseControls.CustomLabel customLabel12;
 	}
 }

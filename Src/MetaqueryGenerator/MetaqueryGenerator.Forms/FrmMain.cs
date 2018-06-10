@@ -25,7 +25,7 @@ namespace MetaqueryGenerator.Forms
         private void Form1_Load(object sender, EventArgs e)
         {
 			lastPanel = baseUserControl1;
-
+			clearButtonPressed();
 		}
 
 		private void label2_Click(object sender, EventArgs e)
@@ -39,14 +39,20 @@ namespace MetaqueryGenerator.Forms
         }
 
 
+		private void clearButtonPressed()
+		{
+			button1.FlatAppearance.BorderSize = 0;
+			button2.FlatAppearance.BorderSize = 0;
+			button4.FlatAppearance.BorderSize = 0;
+			button5.FlatAppearance.BorderSize = 0;
+			button6.FlatAppearance.BorderSize = 0;
+		}
 		private void setButtonPressed(Button pressedButton)
         {
 			lblPage.Text = pressedButton.Text;
-            button1.FlatAppearance.BorderSize = 0;
-            button2.FlatAppearance.BorderSize = 0;
-            button4.FlatAppearance.BorderSize = 0;
-            button5.FlatAppearance.BorderSize = 0;
-            pressedButton.FlatAppearance.BorderSize = 3;
+			clearButtonPressed();
+
+			pressedButton.FlatAppearance.BorderSize = 3;
 
 
 
@@ -98,6 +104,13 @@ namespace MetaqueryGenerator.Forms
 			MetaquerySolverDemoButtons uc = new MetaquerySolverDemoButtons();
 			openNewPanel(uc);
 
+		}
+
+		private void button6_Click(object sender, EventArgs e)
+		{
+			setButtonPressed(button6);
+			ProbabilityExperimentChart uc = new ProbabilityExperimentChart();
+			openNewPanel(uc);
 		}
 	}
 }

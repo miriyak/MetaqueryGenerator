@@ -147,18 +147,12 @@ namespace MetaqueryGenerator.BL
 						};
 						MetaqueryDS.Create(newTblMetaquery);
 					}
-					/*MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.Expanded);
-					if(tblMetaquery.FkResult != (int)ResultMQ.HasAnswers)
-						MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.Done);
-						*/
+					
 					if (curDB.ForExperiment || tblMetaquery.FkResult != (int)ResultMQ.HasAnswers)
 						MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.ExpandedAndDone);
 					else
 						MetaqueryDS.UpdateStatus(tblMetaquery, StatusMQ.Expanded);
 
-					/*
-					MetaqueryDS.Create(tblMetaquery);
-					DatabaseManagementsDS.UpdateStatus(db, StatusDB.InProcess);*/
 				}
 				lstMQ = MetaqueryDS.GetMQForExpand();
 			}
