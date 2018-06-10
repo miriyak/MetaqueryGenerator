@@ -28,12 +28,19 @@ namespace MetaqueryGenerator.Forms
 		private void FrmMetaqueryResult_Load(object sender, EventArgs e)
 		{
 			List<VMetaqueriesResult> list =  DBQueries.GetMetaqueriesResultByID(MetaqueryID);
-			gridMetaqueryResult.DataSource = list;
+			//gridMetaqueryResult.DataSource = list;
+
+			lblMetaquery.Text = list.First().Metaquery;
 			foreach (VMetaqueriesResult vresult in list)
 			{
 				UserControls.MQResults mqResults = new UserControls.MQResults(vresult);
 				flowLayoutPanel1.Controls.Add(mqResults);
 			}
+		}
+
+		private void lblMetaquery_Click(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

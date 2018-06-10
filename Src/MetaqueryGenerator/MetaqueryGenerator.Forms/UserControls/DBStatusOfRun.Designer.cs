@@ -33,19 +33,6 @@
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.comboDB = new System.Windows.Forms.ComboBox();
 			this.gridMetaquery = new System.Windows.Forms.DataGridView();
-			this.Arity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.Metaquery = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.StatusDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.ResultDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.IsExpanded = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-			this.StartTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.FinishTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.FK_DatabaseID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.FK_StatusId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.FK_Result = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.CreatedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.LastUpdatedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.btnRefresh = new System.Windows.Forms.Button();
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.pnlFilter = new System.Windows.Forms.Panel();
@@ -66,6 +53,19 @@
 			this.propSupportFailure = new MetaqueryGenerator.Forms.BaseControls.PropertyLabelControl();
 			this.propConfidenceFailure = new MetaqueryGenerator.Forms.BaseControls.PropertyLabelControl();
 			this.pnlCountMQ = new System.Windows.Forms.Panel();
+			this.Arity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Metaquery = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.StatusDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.ResultDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.IsExpanded = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+			this.StartTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.FinishTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.FK_DatabaseID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.FK_StatusId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.FK_Result = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.CreatedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.LastUpdatedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			((System.ComponentModel.ISupportInitialize)(this.gridMetaquery)).BeginInit();
 			this.panel2.SuspendLayout();
 			this.pnlFilter.SuspendLayout();
@@ -122,114 +122,6 @@
 			this.gridMetaquery.Size = new System.Drawing.Size(1202, 495);
 			this.gridMetaquery.TabIndex = 3;
 			this.gridMetaquery.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridMetaquery_CellClick);
-			// 
-			// Arity
-			// 
-			this.Arity.DataPropertyName = "Arity";
-			this.Arity.HeaderText = "Arity";
-			this.Arity.Name = "Arity";
-			this.Arity.ReadOnly = true;
-			this.Arity.Width = 60;
-			// 
-			// Id
-			// 
-			this.Id.DataPropertyName = "Id";
-			this.Id.HeaderText = "ID";
-			this.Id.Name = "Id";
-			this.Id.ReadOnly = true;
-			this.Id.Width = 60;
-			// 
-			// Metaquery
-			// 
-			this.Metaquery.DataPropertyName = "Metaquery";
-			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-			this.Metaquery.DefaultCellStyle = dataGridViewCellStyle1;
-			this.Metaquery.HeaderText = "Metaquery";
-			this.Metaquery.Name = "Metaquery";
-			this.Metaquery.ReadOnly = true;
-			this.Metaquery.Width = 300;
-			// 
-			// StatusDescription
-			// 
-			this.StatusDescription.DataPropertyName = "StatusDescription";
-			this.StatusDescription.HeaderText = "Status";
-			this.StatusDescription.Name = "StatusDescription";
-			this.StatusDescription.ReadOnly = true;
-			this.StatusDescription.Width = 120;
-			// 
-			// ResultDescription
-			// 
-			this.ResultDescription.DataPropertyName = "ResultDescription";
-			this.ResultDescription.HeaderText = "Result";
-			this.ResultDescription.Name = "ResultDescription";
-			this.ResultDescription.ReadOnly = true;
-			this.ResultDescription.Width = 110;
-			// 
-			// IsExpanded
-			// 
-			this.IsExpanded.DataPropertyName = "IsExpanded";
-			this.IsExpanded.HeaderText = "Expanded";
-			this.IsExpanded.Name = "IsExpanded";
-			this.IsExpanded.ReadOnly = true;
-			this.IsExpanded.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-			this.IsExpanded.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-			this.IsExpanded.Width = 70;
-			// 
-			// StartTime
-			// 
-			this.StartTime.DataPropertyName = "StartTime";
-			this.StartTime.HeaderText = "Start Time";
-			this.StartTime.Name = "StartTime";
-			this.StartTime.ReadOnly = true;
-			this.StartTime.Width = 130;
-			// 
-			// FinishTime
-			// 
-			this.FinishTime.DataPropertyName = "FinishTime";
-			this.FinishTime.HeaderText = "Finish time";
-			this.FinishTime.Name = "FinishTime";
-			this.FinishTime.ReadOnly = true;
-			this.FinishTime.Width = 130;
-			// 
-			// FK_DatabaseID
-			// 
-			this.FK_DatabaseID.DataPropertyName = "FkDatabaseID";
-			this.FK_DatabaseID.HeaderText = "FK_DatabaseID";
-			this.FK_DatabaseID.Name = "FK_DatabaseID";
-			this.FK_DatabaseID.ReadOnly = true;
-			this.FK_DatabaseID.Visible = false;
-			// 
-			// FK_StatusId
-			// 
-			this.FK_StatusId.DataPropertyName = "FkStatusId";
-			this.FK_StatusId.HeaderText = "FK_StatusId";
-			this.FK_StatusId.Name = "FK_StatusId";
-			this.FK_StatusId.ReadOnly = true;
-			this.FK_StatusId.Visible = false;
-			// 
-			// FK_Result
-			// 
-			this.FK_Result.DataPropertyName = "FkResult";
-			this.FK_Result.HeaderText = "FK_Result";
-			this.FK_Result.Name = "FK_Result";
-			this.FK_Result.ReadOnly = true;
-			this.FK_Result.Visible = false;
-			// 
-			// CreatedDate
-			// 
-			this.CreatedDate.DataPropertyName = "CreatedDate";
-			this.CreatedDate.HeaderText = "CreatedDate";
-			this.CreatedDate.Name = "CreatedDate";
-			this.CreatedDate.ReadOnly = true;
-			this.CreatedDate.Visible = false;
-			// 
-			// LastUpdatedDate
-			// 
-			this.LastUpdatedDate.DataPropertyName = "LastUpdatedDate";
-			this.LastUpdatedDate.HeaderText = "LastUpdatedDate";
-			this.LastUpdatedDate.Name = "LastUpdatedDate";
-			this.LastUpdatedDate.ReadOnly = true;
-			this.LastUpdatedDate.Visible = false;
 			// 
 			// btnRefresh
 			// 
@@ -440,6 +332,114 @@
 			this.pnlCountMQ.Name = "pnlCountMQ";
 			this.pnlCountMQ.Size = new System.Drawing.Size(1120, 120);
 			this.pnlCountMQ.TabIndex = 28;
+			// 
+			// Arity
+			// 
+			this.Arity.DataPropertyName = "Arity";
+			this.Arity.HeaderText = "Arity";
+			this.Arity.Name = "Arity";
+			this.Arity.ReadOnly = true;
+			this.Arity.Width = 60;
+			// 
+			// Id
+			// 
+			this.Id.DataPropertyName = "Id";
+			this.Id.HeaderText = "ID";
+			this.Id.Name = "Id";
+			this.Id.ReadOnly = true;
+			this.Id.Width = 80;
+			// 
+			// Metaquery
+			// 
+			this.Metaquery.DataPropertyName = "Metaquery";
+			dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+			this.Metaquery.DefaultCellStyle = dataGridViewCellStyle1;
+			this.Metaquery.HeaderText = "Metaquery";
+			this.Metaquery.Name = "Metaquery";
+			this.Metaquery.ReadOnly = true;
+			this.Metaquery.Width = 300;
+			// 
+			// StatusDescription
+			// 
+			this.StatusDescription.DataPropertyName = "StatusDescription";
+			this.StatusDescription.HeaderText = "Status";
+			this.StatusDescription.Name = "StatusDescription";
+			this.StatusDescription.ReadOnly = true;
+			this.StatusDescription.Width = 120;
+			// 
+			// ResultDescription
+			// 
+			this.ResultDescription.DataPropertyName = "ResultDescription";
+			this.ResultDescription.HeaderText = "Result";
+			this.ResultDescription.Name = "ResultDescription";
+			this.ResultDescription.ReadOnly = true;
+			this.ResultDescription.Width = 110;
+			// 
+			// IsExpanded
+			// 
+			this.IsExpanded.DataPropertyName = "IsExpanded";
+			this.IsExpanded.HeaderText = "Expanded";
+			this.IsExpanded.Name = "IsExpanded";
+			this.IsExpanded.ReadOnly = true;
+			this.IsExpanded.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+			this.IsExpanded.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+			this.IsExpanded.Width = 70;
+			// 
+			// StartTime
+			// 
+			this.StartTime.DataPropertyName = "StartTime";
+			this.StartTime.HeaderText = "Start Time";
+			this.StartTime.Name = "StartTime";
+			this.StartTime.ReadOnly = true;
+			this.StartTime.Width = 130;
+			// 
+			// FinishTime
+			// 
+			this.FinishTime.DataPropertyName = "FinishTime";
+			this.FinishTime.HeaderText = "Finish time";
+			this.FinishTime.Name = "FinishTime";
+			this.FinishTime.ReadOnly = true;
+			this.FinishTime.Width = 130;
+			// 
+			// FK_DatabaseID
+			// 
+			this.FK_DatabaseID.DataPropertyName = "FkDatabaseID";
+			this.FK_DatabaseID.HeaderText = "FK_DatabaseID";
+			this.FK_DatabaseID.Name = "FK_DatabaseID";
+			this.FK_DatabaseID.ReadOnly = true;
+			this.FK_DatabaseID.Visible = false;
+			// 
+			// FK_StatusId
+			// 
+			this.FK_StatusId.DataPropertyName = "FkStatusId";
+			this.FK_StatusId.HeaderText = "FK_StatusId";
+			this.FK_StatusId.Name = "FK_StatusId";
+			this.FK_StatusId.ReadOnly = true;
+			this.FK_StatusId.Visible = false;
+			// 
+			// FK_Result
+			// 
+			this.FK_Result.DataPropertyName = "FkResult";
+			this.FK_Result.HeaderText = "FK_Result";
+			this.FK_Result.Name = "FK_Result";
+			this.FK_Result.ReadOnly = true;
+			this.FK_Result.Visible = false;
+			// 
+			// CreatedDate
+			// 
+			this.CreatedDate.DataPropertyName = "CreatedDate";
+			this.CreatedDate.HeaderText = "CreatedDate";
+			this.CreatedDate.Name = "CreatedDate";
+			this.CreatedDate.ReadOnly = true;
+			this.CreatedDate.Visible = false;
+			// 
+			// LastUpdatedDate
+			// 
+			this.LastUpdatedDate.DataPropertyName = "LastUpdatedDate";
+			this.LastUpdatedDate.HeaderText = "LastUpdatedDate";
+			this.LastUpdatedDate.Name = "LastUpdatedDate";
+			this.LastUpdatedDate.ReadOnly = true;
+			this.LastUpdatedDate.Visible = false;
 			// 
 			// DBStatusOfRun
 			// 

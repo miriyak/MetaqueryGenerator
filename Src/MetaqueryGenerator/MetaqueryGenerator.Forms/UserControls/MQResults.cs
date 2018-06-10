@@ -20,7 +20,7 @@ namespace MetaqueryGenerator.Forms.UserControls
 		public MQResults(VMetaqueriesResult vresult)
 			:this()
 		{
-			lblMetaquery.Text = vresult.Metaquery;
+			//lblMetaquery.Text = vresult.Metaquery;
 			lblAssignment.Text = vresult.Assignment;
 			lblConfidence.Text = vresult.ConfidenceValue.ToString();
 			lblSupport.Text = vresult.SupportValue.ToString();
