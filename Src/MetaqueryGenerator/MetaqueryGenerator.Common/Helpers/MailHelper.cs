@@ -40,59 +40,67 @@ namespace MetaqueryGenerator.Common.Helpers
 		{
 			string networkCredentialUserName = ConfigurationManager.AppSettings["NetworkCredentialUserName"];
 			string networkCredentialPassword = ConfigurationManager.AppSettings["NetworkCredentialPassword"];
-
-			MailMessage mail = new MailMessage();
-			SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
-			mail.From = new MailAddress(networkCredentialUserName);
-			if (to != null && to.Count > 0)
-				mail.To.Add(string.Join(";", to));
-			else
+			try
 			{
-				string toAddress = ConfigurationManager.AppSettings["MailToAddressDefault"];
-				mail.To.Add(toAddress);
-			}
-
-			mail.Subject = subject;
-			//mail.Body = body;
-			
-			//set the HTML format to true
-			mail.IsBodyHtml = isBodyHtml;
-
-			if (isBodyHtml)
-			{
-				string imagePath = Environment.CurrentDirectory + @"\MailTemplates\iconCreator.jpg";
-				if (File.Exists(imagePath))
+				MailMessage mail = new MailMessage();
+				SmtpClient SmtpServer = new SmtpClient("smtp.gmail.com");
+				mail.From = new MailAddress(networkCredentialUserName);
+				if (to != null && to.Count > 0)
+					mail.To.Add(string.Join(";", to));
+				else
 				{
-					//create Alrternative HTML view
-					AlternateView htmlView = AlternateView.CreateAlternateViewFromString(body, null, "text/html");
+					string toAddress = ConfigurationManager.AppSettings["MailToAddressDefault"];
+					mail.To.Add(toAddress);
+				}
 
-					//Add Image
-					LinkedResource logoImage = new LinkedResource(imagePath);
-					logoImage.ContentId = "logoImage";
+				mail.Subject = subject;
+				//mail.Body = body;
+			
+				//set the HTML format to true
+				mail.IsBodyHtml = isBodyHtml;
+
+				if (isBodyHtml)
+				{
+					string imagePath = Environment.CurrentDirectory + @"\MailTemplates\iconCreator.jpg";
+					if (File.Exists(imagePath))
+					{
+						//create Alrternative HTML view
+						AlternateView htmlView = AlternateView.CreateAlternateViewFromString(body, null, "text/html");
+
+						//Add Image
+						LinkedResource logoImage = new LinkedResource(imagePath);
+						logoImage.ContentId = "logoImage";
 					
-					//Add the Image to the Alternate view
-					htmlView.LinkedResources.Add(logoImage);
+						//Add the Image to the Alternate view
+						htmlView.LinkedResources.Add(logoImage);
 
-					//Add view to the Email Message
-					mail.AlternateViews.Add(htmlView);
+						//Add view to the Email Message
+						mail.AlternateViews.Add(htmlView);
+					}
+					else
+						mail.Body = body;
+					//mail.AlternateViews.Add(getEmbeddedImage("c:/image.png"));
 				}
 				else
 					mail.Body = body;
-				//mail.AlternateViews.Add(getEmbeddedImage("c:/image.png"));
+				/*System.Net.Mail.Attachment attachment;
+				attachment = new System.Net.Mail.Attachment("e:/temp/textfile.txt");
+				mail.Attachments.Add(attachment);
+				*/
+
+				SmtpServer.Port = 587;
+
+				SmtpServer.UseDefaultCredentials = false;
+				SmtpServer.Credentials = new System.Net.NetworkCredential(networkCredentialUserName, networkCredentialPassword);
+				SmtpServer.EnableSsl = true;
+
+				SmtpServer.Send(mail);
 			}
-			else
-				mail.Body = body;
-			/*System.Net.Mail.Attachment attachment;
-			attachment = new System.Net.Mail.Attachment("e:/temp/textfile.txt");
-			mail.Attachments.Add(attachment);
-			*/
+			catch (Exception ex)
+			{
+				string exp = ex.ToString();
+			}
 
-			SmtpServer.Port = 587;
-			
-			SmtpServer.Credentials = new System.Net.NetworkCredential(networkCredentialUserName, networkCredentialPassword);
-			SmtpServer.EnableSsl = true;
-
-			SmtpServer.Send(mail);
 
 		}
 	}

@@ -17,10 +17,12 @@ namespace MetaqueryGenerator.Forms.UserControls
 	public partial class DBStatusOfRun : BaseUserControl
 	{
 		List<KeyValue> ListOfDB;
-		public DBStatusOfRun(List<KeyValue>  listOfDB)
+		public DBStatusOfRun()
 		{
 			InitializeComponent();
-			ListOfDB = listOfDB;
+			//ListOfDB = listOfDB;
+			ListOfDB = DBQueries.GetDBNotForExperiment();
+
 
 		}
 		public void FillDBDropDownList()
@@ -120,8 +122,9 @@ namespace MetaqueryGenerator.Forms.UserControls
 		{
 			if (e.RowIndex >= 0)
 			{
-				int metaqueryID = metaqueriesList[e.RowIndex].Id;
-				if (metaqueriesList.First(x => x.Id == metaqueryID).FkResult == (int)ResultMQ.HasAnswers)
+				List<VMetaquery> list = gridMetaquery.DataSource as List<VMetaquery>;
+				int metaqueryID = list[e.RowIndex].Id;
+				if (list.First(x => x.Id == metaqueryID).FkResult == (int)ResultMQ.HasAnswers)
 				{
 					FrmMetaqueryResult frm = new FrmMetaqueryResult(metaqueryID);
 					frm.ShowDialog();

@@ -15,7 +15,6 @@ namespace MetaqueryGenerator.Forms
 {
     public partial class FrmMain : Form
     {
-		List<KeyValue> ListOfDB = DBQueries.GetDBNotForExperiment();
 		UserControl lastPanel;
         public FrmMain()
         {
@@ -84,7 +83,7 @@ namespace MetaqueryGenerator.Forms
         {
 
 			setButtonPressed(button2);
-			DBStatusOfRun uc = new DBStatusOfRun(ListOfDB);
+			DBStatusOfRun uc = new DBStatusOfRun();
 			openNewPanel(uc);
 
 		}
